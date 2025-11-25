@@ -6,7 +6,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//jojoniekos]]></ST>
+      <ST><![CDATA[//jojowesse
+//test]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
