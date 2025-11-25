@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}">
+  <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 END_VAR
-]]>
-    </Declaration>
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[//jojoniekos]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
