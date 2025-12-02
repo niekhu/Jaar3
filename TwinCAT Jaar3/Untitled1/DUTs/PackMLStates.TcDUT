@@ -7,15 +7,20 @@
 TYPE PackMLStates :
 (
 	Idle := 0
+	Starting,
 	Execute,
+	Resetting,
+	Holding,
+	Held,
+	Unholding,
+	Suspending,
+	Suspended,
+	Unsuspending,
+	Stopping,
+	Stopped,
 	Aborting,
 	Aborted,
-	Clearing,
-	Stopped,
-	Resetting,
-	Execute,
-	Starting,
-	Stopping
+	Clearing
 );
 END_TYPE
 ]]></Declaration>
