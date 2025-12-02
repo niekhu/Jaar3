@@ -7,7 +7,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//jojowesse
-//test]]></ST>
+//test
+//Ajax is de beste]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
