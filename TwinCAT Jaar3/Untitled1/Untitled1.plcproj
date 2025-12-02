@@ -18,6 +18,9 @@
     <LibraryReferences>{dfb3d82d-b09f-4386-9942-8ac2416f04d2}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\PackMLStates.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\EquipmentModules" />
+    <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\Units" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
