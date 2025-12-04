@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Klep" Id="{a42b2b1d-3d0d-4ad8-8a49-e659df0386f5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Klep IMPLEMENTS ITF_UnitKlep
+VAR
+    _cmdOpen : BOOL;   // laatste gevraagd commando
+    _out     : BOOL;   // interne output/stand klep
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_out := _cmdOpen;]]></ST>
+    </Implementation>
+    <Method Name="GetOut" Id="{1049533c-d7c1-4b94-9427-ba127394b7e4}">
+      <Declaration><![CDATA[METHOD PUBLIC GetOut : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetOut := _out;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCmdOpen" Id="{f41f8728-faa8-48cf-b55f-3e57277d0d09}">
+      <Declaration><![CDATA[METHOD PUBLIC SetCmdOpen
+VAR_INPUT
+    i_bOpen : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_cmdOpen := i_bOpen;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

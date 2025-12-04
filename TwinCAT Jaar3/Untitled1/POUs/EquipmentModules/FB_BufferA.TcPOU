@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BufferA" Id="{f4348fe5-00a7-44c8-b996-13a856095685}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA
+VAR
+    _klep    : ITF_UnitKlep;
+    _clk     : BOOL;
+    _klepOut : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_klep.SetCmdOpen(_clk);
+_klepOut := _klep.GetOut();]]></ST>
+    </Implementation>
+    <Property Name="KlepOut" Id="{5b7c0865-89bc-427f-b63b-e5cd69774586}">
+      <Declaration><![CDATA[PROPERTY PUBLIC KlepOut : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f77b44d0-80e8-4d4e-b061-288a34894aac}">
+        <Declaration><![CDATA[VAR
+END_VAR]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlepOut := _klepOut;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f5b6aae6-3a54-4e0e-b783-8d9f65b0d9a4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SetClk" Id="{9e466a1a-d81f-4acd-b39d-0012729e7656}">
+      <Declaration><![CDATA[METHOD PUBLIC SetClk
+VAR_INPUT
+    i_bClk : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_clk := i_bClk;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetKlep" Id="{acc6e5e3-7c92-4915-8ee7-af15cda07ce9}">
+      <Declaration><![CDATA[METHOD PUBLIC SetKlep
+VAR_INPUT
+    iKlep : ITF_UnitKlep;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_klep := iKlep;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

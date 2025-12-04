@@ -3,12 +3,16 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+    TestClk : BOOL;
+    Klep1   : FB_Klep;
+    BufferA : FB_BufferA;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//jojowesse
-//test
-//PSV is de beste]]></ST>
+      <ST><![CDATA[BufferA.SetKlep(Klep1);   // referentie naar de klep zetten
+BufferA.SetClk(TestClk);  // clk doorgeven
+BufferA();                // equipment laten draaien
+Klep1();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

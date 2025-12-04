@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_UnitKlep" Id="{8f7e2527-7432-4896-9b73-73cf77b72106}">
+    <Declaration><![CDATA[INTERFACE ITF_UnitKlep
+]]></Declaration>
+    <Method Name="GetOut" Id="{54968213-f3b2-464e-94df-899d20f42b3e}">
+      <Declaration><![CDATA[METHOD GetOut : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetCmdOpen" Id="{110d4bba-f16c-43cf-be0f-79416903c895}">
+      <Declaration><![CDATA[METHOD SetCmdOpen
+VAR_INPUT
+	i_bOpen : BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
