@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MotorZuignap" Id="{97f2e12f-1e84-49d3-8821-74be14590e49}">
+    <Declaration><![CDATA[INTERFACE ITF_MotorZuignap
+]]></Declaration>
+    <Property Name="ActuelePositie" Id="{e53b4e36-c175-4504-843d-215e96e64252}">
+      <Declaration><![CDATA[PROPERTY ActuelePositie : INT]]></Declaration>
+      <Get Name="Get" Id="{2f2e4380-eb2d-4884-b9e5-17653a439fd9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{646201cc-9ea1-4896-8984-2570d378c9b9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="SturingKortePositie" Id="{bcd36059-1011-45f3-99ee-96868cceecb0}">
+      <Declaration><![CDATA[METHOD SturingKortePositie : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SturingLangePositie" Id="{4f997659-c14d-45c8-989a-9ab7a114b06c}">
+      <Declaration><![CDATA[METHOD SturingLangePositie : INT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

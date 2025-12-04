@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="MotorZuignapStates" Id="{4d80b3bd-69fb-4710-a150-94b22ebdfa7f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE MotorZuignapStates :
+(
+	Lang := 0,
+	Kort,
+	Ingaand,
+	Uitgaand,
+	error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

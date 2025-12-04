@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Bedrijfstoestand" Id="{0828acc4-c7f1-4b5d-9e19-980aefeb15b9}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE Bedrijfstoestand :
+(
+	off := 0,
+	auto
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
