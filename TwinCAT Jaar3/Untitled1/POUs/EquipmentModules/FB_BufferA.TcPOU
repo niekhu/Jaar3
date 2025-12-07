@@ -9,8 +9,9 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_klep.SetCmdOpen(_clk);
-_klepOut := _klep.GetOut();]]></ST>
+      <ST><![CDATA[_klep.CmdOpen := _clk;      // command naar klep
+_klepOut      := _klep.IsOpen; // status van klep teruglezen
+]]></ST>
     </Implementation>
     <Property Name="KlepOut" Id="{5b7c0865-89bc-427f-b63b-e5cd69774586}">
       <Declaration><![CDATA[PROPERTY PUBLIC KlepOut : BOOL]]></Declaration>
