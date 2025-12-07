@@ -34,16 +34,18 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC SetClk
 VAR_INPUT
     i_bClk : BOOL;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_clk := i_bClk;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetKlep" Id="{acc6e5e3-7c92-4915-8ee7-af15cda07ce9}">
-      <Declaration><![CDATA[METHOD PUBLIC SetKlep
+    <Method Name="SetKlep" Id="{c23e9498-c4f4-4f29-bde0-f1a5acce8772}">
+      <Declaration><![CDATA[METHOD PUBLIC SetKlep : BOOL
 VAR_INPUT
-    iKlep : ITF_UnitKlep;
-END_VAR]]></Declaration>
+	iKlep : ITF_UnitKlep;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_klep := iKlep;]]></ST>
       </Implementation>
