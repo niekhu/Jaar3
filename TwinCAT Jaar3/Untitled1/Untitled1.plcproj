@@ -24,6 +24,9 @@
     <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_VeiligheidsmatStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -57,6 +60,12 @@
     <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\Veiligheidsmat\FB_Veiligheidsmat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Veiligheidsmat\ITF_Veiligheidsmat.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -67,6 +76,7 @@
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />
+    <Folder Include="POUs\Units\Veiligheidsmat" />
     <Folder Include="POUs\Units\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
