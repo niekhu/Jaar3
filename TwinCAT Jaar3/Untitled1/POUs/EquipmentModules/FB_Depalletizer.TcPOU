@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Depalletizer" Id="{48b8c55f-66b6-4d17-ae62-3365531d0e08}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Depalletizer
+VAR_INPUT
+	schuif1 : ITF_MotorSchuif;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	testbool : BOOL;
+	
+	GelezenStatusMotorSchuif : E_MotorSchuifStatus;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF testbool = TRUE THEN
+	schuif1.SturingLang();
+END_IF
+
+GelezenStatusMotorSchuif := schuif1.Status;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

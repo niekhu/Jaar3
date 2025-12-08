@@ -3,15 +3,24 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	Depalletizer : FB_depalletizer;
-	MotorZuignap : FB_motorzuignap;
+	Depalletizer : FB_Depalletizer;
+	
+	Vacuumzuignap : FB_Vacuumzuignap;
+	
+	MotorSchuif : FB_Motorschuif;
+	
+	
 	 
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-Depalletizer();
-Motorzuignap();]]></ST>
+//Depalletizer();
+//Motorzuignap();
+
+Depalletizer.schuif1 := MotorSchuif;
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
