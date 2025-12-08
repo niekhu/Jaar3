@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Motorschuif" Id="{60d4b4a8-a1bb-4ed3-8c87-635035a0da9e}" SpecialFunc="None">
+  <POU Name="FB_MotorSchuif" Id="{60d4b4a8-a1bb-4ed3-8c87-635035a0da9e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MotorSchuif IMPLEMENTS ITF_MotorSchuif				//MOTOR DIE KARTEN VAN DE PALLET NAAR DE ZIJKANT VERPLAATST
 VAR_INPUT
 END_VAR

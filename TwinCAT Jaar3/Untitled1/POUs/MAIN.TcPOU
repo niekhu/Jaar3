@@ -14,11 +14,13 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-//Depalletizer();
-//Motorzuignap();
+      <ST><![CDATA[Depalletizer.schuif1 := MotorSchuif;
+Depalletizer.zuignap1 := Vacuumzuignap;
 
-Depalletizer.schuif1 := MotorSchuif;
+
+Depalletizer();
+MotorSchuif();
+Vacuumzuignap();
 
 ]]></ST>
     </Implementation>
