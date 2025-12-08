@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_UnitKlep" Id="{8f7e2527-7432-4896-9b73-73cf77b72106}">
+    <Declaration><![CDATA[INTERFACE ITF_UnitKlep
+]]></Declaration>
+    <Property Name="Status" Id="{768541d2-34f0-426d-a14b-133f9a89d851}">
+      <Declaration><![CDATA[PROPERTY Status : BOOL]]></Declaration>
+      <Get Name="Get" Id="{815902c2-5572-4422-a0bd-4d9b74c1c111}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{848dd90f-87a9-4281-a89d-8a8972d872f2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="SturingOpen" Id="{b91dad85-8aec-4b2b-bdcc-5418bbdfc914}">
+      <Declaration><![CDATA[METHOD SturingOpen : BOOL
+VAR_INPUT
+	i_bOpen : BOOL;     // TRUE = open, FALSE = dicht
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
