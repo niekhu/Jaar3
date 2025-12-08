@@ -3,13 +3,28 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-    TestClk : BOOL;      // testbool
+	Depalletizer : FB_Depalletizer;
+	
+	Vacuumzuignap : FB_Vacuumzuignap;
+	
+	MotorSchuif : FB_Motorschuif;
+	
+	    TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
+	 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[BufferA(
+      <ST><![CDATA[Depalletizer.schuif1 := MotorSchuif;
+Depalletizer.zuignap1 := Vacuumzuignap;
+
+
+Depalletizer();
+MotorSchuif();
+Vacuumzuignap();
+
+BufferA(
     klep   := Klep1,   // interface van de unit doorgeven
     i_bClk := TestClk  // command van boven (bijv. via HMI)
 );

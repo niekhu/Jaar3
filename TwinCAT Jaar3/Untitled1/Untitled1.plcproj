@@ -18,6 +18,12 @@
     <LibraryReferences>{dfb3d82d-b09f-4386-9942-8ac2416f04d2}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_MotorSchuifStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -25,6 +31,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\FB_BufferA\FB_BufferA.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\FB_Depalletizer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -36,6 +45,18 @@
     <Compile Include="POUs\Units\FB_Klep\ITF_UnitKlep.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\MotorSchuif\FB_Motorschuif.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\MotorSchuif\ITF_MotorSchuif.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -45,6 +66,8 @@
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
+    <Folder Include="POUs\Units\MotorSchuif" />
+    <Folder Include="POUs\Units\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
