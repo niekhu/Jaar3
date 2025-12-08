@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Druksensor" Id="{b80b13ab-141f-4772-8d8e-285212b525b7}">
+    <Declaration><![CDATA[INTERFACE ITF_Druksensor
+]]></Declaration>
+    <Property Name="Druk" Id="{b174ac70-ff79-453b-9de6-d98aeabe58bb}">
+      <Declaration><![CDATA[PROPERTY Druk : REAL]]></Declaration>
+      <Get Name="Get" Id="{6ffba2f4-9e7e-4580-8403-ecc734ead945}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{f5aad16b-d542-4f8b-a7b3-54340ebc45b1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{c50f5833-b783-412f-9cb9-9085fb3dd120}">
+      <Declaration><![CDATA[PROPERTY Status : E_DruksensorStatus]]></Declaration>
+      <Get Name="Get" Id="{31bec9be-c4fe-413b-931a-6cfd8c8cb8d7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{aceeb297-389f-4ef7-b820-57f7cfc29494}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

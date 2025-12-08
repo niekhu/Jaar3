@@ -4,7 +4,8 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Depalletizer
 VAR_INPUT
 	schuif1 : ITF_MotorSchuif;
-	zuignap1 : ITF_Vacuumzuignap;	
+	zuignap1 : ITF_Vacuumzuignap;
+	druksensor1 : ITF_Druksensor;	
 
 END_VAR
 VAR_OUTPUT
@@ -14,6 +15,8 @@ VAR
 	testbool2 : BOOL;
 	GelezenStatusMotorSchuif : E_MotorSchuifStatus;
 	GelezenStatusVacuumzuignap : E_VacuumzuignapStatus;
+	GelezenDruk : REAL;
+	GelezenStatusDruksensor : E_DruksensorStatus;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,7 +31,9 @@ IF testbool2 = TRUE THEN
 END_IF
 
 GelezenStatusMotorSchuif := schuif1.Status;
-GelezenStatusVacuumzuignap := zuignap1.Status;]]></ST>
+GelezenStatusVacuumzuignap := zuignap1.Status;
+GelezenDruk := druksensor1.Druk;
+GelezenStatusDruksensor := druksensor1.Status;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

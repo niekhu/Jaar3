@@ -9,6 +9,8 @@ VAR
 	
 	MotorSchuif : FB_Motorschuif;
 	
+	Druksensor : FB_Druksensor;
+	
 	    TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
@@ -18,8 +20,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Depalletizer.schuif1 := MotorSchuif;
 Depalletizer.zuignap1 := Vacuumzuignap;
+Depalletizer.druksensor1 := Druksensor;
 
-
+Druksensor();
 Depalletizer();
 MotorSchuif();
 Vacuumzuignap();
