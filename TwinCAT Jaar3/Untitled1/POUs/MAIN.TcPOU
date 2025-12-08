@@ -23,6 +23,12 @@ MotorSchuif();
 Vacuumzuignap();
 
 ]]></ST>
+      <ST><![CDATA[BufferA(
+    klep   := Klep1,   // interface van de unit doorgeven
+    i_bClk := TestClk  // command van boven (bijv. via HMI)
+);
+
+//test]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
