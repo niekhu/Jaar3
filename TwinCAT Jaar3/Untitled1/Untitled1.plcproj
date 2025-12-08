@@ -27,9 +27,6 @@
     <Compile Include="POUs\EquipmentModules\FB_BufferA\FB_BufferA.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EquipmentModules\FB_Depalletizer\FB_depalletizer.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -39,20 +36,15 @@
     <Compile Include="POUs\Units\FB_Klep\ITF_UnitKlep.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_MotorSchuif\FB_motorschuif.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
-    <Folder Include="POUs\EquipmentModules\FB_Depalletizer" />
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
-    <Folder Include="POUs\Units\FB_MotorSchuif" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
