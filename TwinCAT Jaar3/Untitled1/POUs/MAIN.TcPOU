@@ -9,9 +9,17 @@ VAR
 	
 	MotorSchuif : FB_Motorschuif;
 	
-	    TestClk : BOOL;      // testbool
+	TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
+	
+	TestStart  : BOOL;
+    TestStop   : BOOL;
+    TestReset  : BOOL;
+
+    StartKnop : FB_DrukKnop;
+    StopKnop  : FB_DrukKnop;
+    ResetKnop : FB_DrukKnop;
 	 
 END_VAR
 ]]></Declaration>
@@ -28,6 +36,11 @@ BufferA(
     klep   := Klep1,   // interface van de unit doorgeven
     i_bClk := TestClk  // command van boven (bijv. via HMI)
 );
+
+StartKnop.Update(TestStart);
+StopKnop.Update(TestStop);
+ResetKnop.Update(TestReset);
+
 ]]></ST>
     </Implementation>
   </POU>

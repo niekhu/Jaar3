@@ -39,6 +39,12 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\FB_DrukKnop\FB_DrukKnop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\FB_DrukKnop\ITF_DrukKnop.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Units\FB_Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +73,7 @@
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />
+    <Folder Include="POUs\Units\FB_DrukKnop" />
     <Folder Include="POUs\Units\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
