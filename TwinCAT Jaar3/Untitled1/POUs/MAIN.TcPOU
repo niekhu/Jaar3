@@ -9,7 +9,9 @@ VAR
 	
 	MotorSchuif : FB_Motorschuif;
 	
-	
+	    TestClk : BOOL;      // testbool
+    Klep1   : FB_Klep;   // unit
+    BufferA : FB_BufferA; // equipment
 	 
 END_VAR
 ]]></Declaration>
@@ -22,13 +24,11 @@ Depalletizer();
 MotorSchuif();
 Vacuumzuignap();
 
-]]></ST>
-      <ST><![CDATA[BufferA(
+BufferA(
     klep   := Klep1,   // interface van de unit doorgeven
     i_bClk := TestClk  // command van boven (bijv. via HMI)
 );
-
-//test]]></ST>
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
