@@ -13,6 +13,8 @@ VAR
 	
 	ControlWes : ControlTestWESSE;
 	
+	Klep : FB_Klep;
+	
 	    TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
@@ -20,16 +22,21 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Depalletizer.schuif1 := MotorSchuif;
-Depalletizer.zuignap1 := Vacuumzuignap;
-Depalletizer.druksensor1 := Druksensor;
+      <ST><![CDATA[Depalletizer.Schuif := MotorSchuif;
+Depalletizer.Zuignap1 := Vacuumzuignap;
+Depalletizer.Zuignap2 := Vacuumzuignap;
+Depalletizer.Zuignap3 := Vacuumzuignap;
+Depalletizer.Zuignap4 := Vacuumzuignap;
+Depalletizer.Druksensor1 := Druksensor;
 ControlWes.Depalletizer1 := Depalletizer;
+Depalletizer.KlepDepallet := Klep;
 
 Druksensor();
 Depalletizer();
 MotorSchuif();
 Vacuumzuignap();
 ControlWes();
+Klep();
 
 BufferA(
     klep   := Klep1,   // interface van de unit doorgeven

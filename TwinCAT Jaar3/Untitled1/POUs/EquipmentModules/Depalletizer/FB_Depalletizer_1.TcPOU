@@ -3,9 +3,13 @@
   <POU Name="FB_Depalletizer_1" Id="{604c825a-b299-42a4-9d94-06f2cd7a73fd}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Depalletizer_1 IMPLEMENTS ITF_Depalletizer
 VAR_INPUT
-	schuif1 : ITF_MotorSchuif;
-	zuignap1 : ITF_Vacuumzuignap;
-	druksensor1 : ITF_Druksensor;
+	Schuif : ITF_MotorSchuif;
+	Zuignap1 : ITF_Vacuumzuignap;
+	Zuignap2 : ITF_Vacuumzuignap;
+	Zuignap3 : ITF_Vacuumzuignap;
+	Zuignap4 : ITF_Vacuumzuignap;
+	Druksensor1 : ITF_Druksensor;
+	KlepDepallet : ITF_UnitKlep;
 
 END_VAR
 VAR_OUTPUT
@@ -92,19 +96,19 @@ END_CASE
 
 
 IF testbool = TRUE THEN
-	schuif1.SturingKort();
-	zuignap1.Loslaten();
+	Schuif.SturingKort();
+	Zuignap1.Loslaten();
 END_IF
 
 IF testbool2 = TRUE THEN
-	schuif1.SturingLang();
-	zuignap1.Oppakken();
+	Schuif.SturingLang();
+	Zuignap1.Oppakken();
 END_IF
 
-GelezenStatusMotorSchuif := schuif1.Status;
-GelezenStatusVacuumzuignap := zuignap1.Status;
-GelezenDruk := druksensor1.Druk;
-GelezenStatusDruksensor := druksensor1.Status;
+GelezenStatusMotorSchuif := Schuif.Status;
+GelezenStatusVacuumzuignap := Zuignap1.Status;
+GelezenDruk := Druksensor1.Druk;
+GelezenStatusDruksensor := Druksensor1.Status;
 
 
 ]]></ST>
@@ -190,7 +194,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateDep := PackMLStates.Idle;]]></ST>
+        <ST><![CDATA[CurrentStateDep := PackMLStates.Idle;
+
+
+
+
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="InputState" Id="{4302f528-8764-4bef-8b72-acc9ee6f8e24}" FolderPath="Properties\">
@@ -227,7 +236,26 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := PackMLStates.Starting;
+
+IF  Schuif.Status = E_MotorSchuifStatus.Kort AND Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+	Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND DrukSensor1.Status = E_DruksensorStatus.SensorInputOk AND 
+	KlepDepallet.Status = FALSE  THEN //vergeet de andere voorwaarden niet !!!!!
+	
+	CurrentStateDep := PackMLStates.Idle;
+	ELSE
+		Schuif.SturingKort();
+		Zuignap1.Loslaten();
+		Zuignap2.Loslaten();
+		Zuignap3.Loslaten();
+		Zuignap4.Loslaten();
+		KlepDepallet.SturingOpen(FALSE); 
+END_IF
+
+
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopped" Id="{862a4bb4-364c-4936-8d10-c75d515773a0}" FolderPath="Methods\">
