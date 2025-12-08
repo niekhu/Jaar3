@@ -13,7 +13,8 @@ END_VAR
     klep   := Klep1,   // interface van de unit doorgeven
     i_bClk := TestClk  // command van boven (bijv. via HMI)
 );
-]]></ST>
+
+//test]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
