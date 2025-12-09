@@ -20,7 +20,16 @@ VAR
     StartKnop : FB_DrukKnop;
     StopKnop  : FB_DrukKnop;
     ResetKnop : FB_DrukKnop;
-	 
+	
+	// Testbits voor eindschakelaars
+    TestLift  : BOOL;
+    TestSchuif : BOOL;
+    TestZuig : BOOL;
+
+    // Units – eindschakelaars
+    LS_Lift  : FB_LimitSwitch;
+    LS_Schuif : FB_LimitSwitch;
+    LS_Zuig : FB_LimitSwitch;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -41,6 +50,10 @@ StartKnop.Update(TestStart);
 StopKnop.Update(TestStop);
 ResetKnop.Update(TestReset);
 
+// Eindschakelaars updaten
+LS_Lift.Update(TestLift);
+LS_Schuif.Update(TestSchuif);
+LS_Zuig.Update(TestZuig);
 ]]></ST>
     </Implementation>
   </POU>
