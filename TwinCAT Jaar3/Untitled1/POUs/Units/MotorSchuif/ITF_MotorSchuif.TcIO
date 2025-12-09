@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MotorSchuif" Id="{f9748cdf-06f5-4267-9c6d-e50a2c3d724e}">
+    <Declaration><![CDATA[INTERFACE ITF_MotorSchuif
+]]></Declaration>
+    <Property Name="Status" Id="{f0a59b0b-852a-4a5c-ad39-ecc3f0017762}">
+      <Declaration><![CDATA[PROPERTY Status : E_MotorSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{d595cb8c-9f7d-4041-8f43-d698461fb38e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1b61f6cb-ab1f-4b7e-acf5-7370a7c268f8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="SturingKort" Id="{647bc108-0a5b-4ab4-a48e-be644f3e59f7}">
+      <Declaration><![CDATA[METHOD SturingKort : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SturingLang" Id="{a9d25a77-3eaf-4bc2-9cdb-424a246396e5}">
+      <Declaration><![CDATA[METHOD SturingLang : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

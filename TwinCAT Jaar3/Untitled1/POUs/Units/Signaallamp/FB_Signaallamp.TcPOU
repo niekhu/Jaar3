@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Signaallamp" Id="{5139b975-15af-4553-a30a-f60790520337}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Signaallamp IMPLEMENTS ITF_Signaallamp
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	tKnipperend : TON; // Interne timer voor knipperende oranje lamp
+	
+	// Interne variabelen
+	MachineStatusSignaallamp_Intern : E_MachineStatusSignaallamp;
+	Groen_Intern : BOOL;
+	Rood_Intern : BOOL;
+	Oranje_Intern : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{3f95b09e-4ab0-4c2c-aee8-4e82abd8595f}" />
+    <Folder Name="Properties" Id="{3587a5e5-907b-4b09-8a83-cbff1d218cdf}" />
+    <Property Name="Groen" Id="{55f552fc-9284-4bb4-95ad-51ee777c03ce}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Groen : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{d9ebfeb3-4b1e-413d-837d-df44e936345c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Groen := Groen_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="MachineStatus" Id="{cef8b374-2057-434d-a158-1903511f9d93}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY MachineStatus : E_MachineStatusSignaallamp
+]]></Declaration>
+      <Get Name="Get" Id="{5e6d3a75-eeea-4673-932a-f9de6d68e9f1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MachineStatus := MachineStatusSignaallamp_Intern; ]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d046bb79-e00c-41ad-97f7-09317f311978}">
+        <Declaration><![CDATA[VAR
+	Waarde : E_MachineStatusSignaallamp;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[MachineStatusSignaallamp_Intern := waarde;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Oranje" Id="{f3547c64-5c81-47dc-ac60-99b7232b6c77}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Oranje : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{d6faca29-61ae-409a-9a92-2c865b72e48a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Oranje := Oranje_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Rood" Id="{ea1c1632-beba-47cb-b753-d3b69fe44ea4}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Rood : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{f7d6caff-afe4-46fc-bf2a-5f8cbf96419c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Rood := Rood_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{5d446e3d-6b95-4fa0-96de-25ad892c583b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE MachineStatusSignaallamp_Intern OF
+	E_MachineStatusSignaallamp.Running:
+		Groen_Intern := TRUE;
+		Rood_Intern := FALSE;
+		Oranje_Intern := FALSE;
+		
+	E_MachineStatusSignaallamp.Error:
+		Groen_Intern := FALSE; 
+		Rood_Intern := TRUE; 
+		Oranje_Intern := FALSE; 
+		
+	E_MachineStatusSignaallamp.Resetting:
+		Groen_Intern := FALSE; 
+		Rood_Intern := FALSE; 
+		
+		// Oranje lamp gaat knipperen
+		tKnipperend(IN := NOT tKnipperend.Q, PT := T#500MS);
+		tKnipperend(IN := TRUE); // Timer aanzetten
+		Oranje_Intern := tKnipperend.Q; 
+		
+	ELSE
+		// Machine staat in rustpositie, dus alle lampen uit
+		Groen_Intern := FALSE; 
+		Rood_Intern := FALSE; 
+		Oranje_Intern := FALSE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
