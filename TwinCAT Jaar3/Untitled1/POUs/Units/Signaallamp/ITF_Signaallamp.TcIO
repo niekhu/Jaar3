@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Signaallamp" Id="{3c239636-feac-4113-84a1-cd00cd0f448a}">
+    <Declaration><![CDATA[INTERFACE ITF_Signaallamp
+]]></Declaration>
+    <Property Name="Groen" Id="{d69a6f11-910f-4abc-9b67-0978917ba434}">
+      <Declaration><![CDATA[PROPERTY Groen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{70de55c5-42ae-4b98-bc12-793a6a1a0a1d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="MachineStatus" Id="{1e150162-6b9d-4041-81ac-49acc35c97d4}">
+      <Declaration><![CDATA[PROPERTY MachineStatus : E_MachineStatusSignaallamp]]></Declaration>
+      <Get Name="Get" Id="{b0a33772-30a1-49fc-ade8-6a2e8e4d935e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{32273205-01d0-4327-91c9-c2a95f5615d6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Oranje" Id="{a1a4f3cc-504a-4ecf-a518-db374f6902f0}">
+      <Declaration><![CDATA[PROPERTY Oranje : BOOL]]></Declaration>
+      <Get Name="Get" Id="{dfb35d53-4e4c-46bd-b9ad-6f24895598ad}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Rood" Id="{d0902923-f5bf-47a4-ab58-3d96cc14bd41}">
+      <Declaration><![CDATA[PROPERTY Rood : BOOL]]></Declaration>
+      <Get Name="Get" Id="{da4ef027-0de5-451d-a7e1-b1d4b6b461a4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{ae842c0a-3f4f-40c6-bf94-78012d33429a}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

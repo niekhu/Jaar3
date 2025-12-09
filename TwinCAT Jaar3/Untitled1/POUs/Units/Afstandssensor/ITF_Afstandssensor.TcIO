@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Afstandssensor" Id="{207802c7-0e96-4d57-8888-2868bce86bee}">
+    <Declaration><![CDATA[INTERFACE ITF_Afstandssensor
+]]></Declaration>
+    <Property Name="Afstand" Id="{11b0ba6a-280e-429d-bc0d-c99eb68ef258}">
+      <Declaration><![CDATA[PROPERTY Afstand : LREAL]]></Declaration>
+      <Get Name="Get" Id="{9a0f7030-b254-43b1-ab29-fbec04b8f2ee}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1cea2feb-c299-4b8a-be63-6c3ffaf22fd0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Detectie" Id="{1539364c-721a-4952-868d-e38aff80776d}">
+      <Declaration><![CDATA[PROPERTY Detectie : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4568d66b-13f5-4bef-9fda-f40a7eddd4eb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Drempelwaarde" Id="{e1e1d007-6b3e-47df-a044-79649406beb0}">
+      <Declaration><![CDATA[PROPERTY Drempelwaarde : LREAL]]></Declaration>
+      <Get Name="Get" Id="{d7d1a8bd-d8ea-4895-ba0f-c767b74e2d90}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{cff8ce32-1104-457e-ac02-2cdaef043e68}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{02f3e145-2c9f-408a-b125-b7edbe593708}">
+      <Declaration><![CDATA[PROPERTY Status : E_AfstandssensorStatus]]></Declaration>
+      <Get Name="Get" Id="{1807b912-ae9d-4e48-b03f-7fa7c902fed5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{5c44ef2f-1c6d-4eb7-9702-b4f3d26fb44b}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

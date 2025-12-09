@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Lineaireuitschuifpin" Id="{d1fcd03c-5fe2-44f2-bffb-7e348ce20c42}">
+    <Declaration><![CDATA[INTERFACE ITF_Lineaireuitschuifpin
+]]></Declaration>
+    <Property Name="Error" Id="{79b88498-7c31-4815-8dad-527c2da21a96}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b1a766c0-c6b7-439f-85dd-fc5fcf01116f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Ingeschoven" Id="{cc8cba17-adf8-4a8c-87cd-58bca133be61}">
+      <Declaration><![CDATA[PROPERTY Ingeschoven : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b9ff3854-7ef5-4028-8a74-6c4c011a593e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Inschuiven" Id="{ceae3e5f-cca1-4b78-895a-a9b589b771db}">
+      <Declaration><![CDATA[PROPERTY Inschuiven : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d86f9cb4-4237-40a8-b982-09e0c21bcf42}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2fc04662-bedf-4684-b10d-006930979861}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{6ee7b9ea-d38b-4a7c-a612-a785f169eec4}">
+      <Declaration><![CDATA[PROPERTY Status : E_LineaireactuatoruitschuifpinnenStatus]]></Declaration>
+      <Get Name="Get" Id="{1ba03716-98f7-4048-8034-128d66d190c9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Uitgeschoven" Id="{613376ca-b38a-413c-9489-2f9bf9df20ae}">
+      <Declaration><![CDATA[PROPERTY Uitgeschoven : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8d4ea536-9f6d-4ab1-9061-b47c67fee635}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Uitschuiven" Id="{6cfce763-1edf-4204-9469-6feae022c63f}">
+      <Declaration><![CDATA[PROPERTY Uitschuiven : BOOL]]></Declaration>
+      <Get Name="Get" Id="{5c524a25-f19e-4235-91a9-79bcff8cdf06}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a8841326-ff1f-45a5-833c-6d5be99e52cb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="Update" Id="{530d794a-9087-4a1b-b856-76bffa8b6ff6}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

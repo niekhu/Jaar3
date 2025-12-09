@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Veiligheidsmat" Id="{038ec8f4-7771-45da-90b9-22cac9b667d8}">
+    <Declaration><![CDATA[INTERFACE ITF_Veiligheidsmat
+]]></Declaration>
+    <Property Name="Actief" Id="{45ac85ea-6f41-4dfa-9d76-998fae6ece0c}">
+      <Declaration><![CDATA[PROPERTY Actief : BOOL]]></Declaration>
+      <Get Name="Get" Id="{56f0d4cf-4573-4ccc-9600-691bb92ce950}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{7413dc96-b84c-41b2-b8c4-c7cc08e81cd2}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{97c8fbcc-6e97-4497-9321-1115c3700285}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{0557f6a8-d735-4fae-8981-51450c28851a}">
+      <Declaration><![CDATA[PROPERTY Status : E_VeiligheidsmatStatus]]></Declaration>
+      <Get Name="Get" Id="{efeba6c4-1ced-409c-82a1-4b6cc78121b0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{e0fe07c2-c9d7-412d-b19d-9a79ab3c3b70}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

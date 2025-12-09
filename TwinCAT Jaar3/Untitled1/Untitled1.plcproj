@@ -27,6 +27,9 @@
     <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_VeiligheidsmatStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -54,10 +57,22 @@
     <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\Afstandssensor\FB_Afstandssensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Afstandssensor\ITF_Afstandssensor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Units\FB_Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\FB_Klep\ITF_UnitKlep.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Lineaire uitschuifpin\FB_Lineaireuitschuifpin.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Lineaire uitschuifpin\ITF_Lineaireuitschuifpin.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\MotorSchuif\FB_Motorschuif.TcPOU">
@@ -66,10 +81,22 @@
     <Compile Include="POUs\Units\MotorSchuif\ITF_MotorSchuif.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\Signaallamp\FB_Signaallamp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Signaallamp\ITF_Signaallamp.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Veiligheidsmat\FB_Veiligheidsmat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Veiligheidsmat\ITF_Veiligheidsmat.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -111,8 +138,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -176,14 +203,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>
