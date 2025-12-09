@@ -21,16 +21,13 @@
     <Compile Include="DUTs\E_DruksensorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_MotorSchuifStatus.TcDUT">
+    <Compile Include="DUTs\E_MotorZuigSchuifStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_VeiligheidsmatStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\PackMLStates.TcDUT">
+    <Compile Include="DUTs\E_PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
@@ -39,13 +36,13 @@
     <Compile Include="POUs\ControlModules\ControlTestWESSE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EquipmentModules\Depalletizer\FB_Depalletizer_1.TcPOU">
+    <Compile Include="POUs\EquipmentModules\Depalletizer\FB_Depalletizer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\Depalletizer\ITF_Depalletizer.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EquipmentModules\FB_BufferA\FB_BufferA.TcPOU">
+    <Compile Include="POUs\EquipmentModules\BufferA\FB_BufferA.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -57,28 +54,28 @@
     <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_DrukKnop\FB_DrukKnop.TcPOU">
+    <Compile Include="POUs\Units\DrukKnop\FB_DrukKnop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_DrukKnop\ITF_DrukKnop.TcIO">
+    <Compile Include="POUs\Units\DrukKnop\ITF_DrukKnop.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_Klep\FB_Klep.TcPOU">
+    <Compile Include="POUs\Units\Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_Klep\ITF_UnitKlep.TcIO">
+    <Compile Include="POUs\Units\Klep\ITF_UnitKlep.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_LimitSwitch\FB_LimitSwitch.TcPOU">
+    <Compile Include="POUs\Units\LimitSwitch\FB_LimitSwitch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\FB_LimitSwitch\ITF_LimitSwitch.TcIO">
+    <Compile Include="POUs\Units\LimitSwitch\ITF_LimitSwitch.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorSchuif\FB_Motorschuif.TcPOU">
+    <Compile Include="POUs\Units\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorSchuif\ITF_MotorSchuif.TcIO">
+    <Compile Include="POUs\Units\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
@@ -93,14 +90,14 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
-    <Folder Include="POUs\EquipmentModules\FB_BufferA" />
+    <Folder Include="POUs\EquipmentModules\BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\Druksensor" />
-    <Folder Include="POUs\Units\FB_Klep" />
-    <Folder Include="POUs\Units\MotorSchuif" />
-    <Folder Include="POUs\Units\FB_DrukKnop" />
-    <Folder Include="POUs\Units\FB_LimitSwitch" />
+    <Folder Include="POUs\Units\Klep" />
+    <Folder Include="POUs\Units\MotorZuigSchuif" />
+    <Folder Include="POUs\Units\DrukKnop" />
+    <Folder Include="POUs\Units\LimitSwitch" />
     <Folder Include="POUs\Units\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
@@ -128,8 +125,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -193,14 +190,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

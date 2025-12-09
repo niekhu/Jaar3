@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Motorschuif" Id="{60d4b4a8-a1bb-4ed3-8c87-635035a0da9e}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_MotorSchuif IMPLEMENTS ITF_MotorSchuif				//MOTOR DIE KARTEN VAN DE PALLET NAAR DE ZIJKANT VERPLAATST
+  <POU Name="FB_MotorZuigSchuif" Id="{60d4b4a8-a1bb-4ed3-8c87-635035a0da9e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MotorZuigSchuif IMPLEMENTS ITF_MotorZuigSchuif				//MOTOR DIE KARTEN VAN DE PALLET NAAR DE ZIJKANT VERPLAATST
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
 	
-	StatusMotorSchuif : E_MotorSchuifStatus := E_MotorSchuifStatus.Kort;	//drie variabelen die worden gebruikt in de methods
+	StatusMotorSchuif : E_MotorZuigSchuifStatus := E_MotorZuigSchuifStatus.Kort;	//drie variabelen die worden gebruikt in de methods
 	timerKort : TON;
 	ErrorTrigger : BOOL; 
 	
@@ -20,7 +20,7 @@ END_VAR
     <Folder Name="Methods" Id="{cffb7d77-b82a-4ba3-8693-3a66c9404830}" />
     <Folder Name="Properties" Id="{2bd36a5f-fa8f-4d44-809c-ed24ca09c9a3}" />
     <Property Name="Status" Id="{30c9f538-9a28-4c6a-8549-dc11f43c5f81}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Status : E_MotorSchuifStatus]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Status : E_MotorZuigSchuifStatus]]></Declaration>
       <Get Name="Get" Id="{8dfe6f5e-a6cb-4425-bc50-248ce4416186}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -46,22 +46,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
-    StatusMotorSchuif := E_MotorSchuifStatus.Error;
+    StatusMotorSchuif := E_MotorZuigSchuifStatus.Error;
     SturingKort := FALSE;
     RETURN;
 END_IF
 
-IF StatusMotorSchuif <> E_MotorSchuifStatus.GoToKort AND							//Controle of sturing kort niet al eerder is geweest
-   StatusMotorSchuif <> E_MotorSchuifStatus.Kort THEN	
-   StatusMotorSchuif := E_MotorSchuifStatus.GoToKort;
+IF StatusMotorSchuif <> E_MotorZuigSchuifStatus.GoToKort AND							//Controle of sturing kort niet al eerder is geweest
+   StatusMotorSchuif <> E_MotorZuigSchuifStatus.Kort THEN	
+   StatusMotorSchuif := E_MotorZuigSchuifStatus.GoToKort;
     timerKort(IN := TRUE, PT := T#5S);
 END_IF
 
-IF StatusMotorSchuif = E_MotorSchuifStatus.GoToKort THEN							//Als het de eerste sturing kort is (GoToKort), wordt deze 5 seconde aangehouden en dan status kort
+IF StatusMotorSchuif = E_MotorZuigSchuifStatus.GoToKort THEN							//Als het de eerste sturing kort is (GoToKort), wordt deze 5 seconde aangehouden en dan status kort
     timerKort(IN := TRUE, PT := T#5S);
 
     IF timerKort.Q THEN
-        StatusMotorSchuif := E_MotorSchuifStatus.Kort;
+        StatusMotorSchuif := E_MotorZuigSchuifStatus.Kort;
 		timerKort(IN := FALSE);
     END_IF
 END_IF
@@ -77,22 +77,22 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
-    StatusMotorSchuif := E_MotorSchuifStatus.Error;
+    StatusMotorSchuif := E_MotorZuigSchuifStatus.Error;
     SturingLang := FALSE;
     RETURN;
 END_IF
 
-IF StatusMotorSchuif <> E_MotorSchuifStatus.GoToLang AND							//Controle of sturing kort niet al eerder is geweest
-   StatusMotorSchuif <> E_MotorSchuifStatus.Lang THEN
-   StatusMotorSchuif := E_MotorSchuifStatus.GoToLang;
+IF StatusMotorSchuif <> E_MotorZuigSchuifStatus.GoToLang AND							//Controle of sturing kort niet al eerder is geweest
+   StatusMotorSchuif <> E_MotorZuigSchuifStatus.Lang THEN
+   StatusMotorSchuif := E_MotorZuigSchuifStatus.GoToLang;
     timerKort(IN := TRUE, PT := T#5S);
 END_IF
 
-IF StatusMotorSchuif = E_MotorSchuifStatus.GoToLang THEN							//Als het de eerste sturing lang is (GoToLang), wordt deze 5 seconde aangehouden en dan status lang
+IF StatusMotorSchuif = E_MotorZuigSchuifStatus.GoToLang THEN							//Als het de eerste sturing lang is (GoToLang), wordt deze 5 seconde aangehouden en dan status lang
     timerKort(IN := TRUE, PT := T#5S);
 
     IF timerKort.Q THEN
-        StatusMotorSchuif := E_MotorSchuifStatus.Lang;
+        StatusMotorSchuif := E_MotorZuigSchuifStatus.Lang;
 		timerKort(IN := FALSE);
     END_IF
 END_IF
