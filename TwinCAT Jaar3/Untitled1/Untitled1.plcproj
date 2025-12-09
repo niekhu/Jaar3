@@ -57,22 +57,10 @@
     <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Afstandssensor\FB_Afstandssensor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Afstandssensor\ITF_Afstandssensor.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Units\FB_Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\FB_Klep\ITF_UnitKlep.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Lineaire uitschuifpin\FB_Lineaireuitschuifpin.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Lineaire uitschuifpin\ITF_Lineaireuitschuifpin.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\MotorSchuif\FB_Motorschuif.TcPOU">
@@ -81,22 +69,10 @@
     <Compile Include="POUs\Units\MotorSchuif\ITF_MotorSchuif.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Signaallamp\FB_Signaallamp.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Signaallamp\ITF_Signaallamp.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Veiligheidsmat\FB_Veiligheidsmat.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\Veiligheidsmat\ITF_Veiligheidsmat.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -108,14 +84,10 @@
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\Units" />
-    <Folder Include="POUs\Units\Afstandssensor" />
     <Folder Include="POUs\Units\FB_Klep" />
-    <Folder Include="POUs\Units\Lineaire uitschuifpin" />
     <Folder Include="POUs\Units\MotorSchuif" />
     <Folder Include="POUs\Units\Druksensor" />
-    <Folder Include="POUs\Units\Signaallamp" />
     <Folder Include="POUs\Units\Vacuumzuignap" />
-    <Folder Include="POUs\Units\Veiligheidsmat" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
