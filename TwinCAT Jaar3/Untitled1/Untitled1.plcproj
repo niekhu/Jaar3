@@ -96,6 +96,7 @@
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\Units" />
+    <Folder Include="POUs\Units\Druksensor" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />
     <Folder Include="POUs\Units\FB_DrukKnop" />
