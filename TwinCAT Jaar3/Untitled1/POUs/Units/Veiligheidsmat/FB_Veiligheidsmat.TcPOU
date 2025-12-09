@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Veiligheidsmat" Id="{0a61a164-211b-4ec3-8ac5-b2cae01fad76}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Veiligheidsmat IMPLEMENTS ITF_Veiligheidsmat
+VAR_INPUT
+	InputRaw : BOOL; // Het ingangssignaal van de veiligheidsmat
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	// Interne variabelen van het functieblok
+	Actief_Intern : BOOL;
+	Error_Intern : BOOL;
+	Status_Intern : E_VeiligheidsmatStatus;
+	
+	tDebounce : TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//test]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{bc488663-ca6a-41a1-be39-aa16b0415150}" />
+    <Folder Name="Properties" Id="{fe9e0a64-ad33-4c7f-b05a-2c07f55e137f}" />
+    <Property Name="Actief" Id="{249111eb-2344-418e-b7f8-90e9177fc303}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Actief : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{daf06388-1627-4eb8-90b5-82e34e181611}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Actief := Actief_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{e6606d91-201b-45e1-b0e5-7c009dfbfd29}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{ca575aae-6198-4e0c-bb7b-0e56b4b0e7b3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := Error_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{49e11dec-b5d0-4178-a0b2-0beb7f5b985e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : E_VeiligheidsmatStatus
+]]></Declaration>
+      <Get Name="Get" Id="{7d4497c8-9fda-4d7d-b22e-0b886be3ed1d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := Status_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{8b5192da-33b0-4227-9c84-f088e4d96235}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR
+	bDebounced : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Debounce timer
+tDebounce(IN := InputRaw, PT := T#50MS); 
+bDebounced := tDebounce.Q;
+
+// Status bepalen
+IF bDebounced THEN
+	Actief_Intern := TRUE; 
+	Error_Intern := FALSE;
+	Status_Intern := E_VeiligheidsmatStatus.Actief;
+ELSIF NOT bDebounced THEN
+	Actief_Intern := FALSE; 
+	Error_Intern := FALSE; 
+	Status_Intern := E_VeiligheidsmatStatus.Normaal;
+END_IF
+
+// Foutdetectie
+IF (InputRaw AND NOT bDebounced) THEN
+	Error_Intern := TRUE;
+	Status_Intern := E_VeiligheidsmatStatus.Error;
+END_IF
+
+// Return
+Update := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

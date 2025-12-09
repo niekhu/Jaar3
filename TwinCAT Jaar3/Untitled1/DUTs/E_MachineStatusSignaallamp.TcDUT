@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_MachineStatusSignaallamp" Id="{eac53a6b-b57c-48f7-9b0e-db19503b7dc8}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_MachineStatusSignaallamp :
+(
+	Idle := 0, // Machine staat in rustpositie
+	Running,  // Machine is in beweging
+	Error,   // Machine is in storing
+	Resetting // Machine is aan het resetten
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_VeiligheidsmatStatus" Id="{35966c83-4b37-478a-a030-d7bad72f69bc}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_VeiligheidsmatStatus :
+(
+	Normaal := 0,  // Er is geen persoon/heftruck aanwezig op de veiligheidsmat
+	Actief := 1,  // Mat wordt betreden en is actief
+	Error := 2   // Veiligheidsmat heeft een foutmelding
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
