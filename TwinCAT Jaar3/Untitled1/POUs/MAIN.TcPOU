@@ -9,7 +9,7 @@ VAR
 	
 	MotorSchuif : FB_Motorschuif;
 	
-	    TestClk : BOOL;      // testbool
+	TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
 	 
