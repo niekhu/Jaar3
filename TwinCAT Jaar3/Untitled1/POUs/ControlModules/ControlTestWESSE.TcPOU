@@ -10,13 +10,13 @@ END_VAR
 VAR
 	
 	setidle : BOOL;
-	GelezenCurrentStateDepalletizer : PackMLStates;
+	GelezenCurrentStateDepalletizer : E_PackMLStates;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF setidle = TRUE THEN
-	Depalletizer1.InputState := PackMLStates.Idle;
+	Depalletizer1.InputState := E_PackMLStates.Idle;
 END_IF
 
 GelezenCurrentStateDepalletizer := Depalletizer1.CurrentState;]]></ST>

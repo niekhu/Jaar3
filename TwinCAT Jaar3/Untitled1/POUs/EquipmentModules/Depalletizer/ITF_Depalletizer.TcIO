@@ -4,7 +4,7 @@
     <Declaration><![CDATA[INTERFACE ITF_Depalletizer
 ]]></Declaration>
     <Property Name="CurrentState" Id="{3df8bd90-28a4-4e1b-badb-9fbfef78ad54}">
-      <Declaration><![CDATA[PROPERTY CurrentState : PackMLStates]]></Declaration>
+      <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{71709c94-3100-4b9a-a053-51c9621eb587}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
@@ -13,7 +13,7 @@
       </Set>
     </Property>
     <Property Name="InputState" Id="{0f095122-c0dd-4f1b-9d2e-6ca70aa3e000}">
-      <Declaration><![CDATA[PROPERTY InputState : PackMLStates]]></Declaration>
+      <Declaration><![CDATA[PROPERTY InputState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{2339fa98-02c6-4c25-bd83-762560a26e02}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

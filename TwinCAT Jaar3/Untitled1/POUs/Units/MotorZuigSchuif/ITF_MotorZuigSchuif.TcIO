@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_MotorSchuif" Id="{f9748cdf-06f5-4267-9c6d-e50a2c3d724e}">
-    <Declaration><![CDATA[INTERFACE ITF_MotorSchuif
+  <Itf Name="ITF_MotorZuigSchuif" Id="{f9748cdf-06f5-4267-9c6d-e50a2c3d724e}">
+    <Declaration><![CDATA[INTERFACE ITF_MotorZuigSchuif
 ]]></Declaration>
     <Property Name="Status" Id="{f0a59b0b-852a-4a5c-ad39-ecc3f0017762}">
-      <Declaration><![CDATA[PROPERTY Status : E_MotorSchuifStatus]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Status : E_MotorZuigSchuifStatus]]></Declaration>
       <Get Name="Get" Id="{d595cb8c-9f7d-4041-8f43-d698461fb38e}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

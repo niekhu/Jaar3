@@ -3,11 +3,11 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	Depalletizer : FB_Depalletizer_1;
+	Depalletizer : FB_Depalletizer;
 	
 	Vacuumzuignap : FB_Vacuumzuignap;
 	
-	MotorSchuif : FB_Motorschuif;
+	MotorSchuif : FB_MotorZuigSchuif;
 	
 	Druksensor : FB_Druksensor;
 	//h
