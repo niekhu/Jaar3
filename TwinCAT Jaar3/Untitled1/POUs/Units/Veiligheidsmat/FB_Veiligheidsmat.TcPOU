@@ -17,7 +17,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[//test]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{bc488663-ca6a-41a1-be39-aa16b0415150}" />
     <Folder Name="Properties" Id="{fe9e0a64-ad33-4c7f-b05a-2c07f55e137f}" />
