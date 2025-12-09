@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Afstandssensor" Id="{72d78e64-2ca1-40bf-a72f-434aeebace35}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Afstandssensor IMPLEMENTS ITF_Afstandssensor
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	// Interne waarden
+	Afstand_Intern : LREAL;
+	Drempelwaarde_Intern : LREAL;
+	
+	Detectie_Intern : BOOL;
+	Status_Intern : E_AfstandssensorStatus;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{64d0ffcc-fbf0-4493-9adf-11821c75192c}" />
+    <Folder Name="Properties" Id="{55fd0682-a737-4488-9c0e-4e669ed9a091}" />
+    <Property Name="Afstand" Id="{3ecc7837-44c5-4438-ad48-9dbbd9fdfddd}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Afstand : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{096180e0-4b56-41a4-9b54-a7116699a87c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Afstand := Afstand_Intern;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d6b94a18-1709-4e84-bd0b-bef362741fdc}">
+        <Declaration><![CDATA[VAR
+	Waarde : LREAL;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Afstand_Intern := Waarde; ]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Detectie" Id="{a05856dd-e932-4ea4-a79e-b14c2d47b985}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Detectie : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{9d8828ce-fd1c-4e62-8d77-c8c2ea779023}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Detectie := Detectie_Intern; ]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Drempelwaarde" Id="{c5ccdce1-5ede-45f5-8fcd-0e7ac99fca36}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Drempelwaarde : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{e4a41439-4cdd-46a5-8b96-572e91f496df}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Drempelwaarde := Drempelwaarde_Intern; ]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2dc47b39-e5b4-49c0-bb1b-99b78de7d685}">
+        <Declaration><![CDATA[VAR
+	Waarde : LREAL;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Drempelwaarde_Intern := Waarde; ]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Status" Id="{dc749c30-2631-4802-ac58-41a05792b234}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : E_AfstandssensorStatus
+]]></Declaration>
+      <Get Name="Get" Id="{5aeacc10-aae3-4fe7-a989-8e248739e7bb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := Status_Intern; ]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{5deeb264-a5f9-4d49-9a81-a183613a6111}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Afstandssensor controleert op interne fouten
+IF Afstand_Intern < 0 THEN
+	Status_Intern := E_AfstandssensorStatus.Error;
+	Detectie_Intern := FALSE;
+	RETURN;
+END_IF
+
+// Afstandssensor controleert op drempelwaarde
+IF Afstand_Intern <= Drempelwaarde_Intern THEN
+	Detectie_Intern := TRUE; 
+	Status_Intern := E_AfstandssensorStatus.Detectie;
+ELSE
+	Detectie_Intern := FALSE; 
+	Status_Intern := E_AfstandssensorStatus.Normaal;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_LineaireactuatoruitschuifpinnenStatus" Id="{19f50059-dc18-4c94-b3d3-0a52fe1476a1}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_LineaireactuatoruitschuifpinnenStatus :
+(
+	Idle := 0,  // De lineaire actuator met uitschuif pinnen onderneemt geen actie en staat in rust
+	Uitschuiven, // De lineaire actuator is de pinnen aan het uitschuiven in de pallet
+	Inschuiven,  // De lineaire actuator is de pinnen aan het inschuiven uit de pallet terug naar zijn rustpositie
+	Uitgeschoven,  // De pinnen zijn volledig in de pallet geschoven
+	Ingeschoven,   // De pinnen zijn volledig uit de pallet terug in de rustpositie geschoven
+	Error         // Er heeft zich een fout opgetreden
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
