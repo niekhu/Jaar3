@@ -5,7 +5,7 @@
 VAR
 	Depalletizer : FB_Depalletizer;
 	Vacuumzuignap : FB_Vacuumzuignap;
-	MotorSchuif : FB_MotorZuigSchuif;
+	MotorZuigSchuif : FB_MotorZuigSchuif;
 	Druksensor : FB_Druksensor;
 	ControlWes : ControlTestWESSE;
 	Klep : FB_Klep;
@@ -37,19 +37,19 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Depalletizer.Schuif := MotorSchuif;
+      <ST><![CDATA[Depalletizer.MotorSchuif := MotorZuigSchuif;
+Depalletizer.MotorZuig := MotorZuigSchuif;
 Depalletizer.Zuignap1 := Vacuumzuignap;
 Depalletizer.Zuignap2 := Vacuumzuignap;
 Depalletizer.Zuignap3 := Vacuumzuignap;
 Depalletizer.Zuignap4 := Vacuumzuignap;
 Depalletizer.Druksensor1 := Druksensor;
-ControlWes.Depalletizer1 := Depalletizer;
-Depalletizer.KlepDepalletBegin := Klep;
+ControlWes.Depalletizer := Depalletizer;
 Depalletizer.KlepDepalletEind := Klep;
 
 Druksensor();
 Depalletizer();
-MotorSchuif();
+MotorZuigSchuif();
 Vacuumzuignap();
 ControlWes();
 Klep();

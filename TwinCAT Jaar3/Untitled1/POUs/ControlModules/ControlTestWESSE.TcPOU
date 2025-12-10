@@ -3,23 +3,35 @@
   <POU Name="ControlTestWESSE" Id="{354c57cc-84b3-4f8a-b977-849f64cddfa0}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE
 VAR_INPUT
-	Depalletizer1 : ITF_Depalletizer;
+	Depalletizer : ITF_Depalletizer;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
 	
 	setidle : BOOL;
+	setstarting : BOOL;
+	setexecute : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF setidle = TRUE THEN
-	Depalletizer1.InputState := E_PackMLStates.Idle;
+      <ST><![CDATA[
+IF setidle = TRUE THEN
+	Depalletizer.InputState := E_PackMLStates.Idle;
 END_IF
 
-GelezenCurrentStateDepalletizer := Depalletizer1.CurrentState;]]></ST>
+
+IF setstarting = TRUE THEN
+	Depalletizer.InputState := E_PackMLStates.Starting;
+END_IF
+
+IF setexecute = TRUE THEN
+	Depalletizer.InputState := E_PackMLStates.Execute;
+END_IF
+
+GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

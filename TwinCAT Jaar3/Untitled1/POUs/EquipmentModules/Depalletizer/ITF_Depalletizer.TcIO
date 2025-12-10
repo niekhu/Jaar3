@@ -12,6 +12,15 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="InputPalletVanafBufA" Id="{a3e52580-b643-4e05-9685-9307fc5fc5fb}">
+      <Declaration><![CDATA[PROPERTY InputPalletVanafBufA : BOOL]]></Declaration>
+      <Get Name="Get" Id="{421e8970-a2b7-49f1-959a-3cd8f1d53e21}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e7242e1d-85bf-475e-9a0e-6dc156669e82}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="InputState" Id="{0f095122-c0dd-4f1b-9d2e-6ca70aa3e000}">
       <Declaration><![CDATA[PROPERTY InputState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{2339fa98-02c6-4c25-bd83-762560a26e02}">
