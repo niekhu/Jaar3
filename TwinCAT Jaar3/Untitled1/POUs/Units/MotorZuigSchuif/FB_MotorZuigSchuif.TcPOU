@@ -54,11 +54,11 @@ END_IF
 IF StatusMotorSchuif <> E_MotorZuigSchuifStatus.GoToKort AND							//Controle of sturing kort niet al eerder is geweest
    StatusMotorSchuif <> E_MotorZuigSchuifStatus.Kort THEN	
    StatusMotorSchuif := E_MotorZuigSchuifStatus.GoToKort;
-    timerKort(IN := TRUE, PT := T#5S);
+    timerKort(IN := TRUE, PT := T#0S);
 END_IF
 
 IF StatusMotorSchuif = E_MotorZuigSchuifStatus.GoToKort THEN							//Als het de eerste sturing kort is (GoToKort), wordt deze 5 seconde aangehouden en dan status kort
-    timerKort(IN := TRUE, PT := T#5S);
+    timerKort(IN := TRUE, PT := T#0S);
 
     IF timerKort.Q THEN
         StatusMotorSchuif := E_MotorZuigSchuifStatus.Kort;
@@ -85,11 +85,11 @@ END_IF
 IF StatusMotorSchuif <> E_MotorZuigSchuifStatus.GoToLang AND							//Controle of sturing kort niet al eerder is geweest
    StatusMotorSchuif <> E_MotorZuigSchuifStatus.Lang THEN
    StatusMotorSchuif := E_MotorZuigSchuifStatus.GoToLang;
-    timerKort(IN := TRUE, PT := T#5S);
+    timerKort(IN := TRUE, PT := T#0S);
 END_IF
 
 IF StatusMotorSchuif = E_MotorZuigSchuifStatus.GoToLang THEN							//Als het de eerste sturing lang is (GoToLang), wordt deze 5 seconde aangehouden en dan status lang
-    timerKort(IN := TRUE, PT := T#5S);
+    timerKort(IN := TRUE, PT := T#0S);
 
     IF timerKort.Q THEN
         StatusMotorSchuif := E_MotorZuigSchuifStatus.Lang;

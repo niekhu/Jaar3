@@ -13,6 +13,7 @@ VAR
 	setstarting : BOOL;
 	setexecute : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
+	//AlleAlarmen : ARRAY [1..20] OF ST_AlarmenDepalletizer;
 	
 END_VAR
 ]]></Declaration>
@@ -31,7 +32,11 @@ IF setexecute = TRUE THEN
 	Depalletizer.InputState := E_PackMLStates.Execute;
 END_IF
 
-GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;]]></ST>
+GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
+
+//IF Depalletizer.AlarmenDepallet[1] THEN
+//	setidle := TRUE;
+//END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

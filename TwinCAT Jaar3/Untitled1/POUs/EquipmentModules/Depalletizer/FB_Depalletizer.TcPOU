@@ -24,6 +24,9 @@ VAR
 	CurrentStateDep : E_PackMLStates;
 	//eind var
 	
+	//Alarmen binnenhalen en opslaan
+	//Alarmen : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+	
 	//voor method starting
 	StartingPositiesOk : BOOL;
 	StartingSensorOk : BOOL;
@@ -38,7 +41,7 @@ VAR
 	AantalLagenBlikjesTotaal : INT := 3;
 	AantalLagenVerwijderd : INT;
 	Step : INT;
-	//vanaf hier tijdelijke var
+	//vanaf hier tijdelijke var door missende units
 	RolbandAanUit : BOOL;
 	LichtsensorDetectYesNo : BOOL;
 	PinnenUitYesNo :BOOL;
@@ -59,6 +62,7 @@ VAR
 	GelezenDruk : REAL;
 	GelezenStatusDruksensor : E_DruksensorStatus;
 	// eind var
+	Active: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -70,17 +74,11 @@ END_VAR
     E_PackMLStates.Starting:
         Starting();
 
-    E_PackMLStates.Execute:
-        Execute();
-
     E_PackMLStates.Resetting:
         Resetting();
 
     E_PackMLStates.Holding:
         Holding();
-
-    E_PackMLStates.Held:
-        Held();
 
     E_PackMLStates.Unholding:
         Unholding();
@@ -88,30 +86,21 @@ END_VAR
     E_PackMLStates.Suspending:
         Suspending();
 
-    E_PackMLStates.Suspended:
-        Suspended();
-
     E_PackMLStates.Unsuspending:
         Unsuspending();
 
     E_PackMLStates.Stopping:
         Stopping();
 
-    E_PackMLStates.Stopped:
-        Stopped();
-
     E_PackMLStates.Aborting:
         Aborting();
-
-    E_PackMLStates.Aborted:
-        Aborted();
 
     E_PackMLStates.Clearing:
         Clearing();
 
 END_CASE
 
-
+//Alarmen[1].Active := TRUE;
 
 
 
@@ -166,6 +155,26 @@ END_VAR
         <ST><![CDATA[]]></ST>
       </Implementation>
     </Method>
+    <Property Name="AlarmenDepallet" Id="{42935b8e-377b-470c-ab11-71e67ce28088}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ST_AlarmenDepalletizer]]></Declaration>
+      <Get Name="Get" Id="{022fe51e-576e-4aa5-9b7f-a184868bb8a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[//AlarmenDepallet : REFERENCE TO ARRAY[1..20] OF ST_AlarmenDepalletizer;
+//AlarmenDepallet REF= Alarmen;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2b101bbc-f482-4dc4-8809-b0129b12dcc8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Clearing" Id="{a7e21cb3-b81b-4227-8a32-6a19ec30fdab}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Clearing : BOOL
 VAR_INPUT
@@ -200,7 +209,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE Step OF
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Execute;
+CASE Step OF
 
 
 // Wachten tot een pallet binnenkomt
@@ -210,7 +220,9 @@ END_VAR
         RolbandAanUit := TRUE;
         Step := 10;
     END_IF
-
+	IF NOT InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN
+		Suspending();
+	END_IF
 
 
 // Lichtsensor ziet pallet
@@ -369,6 +381,8 @@ END_VAR
             DepalletPalletBinnen := FALSE;
             Step := 0;     // terug naar stap 1 voor nieuwe palletinvoer in depalletizer
         END_IF
+		ELSE
+			Suspending();
     END_IF
 
 
@@ -385,7 +399,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Held;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Holding" Id="{9ee0f93f-9ee6-40ae-91af-7b218154d752}" FolderPath="Methods\">
@@ -394,7 +408,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Holding;
+
+LiftbewegingYesNo := FALSE; 		//sturing om tot Held te komen
+RolbandAanUit := FALSE;
+
+IF LiftbewegingYesNo = FALSE AND RolbandAanUit = FALSE AND (MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort OR MotorSchuif.Status = E_MotorZuigSchuifStatus.Lang)
+	AND (MotorZuig.Status = E_MotorZuigSchuifStatus.Kort OR MotorZuig.Status = E_MotorZuigSchuifStatus.Lang) THEN //evt nog check pinnen stil
+	Held();
+END_IF
+
+
+// de IF is checken of status Held is bereikt]]></ST>
       </Implementation>
     </Method>
     <Method Name="Idle" Id="{53c5baf1-bd08-4e97-999e-1b6af5cbd2b8}" FolderPath="Methods\">
@@ -457,7 +482,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Resetting;
+
+Step := 0;
+AantalLagenVerwijderd := 0;
+TimerExtra(IN := FALSE);
+DepalletPalletBinnen := FALSE;
+
+Idle();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Starting" Id="{0c8238a0-26f8-4256-bb0d-748493f97bd5}" FolderPath="Methods\">
@@ -499,8 +531,8 @@ END_IF
 
 
 
-IF StartingPositiesOk = TRUE AND StartingSensorOk = TRUE THEN
-	CurrentStateDep := E_PackMLStates.Execute;					//startcriteria goed? state verandert naar execute
+IF StartingPositiesOk = TRUE AND StartingSensorOk = TRUE THEN					//startcriteria goed? state verandert naar execute
+	Execute();
 	StartingPositiesOk := FALSE;
 	StartingSensorOk := FALSE;
 END_IF]]></ST>
@@ -512,7 +544,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Stopped;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{c84b4a38-09b8-40eb-889d-b8cb17a1f62f}" FolderPath="Methods\">
@@ -521,7 +553,30 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Stopping;
+
+//mechanische rem erop
+
+LiftBewegingYesNo := TRUE; //lift naar beneden
+RolbandAanUit := FALSE;
+MotorSchuif.SturingKort();
+MotorZuig.SturingKort();
+Zuignap1.Loslaten();
+Zuignap2.Loslaten();
+Zuignap3.Loslaten();
+Zuignap4.Loslaten();
+
+
+
+IF EindLiftBeneden = TRUE AND MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND MotorZuig.Status = E_MotorZuigSchuifStatus.Kort
+	AND Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten 
+ 	AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten THEN
+	
+	PinnenUitYesNo := FALSE;
+	Stopped();
+END_IF
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspended" Id="{10bd4b16-4905-4f00-a760-dfd80c61558a}" FolderPath="Methods\">
@@ -530,7 +585,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Suspended;
+
+IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN	
+	Unsuspending();
+END_IF
+
+IF DepalletPalletBinnen AND NOT InputPalletBijUitgang THEN
+	Unsuspending();
+END_IF
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspending" Id="{6449bf5c-880a-49ff-a3c3-47582521d253}" FolderPath="Methods\">
@@ -539,7 +604,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Suspending;		// machine staat nu al stil anders kan hij hier niet komen vanuit execute
+
+Suspended();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unholding" Id="{cdd257db-9d5b-420e-8b45-aa519fc7f0c5}" FolderPath="Methods\">
@@ -548,7 +615,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Unholding;
+
+Execute();
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unsuspending" Id="{d115c6be-b751-498a-bb2d-3f6dd5c17c4d}" FolderPath="Methods\">
@@ -557,7 +627,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Unsuspending;
+Execute();]]></ST>
       </Implementation>
     </Method>
   </POU>

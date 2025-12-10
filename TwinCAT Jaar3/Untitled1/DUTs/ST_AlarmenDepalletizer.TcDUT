@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_AlarmenDepalletizer" Id="{98146235-5f66-4aa4-851b-b95e9e119467}">
+    <Declaration><![CDATA[TYPE ST_AlarmenDepalletizer :
+STRUCT
+	Id :UDINT;
+	Active : BOOL;
+	Text : STRING(80);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

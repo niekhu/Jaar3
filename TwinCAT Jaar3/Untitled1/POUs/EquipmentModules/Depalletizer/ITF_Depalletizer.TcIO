@@ -3,6 +3,15 @@
   <Itf Name="ITF_Depalletizer" Id="{0b9ef6af-79cc-43ca-9f1c-72e1791c0110}">
     <Declaration><![CDATA[INTERFACE ITF_Depalletizer
 ]]></Declaration>
+    <Property Name="AlarmenDepallet" Id="{de7bd80d-5d4d-4f29-9559-9de2cdb8ced4}">
+      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ST_AlarmenDepalletizer]]></Declaration>
+      <Get Name="Get" Id="{e3888760-7d7e-47c6-90bb-af59d1c53b79}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{592b2f67-b6c2-475d-9325-bbeed25d2897}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="CurrentState" Id="{3df8bd90-28a4-4e1b-badb-9fbfef78ad54}">
       <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{71709c94-3100-4b9a-a053-51c9621eb587}">
