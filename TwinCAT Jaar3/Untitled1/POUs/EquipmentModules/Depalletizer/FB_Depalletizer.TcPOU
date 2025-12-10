@@ -9,7 +9,8 @@ VAR_INPUT
 	Zuignap3 : ITF_Vacuumzuignap;
 	Zuignap4 : ITF_Vacuumzuignap;
 	Druksensor1 : ITF_Druksensor;
-	KlepDepallet : ITF_UnitKlep;
+	KlepDepalletBegin : ITF_UnitKlep;
+	KlepDepalletEind : ITF_UnitKlep;
 
 END_VAR
 VAR_OUTPUT
@@ -196,6 +197,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStateDep := E_PackMLStates.Idle;
 
+// De machine is aangezet, in deze state kunnen de errors worden gecontroleerd zonder dat de machine in beweging komt
+
 
 
 
@@ -241,8 +244,9 @@ END_VAR
 IF  Schuif.Status = E_MotorZuigSchuifStatus.Kort AND Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
 	Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
 	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND DrukSensor1.Status = E_DruksensorStatus.SensorInputOk AND 
-	KlepDepallet.Status = FALSE  THEN //vergeet de andere voorwaarden niet !!!!!
-	
+	KlepDepalletBegin.Status = TRUE  THEN // (1) check of lift beneden is (servo) (2) check of afstandssensor input ok is (3) check of lichtsensor input ok is
+											// (4) check of pinnen ingetrokken zijn
+											
 	CurrentStateDep := E_PackMLStates.Idle;
 	ELSE
 		Schuif.SturingKort();
@@ -250,7 +254,10 @@ IF  Schuif.Status = E_MotorZuigSchuifStatus.Kort AND Zuignap1.Status = E_Vacuumz
 		Zuignap2.Loslaten();
 		Zuignap3.Loslaten();
 		Zuignap4.Loslaten();
-		KlepDepallet.SturingOpen(FALSE); 
+		KlepDepalletBegin.SturingOpen(TRUE);
+		KlepDepalletEind.SturingOpen(TRUE);
+ 
+		// (1) stuur lift omlaag (servo) (2) stuur pinnen naar ingetrokken positie 
 END_IF
 
 

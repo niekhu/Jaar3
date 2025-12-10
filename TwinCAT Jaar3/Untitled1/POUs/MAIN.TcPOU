@@ -4,18 +4,15 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	Depalletizer : FB_Depalletizer;
-	
 	Vacuumzuignap : FB_Vacuumzuignap;
-	
 	MotorSchuif : FB_MotorZuigSchuif;
-	
 	Druksensor : FB_Druksensor;
-	//h
-	
 	ControlWes : ControlTestWESSE;
-	
 	Klep : FB_Klep;
 	
+	
+	
+	//hieronder meuk van Niek
 	    TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
@@ -47,7 +44,8 @@ Depalletizer.Zuignap3 := Vacuumzuignap;
 Depalletizer.Zuignap4 := Vacuumzuignap;
 Depalletizer.Druksensor1 := Druksensor;
 ControlWes.Depalletizer1 := Depalletizer;
-Depalletizer.KlepDepallet := Klep;
+Depalletizer.KlepDepalletBegin := Klep;
+Depalletizer.KlepDepalletEind := Klep;
 
 Druksensor();
 Depalletizer();
@@ -56,6 +54,8 @@ Vacuumzuignap();
 ControlWes();
 Klep();
 
+
+// hieronder nog meer meuk van Niek
 BufferA(
     klep   := Klep1,   // interface van de unit doorgeven
     i_bClk := TestClk  // command van boven (bijv. via HMI)
