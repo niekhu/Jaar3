@@ -11,6 +11,7 @@ VAR
 	GemetenDruk : REAL;
 	BarPerMa : REAL := 0.375;			//1ma gemeten staat gelijk aan 0,375 bar (specs sensor)
 	StatusDruksensor : E_DruksensorStatus := E_DruksensorStatus.SensorInputOk;
+	AlarmRecord : ST_AlarmenDepalletizer;
 	
 END_VAR
 ]]></Declaration>
@@ -66,7 +67,19 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[StatusDruksensor := Status;
+
+(*IF Status = E_DruksensorStatus.SensorInputError THEN
+	AlarmRecord.Source := 'DrukSensorError';
+	AlarmRecord.Text := 'InputBuitenRange';
+	AlarmRecord.Timestamp := ULINT_TO_DT (F_GetSystemTime());
+	AlarmRecord.Active := TRUE;
+	ELSE
+		AlarmRecord.Active := FALSE;
+	END_IF
+	*)
+	
+]]></ST>
         </Implementation>
       </Set>
     </Property>

@@ -3,9 +3,10 @@
   <DUT Name="ST_AlarmenDepalletizer" Id="{98146235-5f66-4aa4-851b-b95e9e119467}">
     <Declaration><![CDATA[TYPE ST_AlarmenDepalletizer :
 STRUCT
-	Id :UDINT;
-	Active : BOOL;
+	Source : STRING(30);
+	Timestamp : TIMESTRUCT;
 	Text : STRING(80);
+	Active : BOOL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

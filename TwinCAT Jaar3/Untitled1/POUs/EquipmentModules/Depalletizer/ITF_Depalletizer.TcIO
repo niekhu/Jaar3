@@ -4,7 +4,7 @@
     <Declaration><![CDATA[INTERFACE ITF_Depalletizer
 ]]></Declaration>
     <Property Name="AlarmenDepallet" Id="{de7bd80d-5d4d-4f29-9559-9de2cdb8ced4}">
-      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ST_AlarmenDepalletizer]]></Declaration>
+      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
       <Get Name="Get" Id="{e3888760-7d7e-47c6-90bb-af59d1c53b79}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

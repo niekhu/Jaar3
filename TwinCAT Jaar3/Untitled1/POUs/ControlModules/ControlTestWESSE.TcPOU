@@ -14,6 +14,7 @@ VAR
 	setexecute : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
 	//AlleAlarmen : ARRAY [1..20] OF ST_AlarmenDepalletizer;
+	GelezenAlarmenDepalletizer : ARRAY[1..20] OF ST_AlarmenDepalletizer;
 	
 END_VAR
 ]]></Declaration>
@@ -36,7 +37,9 @@ GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
 
 //IF Depalletizer.AlarmenDepallet[1] THEN
 //	setidle := TRUE;
-//END_IF]]></ST>
+//END_IF
+
+GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

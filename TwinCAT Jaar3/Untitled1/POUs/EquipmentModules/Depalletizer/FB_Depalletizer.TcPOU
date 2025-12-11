@@ -25,7 +25,14 @@ VAR
 	//eind var
 	
 	//Alarmen binnenhalen en opslaan
-	//Alarmen : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+	Alarmrecord : ST_AlarmenDepalletizer;
+	Alarmen : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+	AlarmDruksensor : E_DruksensorStatus;
+	i : INT;
+	AlarmDruksensor1Bestaat : BOOL;
+	AlarmMotorSchuifBestaat : BOOL;
+	AlarmMotorZuigBestaat : BOOL;
+	fbLocalTime : FB_LocalSystemTime;
 	
 	//voor method starting
 	StartingPositiesOk : BOOL;
@@ -66,7 +73,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE InputStateDep OF							//switchcase die de method uitvoert die hoort bij de ontvangen Packmlstate
+      <ST><![CDATA[fbLocalTime();									//Huidige tijd bijhouden
+CASE InputStateDep OF							//switchcase die de method uitvoert die hoort bij de ontvangen Packmlstate
 
     E_PackMLStates.Idle:
         Idle();
@@ -100,14 +108,95 @@ END_VAR
 
 END_CASE
 
-//Alarmen[1].Active := TRUE;
+
+// Vanaf hier controleren van errors van control modules en in property verwerken
+
+IF Druksensor1.Status = E_DruksensorStatus.SensorInputError THEN
+    // Alarm voor het eerst
+	IF NOT AlarmDruksensor1Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Druksensor1Error';
+            Alarmen[i].Text := 'InputBuitenRange';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmDruksensor1Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Druksensor1Error' AND
+           Alarmen[i].Text = 'InputBuitenRange' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmDruksensor1Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+
+IF MotorZuig.Status = E_MotorZuigSchuifStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmMotorZuigBestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'MotorZuigError';
+            Alarmen[i].Text := 'InternetFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmMotorZuigBestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'MotorZuigError' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmMotorZuigBestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
 
 
 
+IF MotorSchuif.Status = E_MotorZuigSchuifStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmMotorSchuifBestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'MotorSchuifError';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmMotorSchuifBestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
 
-
-
-
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'MotorSchuifError' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmMotorSchuifBestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
 
 
 
@@ -156,14 +245,13 @@ END_VAR
       </Implementation>
     </Method>
     <Property Name="AlarmenDepallet" Id="{42935b8e-377b-470c-ab11-71e67ce28088}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ST_AlarmenDepalletizer]]></Declaration>
+      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
       <Get Name="Get" Id="{022fe51e-576e-4aa5-9b7f-a184868bb8a3}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[//AlarmenDepallet : REFERENCE TO ARRAY[1..20] OF ST_AlarmenDepalletizer;
-//AlarmenDepallet REF= Alarmen;]]></ST>
+          <ST><![CDATA[AlarmenDepallet := Alarmen;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{2b101bbc-f482-4dc4-8809-b0129b12dcc8}">
