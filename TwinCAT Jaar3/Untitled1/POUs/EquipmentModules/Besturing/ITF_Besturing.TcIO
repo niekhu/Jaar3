@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Besturing" Id="{072e86cc-15e6-4292-8cc8-b0178657f8fb}">
+    <Declaration><![CDATA[INTERFACE ITF_Besturing
+]]></Declaration>
+    <Property Name="DrukknoppenStatus" Id="{95740547-2bfb-40a6-91a4-baacf81d8f94}">
+      <Declaration><![CDATA[PROPERTY DrukknoppenStatus : E_DrukknoppenStatus]]></Declaration>
+      <Get Name="Get" Id="{06b79b55-c96f-43bf-8c2d-3d7ea6c712a0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{3635690d-4267-4ac3-9da1-aacde113b4f0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="StatusLampGeel" Id="{64454c57-e5d5-4258-a600-891dc96cfe99}">
+      <Declaration><![CDATA[METHOD StatusLampGeel : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="StatusLampGroen" Id="{c0ea9d81-8b2e-4585-af36-4474a77d4bd9}">
+      <Declaration><![CDATA[METHOD StatusLampGroen : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="StatusLampRood" Id="{046212a6-9344-4cd1-a6f8-169a0b0beb1f}">
+      <Declaration><![CDATA[METHOD StatusLampRood : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

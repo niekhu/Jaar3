@@ -13,8 +13,6 @@ VAR_INPUT
 	KlepDepalletEind : ITF_UnitKlep;
 	
 	//Iterfaces van missende units komen nog hier
-
-
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -33,6 +31,7 @@ VAR
 	AlarmMotorSchuifBestaat : BOOL;
 	AlarmMotorZuigBestaat : BOOL;
 	fbLocalTime : FB_LocalSystemTime;
+	//eind var
 	
 	//voor method starting
 	StartingPositiesOk : BOOL;

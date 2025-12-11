@@ -12,7 +12,7 @@ END_VAR
     <Folder Name="Methods" Id="{527a53a8-8344-44f7-b6a0-d8a2c813bcf8}" />
     <Folder Name="Properties" Id="{846eab06-e27a-4433-9703-e167098b28d9}" />
     <Property Name="Pressed" Id="{eb8c14eb-5ca8-4537-8184-62ed2a9337a8}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY PUBLIC Pressed : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Pressed : BOOL]]></Declaration>
       <Get Name="Get" Id="{40c51f60-fc71-45fa-9ac0-e4cc71770d2d}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -31,7 +31,7 @@ END_VAR
       </Set>
     </Property>
     <Method Name="Update" Id="{e32bba49-123e-48c9-aeff-55c8609acc74}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD PUBLIC Update
+      <Declaration><![CDATA[METHOD Update
 VAR_INPUT
     iPressed : BOOL;
 END_VAR

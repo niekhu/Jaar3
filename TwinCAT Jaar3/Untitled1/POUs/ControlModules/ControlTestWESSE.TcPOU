@@ -4,17 +4,18 @@
     <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE
 VAR_INPUT
 	Depalletizer : ITF_Depalletizer;
+	Besturing : ITF_Besturing;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	
+	Joehoe : BOOL;
 	setidle : BOOL;
 	setstarting : BOOL;
 	setexecute : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
-	//AlleAlarmen : ARRAY [1..20] OF ST_AlarmenDepalletizer;
 	GelezenAlarmenDepalletizer : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+	GelezenStatusBesturing : E_DrukknoppenStatus;
 	
 END_VAR
 ]]></Declaration>
@@ -34,12 +35,16 @@ IF setexecute = TRUE THEN
 END_IF
 
 GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
+GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
 
-//IF Depalletizer.AlarmenDepallet[1] THEN
-//	setidle := TRUE;
-//END_IF
 
-GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;]]></ST>
+IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
+	Joehoe := TRUE;
+	Besturing.StatusLampRood();
+END_IF
+
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

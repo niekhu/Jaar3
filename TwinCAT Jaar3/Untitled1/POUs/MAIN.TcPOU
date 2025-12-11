@@ -8,7 +8,10 @@ VAR
 	Zuignap2 : FB_Vacuumzuignap;
 	Zuignap3 : FB_Vacuumzuignap;
 	Zuignap4 : FB_Vacuumzuignap;
-	
+	Besturing : FB_Besturing;
+	StartKnop : FB_DrukKnop;
+	StopKnop : FB_DrukKnop;
+	ResetKnop : FB_DrukKnop;
 	
 	
 	MotorZuig : FB_MotorZuigSchuif;
@@ -19,7 +22,7 @@ VAR
 	
 	
 	
-	//hieronder meuk van Niek
+	(*//hieronder meuk van Niek
 	    TestClk : BOOL;      // testbool
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
@@ -40,32 +43,58 @@ VAR
     // Units – eindschakelaars
     LS_Lift  : FB_LimitSwitch;
     LS_Schuif : FB_LimitSwitch;
-    LS_Zuig : FB_LimitSwitch;
+    LS_Zuig : FB_LimitSwitch; *)
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Depalletizer.MotorSchuif := MotorSchuif;
+      <ST><![CDATA[//Koppelingen
+Depalletizer.MotorSchuif := MotorSchuif;
 Depalletizer.MotorZuig := MotorZuig;
 Depalletizer.Zuignap1 := Zuignap1;
 Depalletizer.Zuignap2 := Zuignap2;
 Depalletizer.Zuignap3 := Zuignap3;
 Depalletizer.Zuignap4 := Zuignap4;
 Depalletizer.Druksensor1 := Druksensor;
-ControlWes.Depalletizer := Depalletizer;
 Depalletizer.KlepDepalletEind := Klep;
 
+Besturing.StartKnop := StartKnop;
+Besturing.StopKnop := StopKnop;
+Besturing.ResetKnop := ResetKnop;
+
+ControlWES.Besturing := Besturing;
+ControlWes.Depalletizer := Depalletizer;
+
+
+
+// knoppen
+StartKnop();
+StopKnop();
+ResetKnop();
+
+//besturing
+Besturing();
+
+//sensoren actuatoren
 Druksensor();
-Depalletizer();
 MotorSchuif();
 MotorZuig();
 Zuignap1();
 Zuignap2();
 Zuignap3();
 Zuignap4();
-ControlWes();
 Klep();
 
+//Equipements
+Depalletizer();
 
+//unit modules
+ControlWes();
+
+
+
+
+
+(*
 // hieronder nog meer meuk van Niek
 BufferA(
     klep   := Klep1,   // interface van de unit doorgeven
@@ -80,7 +109,7 @@ ResetKnop.Update(TestReset);
 LS_Lift.Update(TestLift);
 LS_Schuif.Update(TestSchuif);
 LS_Zuig.Update(TestZuig);
-]]></ST>
+*)]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
