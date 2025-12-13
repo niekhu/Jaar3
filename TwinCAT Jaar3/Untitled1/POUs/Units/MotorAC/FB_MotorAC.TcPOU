@@ -10,7 +10,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	_VerwachteRichting : BOOL; // vooruit = TRUE, achteruit = FALSE
-	_CMDVerwachteSnelheid : INT; 
+	_VerwachteSnelheid : INT; 
 	_Enable : BOOL; // Enabled = TRUE, Disabled = FALSE
 END_VAR
 ]]></Declaration>
@@ -58,7 +58,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Enable := FALSE;
-_CMDVerwachteSnelheid := 0;]]></ST>
+_VerwachteSnelheid := 0;]]></ST>
       </Implementation>
     </Method>
     <Property Name="VerwachteRichting" Id="{35ebe6a3-e218-48c8-8959-80565001b6b2}" FolderPath="Properties\">
