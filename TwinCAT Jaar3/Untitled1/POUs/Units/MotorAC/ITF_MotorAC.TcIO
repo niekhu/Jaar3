@@ -3,5 +3,49 @@
   <Itf Name="ITF_MotorAC" Id="{a1590eee-0a9b-4350-b4f7-bca020d4da66}">
     <Declaration><![CDATA[INTERFACE ITF_MotorAC
 ]]></Declaration>
+    <Folder Name="Methods" Id="{6c4313ea-c223-44e2-a123-fe641aef32ae}" />
+    <Folder Name="Properties" Id="{46ee2512-44b9-4aa8-a20c-f5c68fd899c8}" />
+    <Property Name="ActueleRichting" Id="{169f6b1b-61b4-4bae-ae38-cc56181c2a5c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueleRichting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{65461c53-e852-4812-8860-5502252d27be}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ActueleSnelheid" Id="{4b9efd25-4da2-4e5c-aeff-fadb5024924f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueleSnelheid : INT]]></Declaration>
+      <Get Name="Get" Id="{fd51906d-c2f7-47dc-aa86-3646d9d22a5f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Start" Id="{53e5d4bc-8003-4b12-990a-77aa5c6d1805}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Start
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Stop" Id="{3e77f21f-c2e1-4da8-a3b1-093131879548}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Stop
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="VerwachteRichting" Id="{f68e5e9d-0d3d-4e41-b3de-2ea6cd474c03}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachteRichting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{605935fd-9494-43c8-bb84-60cdd7bcc2d9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0b8eb32e-d1ff-420f-ac46-b155939580fa}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="VerwachteSnelheid" Id="{0d60bd98-80c4-4c77-8633-feec4e3b18ca}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachteSnelheid : INT]]></Declaration>
+      <Get Name="Get" Id="{89fd4735-78f9-40e5-9a6b-2b54556e1592}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{5d69cd5e-0769-4dcd-9a02-f251e62d2c1d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
   </Itf>
 </TcPlcObject>
