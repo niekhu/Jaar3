@@ -6,9 +6,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//jojowesse
-//test
-//PSV is de beste]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

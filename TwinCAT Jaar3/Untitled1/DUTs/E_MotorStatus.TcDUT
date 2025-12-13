@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_MotorStatus" Id="{cf7ab77a-3bd1-4b1b-aad6-5d205b791bcf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_MotorStatus :
+(
+	Starting,
+	Running,
+	Stopping,
+	Stopped,
+	Error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

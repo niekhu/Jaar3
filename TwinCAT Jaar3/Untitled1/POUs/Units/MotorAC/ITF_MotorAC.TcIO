@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MotorAC" Id="{a1590eee-0a9b-4350-b4f7-bca020d4da66}">
+    <Declaration><![CDATA[INTERFACE ITF_MotorAC
+]]></Declaration>
+  </Itf>
+</TcPlcObject>
