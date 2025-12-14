@@ -3,10 +3,10 @@
   <POU Name="FB_MechanischeRem" Id="{a95313e9-8353-41b9-9524-3682045c57d4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MechanischeRem IMPLEMENTS ITF_MechanischeRem
 VAR_INPUT
-	I_ActueleRemStand : BOOL; // REMVAST = TRUE, REMLOS = FALSE
+	I_ActueleRemVast : BOOL; // REMVAST = TRUE, REMLOS = FALSE
 END_VAR
 VAR
-	_VerwachteRemStand : BOOL; // REMVAST = TRUE, REMLOS = FALSE
+	_VerwachteRemVast : BOOL; // REMVAST = TRUE, REMLOS = FALSE
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -14,39 +14,39 @@ END_VAR
     </Implementation>
     <Folder Name="Methods" Id="{d3c9dd18-3ee7-4d67-bb03-04ce004658f5}" />
     <Folder Name="Properties" Id="{2d6c1211-a3ad-44dd-af64-8961eba34172}" />
-    <Property Name="ActueleRemStand" Id="{83d89fad-da75-4d1b-8f76-1c6e481cc53e}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ActueleRemStand : BOOL]]></Declaration>
+    <Property Name="ActueleRemVast" Id="{83d89fad-da75-4d1b-8f76-1c6e481cc53e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueleRemVast : BOOL]]></Declaration>
       <Get Name="Get" Id="{f91cfde1-4bd1-4e64-b4db-940368df01dc}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[ActueleRemStand := I_ActueleRemStand;]]></ST>
+          <ST><![CDATA[ActueleRemVast := I_ActueleRemVast;]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Method Name="RemLos" Id="{4d9d1843-bd9c-4fe2-b61b-9e062f203bda}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD RemLos]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_VerwachteRemStand := FALSE;]]></ST>
+        <ST><![CDATA[_VerwachteRemVast := FALSE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="RemVast" Id="{3f0e302f-bbc4-4de2-9294-14db01068698}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD RemVast]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_VerwachteRemStand := TRUE;]]></ST>
+        <ST><![CDATA[_VerwachteRemVast := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="VerwachteRemStand" Id="{8c50c140-155c-42ce-8c81-efb74635734c}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY VerwachteRemStand : BOOL]]></Declaration>
+    <Property Name="VerwachteRemVast" Id="{8c50c140-155c-42ce-8c81-efb74635734c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachteRemVast : BOOL]]></Declaration>
       <Get Name="Get" Id="{ec9f3b2a-98ec-4990-ba21-94cd87f45c29}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[VerwachteRemStand := _VerwachteRemStand;]]></ST>
+          <ST><![CDATA[VerwachteRemVast := _VerwachteRemVast;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{2e3268d7-2ea5-44bd-80d9-7a4fab02c676}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_VerwachteRemStand := VerwachteRemStand;]]></ST>
+          <ST><![CDATA[_VerwachteRemVast := VerwachteRemVast;]]></ST>
         </Implementation>
       </Set>
     </Property>

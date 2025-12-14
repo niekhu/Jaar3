@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LichtSensor" Id="{4acd6b32-ce38-4d71-a731-7151b9a1b3e4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LichtSensor IMPLEMENTS ITF_LichtSensor
+VAR_INPUT
+	I_Geblokkeerd : BOOL; // GEBLOKKEERD = TRUE, ONGEBLOKKEERD = FALSE
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Geblokkeerd" Id="{cc464c96-7e62-4f64-87f1-bd774e597ad1}">
+      <Declaration><![CDATA[{warning 'Add property implementation'}
+PROPERTY Geblokkeerd : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{7d89309e-81d0-44e1-b4b9-8fc29ab22bf4}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Geblokkeerd := I_Geblokkeerd;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

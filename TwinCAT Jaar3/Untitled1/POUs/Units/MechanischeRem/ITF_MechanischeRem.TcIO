@@ -5,8 +5,8 @@
 ]]></Declaration>
     <Folder Name="Methods" Id="{17035f7d-6cfb-4ea6-a1b0-54d87b4cb342}" />
     <Folder Name="Properties" Id="{76cdae90-1f72-4916-b040-1b60d4fd2242}" />
-    <Property Name="ActueleRemStand" Id="{5cf25cdf-dc7d-496c-9269-62220177bb71}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ActueleRemStand : BOOL]]></Declaration>
+    <Property Name="ActueleRemVast" Id="{5cf25cdf-dc7d-496c-9269-62220177bb71}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueleRemVast : BOOL]]></Declaration>
       <Get Name="Get" Id="{f53046ea-8b62-414b-a7a5-d7aa3fac9cdd}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
@@ -20,8 +20,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="VerwachteRemStand" Id="{61cd89cd-32c1-401f-8f8e-d9d3ae767082}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY VerwachteRemStand : BOOL]]></Declaration>
+    <Property Name="VerwachteRemVast" Id="{61cd89cd-32c1-401f-8f8e-d9d3ae767082}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachteRemVast : BOOL]]></Declaration>
       <Get Name="Get" Id="{256e4e51-fdc5-47db-b94c-1c3fe58d28e0}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

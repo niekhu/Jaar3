@@ -5,8 +5,8 @@
 ]]></Declaration>
     <Folder Name="Methods" Id="{6c4313ea-c223-44e2-a123-fe641aef32ae}" />
     <Folder Name="Properties" Id="{46ee2512-44b9-4aa8-a20c-f5c68fd899c8}" />
-    <Property Name="ActueleRichting" Id="{169f6b1b-61b4-4bae-ae38-cc56181c2a5c}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ActueleRichting : BOOL]]></Declaration>
+    <Property Name="ActueelVooruit" Id="{169f6b1b-61b4-4bae-ae38-cc56181c2a5c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueelVooruit : BOOL]]></Declaration>
       <Get Name="Get" Id="{65461c53-e852-4812-8860-5502252d27be}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
@@ -29,21 +29,21 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="VerwachteRichting" Id="{f68e5e9d-0d3d-4e41-b3de-2ea6cd474c03}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY VerwachteRichting : BOOL]]></Declaration>
-      <Get Name="Get" Id="{605935fd-9494-43c8-bb84-60cdd7bcc2d9}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{0b8eb32e-d1ff-420f-ac46-b155939580fa}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
-    </Property>
     <Property Name="VerwachteSnelheid" Id="{0d60bd98-80c4-4c77-8633-feec4e3b18ca}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY VerwachteSnelheid : INT]]></Declaration>
       <Get Name="Get" Id="{89fd4735-78f9-40e5-9a6b-2b54556e1592}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{5d69cd5e-0769-4dcd-9a02-f251e62d2c1d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="VerwachtVooruit" Id="{f68e5e9d-0d3d-4e41-b3de-2ea6cd474c03}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachtVooruit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{605935fd-9494-43c8-bb84-60cdd7bcc2d9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0b8eb32e-d1ff-420f-ac46-b155939580fa}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>

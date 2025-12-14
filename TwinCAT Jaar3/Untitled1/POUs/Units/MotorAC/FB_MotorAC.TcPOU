@@ -4,11 +4,11 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MotorAC IMPLEMENTS ITF_MotorAC
 VAR_INPUT
 	I_ActueleSnelheid : INT;
-	I_ActueleRichting : BOOL;
+	I_ActueelVooruit : BOOL; // vooruit = TRUE, achteruit = FALSE
 END_VAR
 
 VAR
-	_VerwachteRichting : BOOL; // vooruit = TRUE, achteruit = FALSE
+	_VerwachtVooruit : BOOL; // vooruit = TRUE, achteruit = FALSE
 	_VerwachteSnelheid : INT; 
 	_Enable : BOOL; // Enabled = TRUE, Disabled = FALSE
 END_VAR
@@ -18,12 +18,12 @@ END_VAR
     </Implementation>
     <Folder Name="Methods" Id="{92264cd6-fbc0-4f50-a91c-60421fc04cca}" />
     <Folder Name="Properties" Id="{f54f8230-f8ac-4cb6-a08a-1f7fc50d7a9e}" />
-    <Property Name="ActueleRichting" Id="{535a7c6f-96e3-46cf-85ba-e36adec039b1}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ActueleRichting : BOOL]]></Declaration>
+    <Property Name="ActueelVooruit" Id="{535a7c6f-96e3-46cf-85ba-e36adec039b1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueelVooruit : BOOL]]></Declaration>
       <Get Name="Get" Id="{54078e37-1e04-4a88-9b31-1bc077a4dae5}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[ActueleRichting := I_ActueleRichting; ]]></ST>
+          <ST><![CDATA[ActueelVooruit := I_ActueelVooruit; ]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -50,21 +50,6 @@ END_VAR
 _VerwachteSnelheid := 0;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="VerwachteRichting" Id="{35ebe6a3-e218-48c8-8959-80565001b6b2}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY VerwachteRichting : BOOL]]></Declaration>
-      <Get Name="Get" Id="{677cbfbc-63f4-4c77-a1a7-adaed9a783df}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[VerwachteRichting := _VerwachteRichting; ]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{e65fcdd8-d229-4b2e-ab70-f8cded036397}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_VerwachteRichting := VerwachteRichting;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Property Name="VerwachteSnelheid" Id="{b03aefe5-eae7-4a4c-a8f0-c30e522ab322}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY VerwachteSnelheid : INT]]></Declaration>
       <Get Name="Get" Id="{a43ff2e0-43b1-4502-9a39-be5981835458}">
@@ -77,6 +62,21 @@ _VerwachteSnelheid := 0;]]></ST>
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[VerwachteSnelheid := _VerwachteSnelheid;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="VerwachtVooruit" Id="{35ebe6a3-e218-48c8-8959-80565001b6b2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachtVooruit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{677cbfbc-63f4-4c77-a1a7-adaed9a783df}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[VerwachtVooruit := _VerwachtVooruit; ]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e65fcdd8-d229-4b2e-ab70-f8cded036397}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_VerwachtVooruit := VerwachtVooruit;]]></ST>
         </Implementation>
       </Set>
     </Property>

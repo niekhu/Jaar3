@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_LichtSensor" Id="{9cbb982d-c0cc-4f4d-a4fb-0684eaf937c8}">
+    <Declaration><![CDATA[INTERFACE ITF_LichtSensor
+]]></Declaration>
+    <Folder Name="Properties" Id="{dce72c7d-6ea8-4c05-83c1-b02a44df24d7}" />
+    <Property Name="Geblokkeerd" Id="{67a4909a-5e1f-453d-9433-d207e28e471d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Geblokkeerd : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0ce39ef6-6409-47d8-b106-7c0f10f9ce35}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>
