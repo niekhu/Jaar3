@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_DeurSensor" Id="{5666ae5d-de79-43ff-927a-d72f98f4a42f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_DeurSensor IMPLEMENTS ITF_DeurSensor
+VAR_INPUT
+	I_DeurSensorStatus : BOOL; // OPEN = TRUE, DICHT = FALSE
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Properties" Id="{591b7c54-2b61-4540-b499-8e77d1f36dbc}" />
+    <Property Name="DeurSensorStatus" Id="{6eb3df85-7518-4e87-8f15-a36aab9be3a5}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY DeurSensorStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8ed1b79f-02cc-4a3b-ac79-9c11d2e8a2f3}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DeurSensorStatus := I_DeurSensorStatus;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

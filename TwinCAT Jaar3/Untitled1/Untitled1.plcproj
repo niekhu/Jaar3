@@ -33,6 +33,12 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\DeurSensor\FB_DeurSensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\DeurSensor\ITF_DeurSensor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Units\MechanischeRem\FB_MechanischeRem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -54,6 +60,7 @@
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\MotorAC" />
     <Folder Include="POUs\Units\MechanischeRem" />
+    <Folder Include="POUs\Units\DeurSensor" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

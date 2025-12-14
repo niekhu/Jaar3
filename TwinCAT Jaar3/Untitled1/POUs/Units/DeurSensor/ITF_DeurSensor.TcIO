@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_DeurSensor" Id="{2f67539b-6e64-4102-bff7-e5dfcc03fad9}">
+    <Declaration><![CDATA[INTERFACE ITF_DeurSensor
+]]></Declaration>
+    <Folder Name="Properties" Id="{56e6a988-36ed-447f-bc4b-fca118618317}" />
+    <Property Name="DeurSensorStatus" Id="{081ff636-afa5-472e-8b5e-99ca006d15cc}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY DeurSensorStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{513d4a95-7511-45d6-8f4c-55e88c67636f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>
