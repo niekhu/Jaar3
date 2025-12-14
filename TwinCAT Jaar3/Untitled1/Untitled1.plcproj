@@ -33,6 +33,12 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Units\MechanischeRem\FB_MechanischeRem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\MechanischeRem\ITF_MechanischeRem.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Units\MotorAC\FB_MotorAC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +53,7 @@
     <Folder Include="POUs\ControlModules" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\MotorAC" />
+    <Folder Include="POUs\Units\MechanischeRem" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -64,6 +71,11 @@
       <Namespace>Tc3_Module</Namespace>
       <SystemLibrary>true</SystemLibrary>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Untitled1.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

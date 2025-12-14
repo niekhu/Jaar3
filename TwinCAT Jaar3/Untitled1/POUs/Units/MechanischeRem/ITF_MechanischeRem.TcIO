@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_MechanischeRem" Id="{bc04c6e4-218a-41e4-a45e-c4d57f019239}">
+    <Declaration><![CDATA[INTERFACE ITF_MechanischeRem
+]]></Declaration>
+    <Folder Name="Methods" Id="{17035f7d-6cfb-4ea6-a1b0-54d87b4cb342}" />
+    <Folder Name="Properties" Id="{76cdae90-1f72-4916-b040-1b60d4fd2242}" />
+    <Property Name="ActueleRemStand" Id="{5cf25cdf-dc7d-496c-9269-62220177bb71}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueleRemStand : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f53046ea-8b62-414b-a7a5-d7aa3fac9cdd}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="RemLos" Id="{8fc0ebcb-ba83-46a2-b549-645ec2d8bb5d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RemLos]]></Declaration>
+    </Method>
+    <Method Name="RemVast" Id="{62a87b0c-c27e-4937-8362-11ed627c827b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RemVast
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="VerwachteRemStand" Id="{61cd89cd-32c1-401f-8f8e-d9d3ae767082}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachteRemStand : BOOL]]></Declaration>
+      <Get Name="Get" Id="{256e4e51-fdc5-47db-b94c-1c3fe58d28e0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{4ccc1dc8-1d60-4360-b281-31f559dcafd6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>
