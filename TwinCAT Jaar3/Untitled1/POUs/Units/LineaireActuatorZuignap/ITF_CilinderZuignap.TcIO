@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_CilinderZuignap" Id="{26423a57-465c-4ad5-916a-8987d230de12}">
+    <Declaration><![CDATA[INTERFACE ITF_CilinderZuignap
+]]></Declaration>
+    <Folder Name="Method" Id="{419e0cfe-bd1b-44fb-b8ee-84c32591d4f3}" />
+    <Folder Name="Properties" Id="{2ea9ee8d-a018-4619-adac-38ada0fd9afc}" />
+    <Property Name="ActueelIngetrokken" Id="{432747fa-b3c8-46b5-9c87-b30a4f989801}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ActueelIngetrokken : BOOL]]></Declaration>
+      <Get Name="Get" Id="{cc41561f-5442-4431-8dce-23e75a6a30e6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Ingetrokken" Id="{ca8bb67b-b183-4af9-af09-cd98eae9ce16}" FolderPath="Method\">
+      <Declaration><![CDATA[METHOD Ingetrokken
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Verlengt" Id="{a925b353-4730-423b-b4ea-3dd463fdd87c}" FolderPath="Method\">
+      <Declaration><![CDATA[METHOD Verlengt
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="VerwachtIngetrokken" Id="{5a319cc0-04f9-47e5-a004-e9e1ea7c10d3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachtIngetrokken : BOOL]]></Declaration>
+      <Get Name="Get" Id="{366a6daa-5dfd-4f55-8a5e-ddce5437d2db}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{5cd6443f-bb41-4628-995c-3972ce9dcb9f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

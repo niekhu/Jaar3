@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_CilinderZuignap" Id="{e181b065-4cd3-400b-aaf5-87ebb79f5d25}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CilinderZuignap IMPLEMENTS ITF_CilinderZuignap
+VAR_INPUT
+	I_ActueelIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	_VerwachtIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Method" Id="{d8d564f0-8b04-42b7-a4ed-8e1db6b9ca0c}" />
+    <Folder Name="Properties" Id="{585049d9-35f0-4e23-a00b-6364080c698a}" />
+    <Property Name="ActueelIngetrokken" Id="{2ad8306e-d4de-459b-bc44-8e1e1fddecf2}" FolderPath="Properties\">
+      <Declaration><![CDATA[
+PROPERTY ActueelIngetrokken : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e285cd7f-aed3-482d-a750-7e59b6778df5}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ActueelIngetrokken := I_ActueelIngetrokken;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Ingetrokken" Id="{03bce597-b519-4612-b638-c4a5dc09e3b7}" FolderPath="Method\">
+      <Declaration><![CDATA[METHOD Ingetrokken]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_VerwachtIngetrokken := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Verlengt" Id="{3752f419-eac5-47a8-91f7-942479033298}" FolderPath="Method\">
+      <Declaration><![CDATA[METHOD Verlengt]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_VerwachtIngetrokken := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="VerwachtIngetrokken" Id="{e1f56956-3415-4c46-94ec-2afa228025ce}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY VerwachtIngetrokken : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a7d9da4b-452d-4627-997f-9c5005344c8c}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[VerwachtIngetrokken := _VerwachtIngetrokken;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{14a41cbd-9fb0-461f-b3ee-d515a0f1ce1b}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_VerwachtIngetrokken := VerwachtIngetrokken;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>
