@@ -3,10 +3,73 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	Depalletizer : FB_Depalletizer;
+	
+	Vacuumzuignap : FB_Vacuumzuignap;
+	
+	MotorSchuif : FB_MotorZuigSchuif;
+	
+	Druksensor : FB_Druksensor;
+	//h
+	
+	ControlWes : ControlTestWESSE;
+	
+	Klep : FB_Klep;
+	
+	    TestClk : BOOL;      // testbool
+    Klep1   : FB_Klep;   // unit
+    BufferA : FB_BufferA; // equipment
+	
+	TestStart  : BOOL;
+    TestStop   : BOOL;
+    TestReset  : BOOL;
+
+    StartKnop : FB_DrukKnop;
+    StopKnop  : FB_DrukKnop;
+    ResetKnop : FB_DrukKnop;
+	
+	// Testbits voor eindschakelaars
+    TestLift  : BOOL;
+    TestSchuif : BOOL;
+    TestZuig : BOOL;
+
+    // Units – eindschakelaars
+    LS_Lift  : FB_LimitSwitch;
+    LS_Schuif : FB_LimitSwitch;
+    LS_Zuig : FB_LimitSwitch;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[Depalletizer.Schuif := MotorSchuif;
+Depalletizer.Zuignap1 := Vacuumzuignap;
+Depalletizer.Zuignap2 := Vacuumzuignap;
+Depalletizer.Zuignap3 := Vacuumzuignap;
+Depalletizer.Zuignap4 := Vacuumzuignap;
+Depalletizer.Druksensor1 := Druksensor;
+ControlWes.Depalletizer1 := Depalletizer;
+Depalletizer.KlepDepallet := Klep;
+
+Druksensor();
+Depalletizer();
+MotorSchuif();
+Vacuumzuignap();
+ControlWes();
+Klep();
+
+BufferA(
+    klep   := Klep1,   // interface van de unit doorgeven
+    i_bClk := TestClk  // command van boven (bijv. via HMI)
+);
+
+StartKnop.Update(TestStart);
+StopKnop.Update(TestStop);
+ResetKnop.Update(TestReset);
+
+// Eindschakelaars updaten
+LS_Lift.Update(TestLift);
+LS_Schuif.Update(TestSchuif);
+LS_Zuig.Update(TestZuig);
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
