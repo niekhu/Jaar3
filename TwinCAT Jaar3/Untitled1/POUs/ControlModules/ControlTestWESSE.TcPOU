@@ -13,6 +13,7 @@ VAR
 	setidle : BOOL;
 	setstarting : BOOL;
 	setexecute : BOOL;
+	setstopping : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
 	GelezenAlarmenDepalletizer : ARRAY[1..20] OF ST_AlarmenDepalletizer;
 	GelezenStatusBesturing : E_DrukknoppenStatus;
@@ -20,19 +21,26 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-IF setidle = TRUE THEN
+      <ST><![CDATA[// testwaarden creeren om controlblok te simuleren
+
+IF setidle = TRUE THEN											//triggeren
 	Depalletizer.InputState := E_PackMLStates.Idle;
 END_IF
 
 
-IF setstarting = TRUE THEN
+IF setstarting = TRUE THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Starting;
 END_IF
 
-IF setexecute = TRUE THEN
+IF setexecute = TRUE THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Execute;
 END_IF
+
+
+IF setstopping = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Stopping;
+END_IF
+
 
 GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
 GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
@@ -41,6 +49,7 @@ GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
 IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
 	Joehoe := TRUE;
 	Besturing.StatusLampRood();
+	Depalletizer.InputPalletVanafBufA := TRUE;
 END_IF
 
 

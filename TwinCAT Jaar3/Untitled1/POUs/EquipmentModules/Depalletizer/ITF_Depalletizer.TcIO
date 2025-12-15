@@ -21,6 +21,15 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="InputPalletBijUitgang" Id="{f82dc9fe-c60a-4f9a-b4b3-ba4657d133e7}">
+      <Declaration><![CDATA[PROPERTY InputPalletBijUitgang : BOOL]]></Declaration>
+      <Get Name="Get" Id="{61c7b4a3-7099-47e0-8540-775eeb892bd1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1113ff2a-176d-462f-adfc-7aaa50e6c03f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="InputPalletVanafBufA" Id="{a3e52580-b643-4e05-9685-9307fc5fc5fb}">
       <Declaration><![CDATA[PROPERTY InputPalletVanafBufA : BOOL]]></Declaration>
       <Get Name="Get" Id="{421e8970-a2b7-49f1-959a-3cd8f1d53e21}">
@@ -36,6 +45,24 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{2afdf8bc-64ff-4878-a2c1-872022721d33}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="KlaarVoorInvoer" Id="{edbe75fc-d9ba-416e-b7ca-fc7cc63493d3}">
+      <Declaration><![CDATA[PROPERTY KlaarVoorInvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1e4b78af-79bc-4b0f-96ab-7d6397017907}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{ba470116-b26b-4a8b-910c-523adc713861}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="KlaarVoorUitvoer" Id="{c8c579ad-5520-4aab-a13c-f063ea992a66}">
+      <Declaration><![CDATA[PROPERTY KlaarVoorUitvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{dc9c2da3-486a-4f09-803e-8b03d066b10e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{aedbe42d-8b1c-41ea-9e73-cc34a30f80d9}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
