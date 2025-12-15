@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Palletizer_TestControl" Id="{edd38de6-dd8d-4762-894e-dfeb92d41d6b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Palletizer_TestControl
+VAR_INPUT
+    Palletizer : ITF_Palletizer;
+    TestState  : E_PackMLStates;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Palletizer.InputState := TestState;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

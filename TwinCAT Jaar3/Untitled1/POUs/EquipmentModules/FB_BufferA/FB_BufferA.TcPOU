@@ -1,25 +1,409 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BufferA" Id="{f4348fe5-00a7-44c8-b996-13a856095685}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA IMPLEMENTS ITF_BufferA
 VAR_INPUT
-    klep   : ITF_UnitKlep;   // unit-interface
-    i_bClk : BOOL;           // command van boven (TRUE = open)
+    Klep : ITF_UnitKlep;          // unit-klep van Buffer A
 END_VAR
-
-VAR_OUTPUT
-    o_bKlepOpen : BOOL;      // status naar boven (TRUE = open)
-END_VAR
-
 VAR
+    // PackML command (1x getriggerd door control)
+    _CmdStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // Interne actieve state (hier draait de buffer écht op)
+    _ActiveStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // Feedback naar control (wat doe ik NU)
+    CurrentStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // later te gebruiken signalen (nu alleen comments)
+    _PalletDetected     : BOOL;  // // lichtsensor Buffer A
+    _DepalletizerReady  : BOOL;  // // depalletizer kan pallet ontvangen
+    _OutputPalletNaarDepallet : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Stuur de klep-unit aan
-klep.SturingOpen(i_bClk);
+      <ST><![CDATA[CASE _ActiveStateBufA OF
 
-// Lees status van klep uit en geef die door naar boven
-o_bKlepOpen := klep.Status;]]></ST>
+    E_PackMLStates.Idle:
+        Idle();
+
+    E_PackMLStates.Starting:
+        Starting();
+
+    E_PackMLStates.Execute:
+        Execute();
+
+    E_PackMLStates.Resetting:
+        Resetting();
+
+    E_PackMLStates.Holding:
+        Holding();
+
+    E_PackMLStates.Held:
+        Held();
+
+    E_PackMLStates.Unholding:
+        Unholding();
+
+    E_PackMLStates.Suspending:
+        Suspending();
+
+    E_PackMLStates.Suspended:
+        Suspended();
+
+    E_PackMLStates.Unsuspending:
+        Unsuspending();
+
+    E_PackMLStates.Stopping:
+        Stopping();
+
+    E_PackMLStates.Stopped:
+        Stopped();
+
+END_CASE]]></ST>
     </Implementation>
+    <Folder Name="Methods" Id="{0ebe38f1-04b8-4439-9d6e-d2c4e985b1f4}" />
+    <Folder Name="Properties" Id="{a8e3dc76-af7a-439b-a9e5-02b228da3813}" />
+    <Property Name="CurrentState" Id="{22976e27-03bd-461c-a25e-c44c78050df1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{1f57e63b-f978-4713-91b4-e10e152828f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentState := CurrentStateBufA;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cde23ec8-4002-4e6f-9b23-fb3ffcb334da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentStateBufA := CurrentState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="DepalletizerReady" Id="{e8df924c-5ac5-4da0-8458-fb1d694f5523}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC DepalletizerReady : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8fcb829b-bca0-4100-89a2-e1ed43247008}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DepalletizerReady := _DepalletizerReady;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{17acb11b-00f5-4ed7-be55-74d4844fd6eb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_DepalletizerReady := DepalletizerReady;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Execute" Id="{3bae9621-bf61-4f4e-8037-2783d181ed4d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Execute;
+
+// IF _PalletDetected AND _DepalletizerReady THEN
+//     // Klep naar beneden = pallet doorlaten
+//     Klep.SturingOpen(FALSE);
+//     // Motor.Start();                         // rollerband aan
+//     // _OutputPalletNaarDepallet := TRUE;     // pallet naar depalletizer
+//
+// ELSIF _PalletDetected AND NOT _DepalletizerReady THEN
+//     // Klep omhoog = pallet tegenhouden
+//     Klep.SturingOpen(TRUE);
+//     // Motor.Stop();                          // rollerband uit
+//     // _OutputPalletNaarDepallet := FALSE;
+//
+// ELSE
+//     // Geen pallet → klep naar beneden, band aan, klaar voor nieuwe pallet
+//     Klep.SturingOpen(FALSE);
+//     // Motor.Start();
+//     // _OutputPalletNaarDepallet := FALSE;
+// END_IF;
+
+Execute := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Held" Id="{7de6d903-1642-4780-83ef-024fa07c02d4}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Held : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Held;
+
+// Held = pauze actief → alles blijft vastgehouden
+// Voor nu (veilig): klep dicht
+IF Klep.Status THEN
+    Klep.SturingOpen(FALSE);     // FALSE = dicht
+END_IF;
+
+// later:
+// // Motor.Stop();
+// // wacht op Unholding-command van control
+
+Held := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Holding" Id="{f3215803-7556-4f9c-ac5c-659c067ba981}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Holding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Holding;
+
+// Holding: gecontroleerd pauzeren → klep dicht
+Klep.SturingOpen(FALSE);
+
+// Klaar? → Held
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Held;
+END_IF;
+
+// later:
+// // Motor.Stop();
+
+Holding := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Idle" Id="{d321b098-3b8d-4f60-b30b-e293959ea482}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Idle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Idle;
+
+// In Idle: klep moet veilig “dicht” staan (TRUE).
+IF NOT Klep.Status THEN
+    Klep.SturingOpen(TRUE);          // klep omhoog / blokkeren
+END_IF;
+
+// // Motor.Stop();                  // rollerband uit
+// // _OutputPalletNaarDepallet := FALSE;
+
+Idle := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InputState" Id="{eec66c81-fb70-4086-be00-314149f6db04}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC InputState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{ec40c04b-0159-4ede-b0e8-b346a742b8da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputState := _ActiveStateBufA;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{04e6635f-45ba-4753-9a98-28d94144726c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ActiveStateBufA := InputState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="OutputPalletNaarDepallet" Id="{ca8180fe-c9d3-4c36-bdb1-65b69f03b991}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC OutputPalletNaarDepallet : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b5ff1d19-95ee-4c33-b1cc-9f9a69b048f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OutputPalletNaarDepallet := _OutputPalletNaarDepallet;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d9e0600d-2cdd-4a7c-b6ef-0b704964da7a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_OutputPalletNaarDepallet := OutputPalletNaarDepallet;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PalletDetected" Id="{b9d51e40-b0e9-4e1a-acd3-999774bd0383}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC PalletDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{57ba0723-fd7b-493a-8c9f-31a38a532f74}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PalletDetected := _PalletDetected;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{491c8289-2bb2-4a69-927e-09550f187474}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_PalletDetected := PalletDetected;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Resetting" Id="{94902bf6-9535-4301-a4f2-60668b114e79}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Resetting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Resetting;
+
+// Reset: alles naar basis → klep dicht
+Klep.SturingOpen(FALSE);
+
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Idle;
+    // later:
+    // // Step := 0;
+    // // timers reset
+END_IF;
+
+Resetting := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Starting" Id="{52e7ac40-d502-4f4e-8f61-f6f2ce8f7994}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Starting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Starting;
+
+// Startconditie: klep naar veilig (dicht)
+Klep.SturingOpen(FALSE); // FALSE = dicht
+
+// Klaar met Starting? → door naar Execute
+// Pas deze check aan aan jouw echte statusbetekenis:
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Execute;
+END_IF;
+
+// later:
+// // AND Motor.Status = Off
+// // AND Lichtsensor.Status = NoDetect
+
+Starting := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopped" Id="{c0991e28-a91a-42ca-9e5c-1716ef3e21bc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopped : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Stopped;
+
+// Zeker weten dat de klep dicht staat
+IF Klep.Status THEN
+    Klep.SturingOpen(FALSE);          // FALSE = dicht
+END_IF;
+
+Stopped := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{beb6be39-b0ad-4a16-8041-cb85d93f20a5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopping : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Stopping;
+
+// Stopping: netjes stoppen → klep dicht
+Klep.SturingOpen(FALSE);
+
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Stopped;
+END_IF;
+
+// later:
+// // Motor.Stop();
+
+Stopping := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Suspended" Id="{8f6f27b6-0738-496f-ad57-64e4cb65ba51}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspended : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Suspended;
+
+// Suspended = veilig stilstaand
+// Voor nu: klep dicht
+IF Klep.Status THEN
+    Klep.SturingOpen(FALSE);     // FALSE = dicht
+END_IF;
+
+// later:
+// // Motor.Stop();
+// // wacht op Unsuspending-command (herstart)
+
+Suspended := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Suspending" Id="{035c5fa3-9f75-4cb8-85a2-1d53998c10e3}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Suspending;
+
+// Suspending: veilig stilzetten → klep dicht
+Klep.SturingOpen(FALSE);
+
+// Klaar? → Suspended
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Suspended;
+END_IF;
+
+// later:
+// // Motor.Stop();
+// // eventueel markeren dat je straks opnieuw wilt starten
+
+Suspending := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unholding" Id="{1c760e06-dd2a-4b03-afbc-48595da354d3}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unholding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Unholding;
+
+// Unholding: pauze opheffen → direct terug naar Execute
+// (geen reset naar rustpositie)
+_ActiveStateBufA := E_PackMLStates.Execute;
+
+// later:
+// // niets resetten (Step blijft staan)
+
+Unholding := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unsuspending" Id="{29d85dfd-2bd2-463c-b952-24c8427bffcb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unsuspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Unsuspending;
+
+// Unsuspending: hervatten NA onderbreking
+// 1) eerst rustpositie (klep dicht)
+// 2) daarna terug naar Execute (waar je dan opnieuw kan beginnen)
+Klep.SturingOpen(FALSE);
+
+IF Klep.Status = FALSE THEN
+    _ActiveStateBufA := E_PackMLStates.Execute;
+    // later:
+    // // Step := 0;  // opnieuw beginnen
+END_IF;
+
+Unsuspending := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

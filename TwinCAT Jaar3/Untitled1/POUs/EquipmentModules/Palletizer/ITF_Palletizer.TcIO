@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Palletizer" Id="{e801bce8-5777-4b13-a46b-d813c17f19c1}">
+    <Declaration><![CDATA[INTERFACE ITF_Palletizer
+]]></Declaration>
+    <Property Name="AlarmActive" Id="{a96cfb1a-7f70-4201-b335-2ea6ab5d25c4}">
+      <Declaration><![CDATA[PROPERTY AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4b43b7c0-2e5e-428a-a4bd-6a7aabab07b0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{8b65ff8c-21e1-436b-b4f8-eaf96cdbef01}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="AlarmCode" Id="{7e1182b9-1a3a-479d-8892-4690b0cd111d}">
+      <Declaration><![CDATA[PROPERTY AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{728ba46a-b7fc-4a72-913d-8322418ce431}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2edac5ec-189c-4cb3-9f9e-a9aa2de7fe78}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="CurrentState" Id="{13007821-1216-40ae-8964-0857ebd44ef4}">
+      <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{2f0c54c2-85dc-4640-a3ef-8b28e73046f7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{26567b08-b929-41b7-a1ba-475105bf0b31}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="DoorIsOpen" Id="{e32c8a05-995d-4ce2-b32f-2f83d7110cc1}">
+      <Declaration><![CDATA[PROPERTY DoorIsOpen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{27ba8c9a-2fd1-49cd-95ac-45ffd899eb12}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{446fb9f9-3c05-4c1d-a639-bb26efca614f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="DoorOpenAllowed" Id="{01ea1517-2b65-41d8-ad89-ed28df82459e}">
+      <Declaration><![CDATA[PROPERTY DoorOpenAllowed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{99646edf-6d3f-4e68-bf33-00517d9df2cf}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e7344607-4dfc-445f-bc4c-6ba3e489adcf}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="DoorOpenRequest" Id="{2c22ee09-f865-4dec-849e-750a6666081a}">
+      <Declaration><![CDATA[PROPERTY DoorOpenRequest : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b220ef4a-c081-4ee9-a7a5-bb5c6e8076bb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{195a3ee4-ded3-4b34-a38b-7c5cebfb776a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="EStopOk" Id="{209f1073-4dc6-4ca3-81dc-098d67081144}">
+      <Declaration><![CDATA[PROPERTY EStopOk : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8726c844-ec83-4beb-ba5d-8644a3924a4d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{848a06a8-2aeb-4a80-9406-ea9c8b23c196}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="InputState" Id="{352b1776-447e-47a5-a977-1c5463706c14}">
+      <Declaration><![CDATA[PROPERTY InputState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{a405fd3b-a581-4f45-9088-2de9629e3cf3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{b8e0a62b-691d-4fd6-a2fe-6b1a2b00508f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="PalletAtInFeed" Id="{796f197a-a27c-4e55-85ec-33526ab8cafa}">
+      <Declaration><![CDATA[PROPERTY PalletAtInFeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{3a09c132-3dcf-4986-887b-232f8a7b86bc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{f55f2cf1-c2cc-471a-a814-5f8fab5fd9b0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="PalletInPosition" Id="{d031c4ec-62be-4ed9-864e-81797f0dad0f}">
+      <Declaration><![CDATA[PROPERTY PalletInPosition : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bc505c95-4950-426d-890b-2983848ea2bc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e5227b06-6cc0-4654-801f-63119c2b0e3c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="StorageFull" Id="{67d30657-2614-4439-9bf0-71c6b32aac23}">
+      <Declaration><![CDATA[PROPERTY StorageFull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fab52877-de97-4558-b99c-fc8c4d2a6ee2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{dd7f5151-930e-4cd9-94be-370af2fe998c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

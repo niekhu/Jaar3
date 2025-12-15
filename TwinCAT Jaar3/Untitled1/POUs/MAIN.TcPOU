@@ -16,10 +16,14 @@ VAR
 	
 	Klep : FB_Klep;
 	
-	    TestClk : BOOL;      // testbool
-    Klep1   : FB_Klep;   // unit
-    BufferA : FB_BufferA; // equipment
+    Klep1   : FB_Klep;  
+    BufferA : FB_BufferA; 
 	
+	 // Test voor BufferA 
+    CtrlBufA : FB_BufferA_TestControl;
+	TestState          : E_PackMLStates;   // welke PackML-state naar BufferA
+	
+	TestClk : BOOL;      
 	TestStart  : BOOL;
     TestStop   : BOOL;
     TestReset  : BOOL;
@@ -37,6 +41,11 @@ VAR
     LS_Lift  : FB_LimitSwitch;
     LS_Schuif : FB_LimitSwitch;
     LS_Zuig : FB_LimitSwitch;
+	
+	Palletizer  : FB_Palletizer;
+    CtrlPal     : FB_Palletizer_TestControl;
+
+    TestStatePal : E_PackMLStates;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -49,17 +58,27 @@ Depalletizer.Druksensor1 := Druksensor;
 ControlWes.Depalletizer1 := Depalletizer;
 Depalletizer.KlepDepallet := Klep;
 
+
+ 
+
+// unit → equipment
+BufferA.Klep := Klep1;
+
+// test-control voor BufferA
+CtrlBufA.BufferA   := BufferA;
+CtrlBufA.TestState := TestState;
+
 Druksensor();
 Depalletizer();
 MotorSchuif();
 Vacuumzuignap();
 ControlWes();
-Klep();
+Klep();  
 
-BufferA(
-    klep   := Klep1,   // interface van de unit doorgeven
-    i_bClk := TestClk  // command van boven (bijv. via HMI)
-);
+// Buffer A deel
+Klep1();
+BufferA();
+CtrlBufA();
 
 StartKnop.Update(TestStart);
 StopKnop.Update(TestStop);
@@ -69,7 +88,14 @@ ResetKnop.Update(TestReset);
 LS_Lift.Update(TestLift);
 LS_Schuif.Update(TestSchuif);
 LS_Zuig.Update(TestZuig);
-]]></ST>
+
+// Koppeling control → equipment
+CtrlPal.Palletizer := Palletizer;
+CtrlPal.TestState  := TestStatePal;
+
+// Cyclisch aanroepen
+Palletizer();
+CtrlPal();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
