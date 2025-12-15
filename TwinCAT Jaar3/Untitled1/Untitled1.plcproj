@@ -18,43 +18,70 @@
     <LibraryReferences>{dfb3d82d-b09f-4386-9942-8ac2416f04d2}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\E_MotorStatus.TcDUT">
+    <Compile Include="DUTs\E_DruksensorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\PackMLStates.TcDUT">
+    <Compile Include="DUTs\E_MotorZuigSchuifStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EquipmentModules\FB_depalletizer.TcPOU">
+    <Compile Include="POUs\ControlModules\ControlTestWESSE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Depalletizer\FB_Depalletizer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Depalletizer\ITF_Depalletizer.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\BufferA\FB_BufferA.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DeurSensor\FB_DeurSensor.TcPOU">
+    <Compile Include="POUs\Units\Druksensor\FB_Druksensor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DeurSensor\ITF_DeurSensor.TcIO">
+    <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LichtSensor\FB_LichtSensor.TcPOU">
+    <Compile Include="POUs\Units\DrukKnop\FB_DrukKnop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LichtSensor\ITF_LichtSensor.TcIO">
+    <Compile Include="POUs\Units\DrukKnop\ITF_DrukKnop.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MechanischeRem\FB_MechanischeRem.TcPOU">
+    <Compile Include="POUs\Units\Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MechanischeRem\ITF_MechanischeRem.TcIO">
+    <Compile Include="POUs\Units\Klep\ITF_UnitKlep.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorAC\FB_MotorAC.TcPOU">
+    <Compile Include="POUs\Units\LimitSwitch\FB_LimitSwitch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorAC\ITF_MotorAC.TcIO">
+    <Compile Include="POUs\Units\LimitSwitch\ITF_LimitSwitch.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -63,11 +90,15 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\EquipmentModules\BufferA" />
+    <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\Units" />
-    <Folder Include="POUs\Units\MotorAC" />
-    <Folder Include="POUs\Units\MechanischeRem" />
-    <Folder Include="POUs\Units\DeurSensor" />
-    <Folder Include="POUs\Units\LichtSensor" />
+    <Folder Include="POUs\Units\Druksensor" />
+    <Folder Include="POUs\Units\Klep" />
+    <Folder Include="POUs\Units\MotorZuigSchuif" />
+    <Folder Include="POUs\Units\DrukKnop" />
+    <Folder Include="POUs\Units\LimitSwitch" />
+    <Folder Include="POUs\Units\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_motorschuifAO" Id="{8faaf603-e4f1-498a-b141-fce8b3c7eaf4}">
+    <Declaration><![CDATA[INTERFACE ITF_motorschuifAO
+]]></Declaration>
+    <Method Name="set" Id="{1fedf01b-f443-44ce-ae36-76affc499492}">
+      <Declaration><![CDATA[METHOD set : INT
+VAR_INPUT
+	state : INT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
