@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "TwinCAT Jaar3", "TwinCAT Jaar3\TwinCAT Jaar3.tsproj", "{376B5568-9354-4775-BE1E-01890F1D8486}"
 EndProject
-Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "HMIDepalletizerWesse", "HMIDepalletizerWesse\HMIDepalletizerWesse.hmiproj", "{B8F99AFF-71E5-4670-976A-AB15AA9EBA39}"
+Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "HMIGeheleMachine", "HMIDepalletizerWesse\HMIGeheleMachine.hmiproj", "{B8F99AFF-71E5-4670-976A-AB15AA9EBA39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

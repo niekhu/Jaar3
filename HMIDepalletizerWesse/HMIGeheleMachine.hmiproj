@@ -26,7 +26,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>False</TcHmi_Beckhoff_TwinCAT_HMI_Server_Engineering_IncludeInArchive>
-    <Name>HMIDepalletizerWesse</Name>
+    <Name>HMIGeheleMachine</Name>
     <HmiCommunicationRouterPort>10100</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13001</HmiCommunicationServerAuthPort>
     <HmiInitial>14.3.436.1</HmiInitial>
@@ -140,7 +140,7 @@
     <Folder Include="Themes\Base\" />
     <Folder Include="Themes\Base-Dark\" />
     <Folder Include="Server">
-      <WorkingDirectory>HMIDepalletizerWesse</WorkingDirectory>
+      <WorkingDirectory>HMIGeheleMachine</WorkingDirectory>
     </Folder>
     <Folder Include="Properties" />
     <Content Include=".eslintrc.json">
