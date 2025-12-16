@@ -179,9 +179,10 @@ Holding := TRUE;
         <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Idle;
 
 // In Idle: klep moet veilig “dicht” staan (TRUE).
-IF NOT Klep.Status THEN
-    Klep.SturingOpen(TRUE);          // klep omhoog / blokkeren
-END_IF;
+	
+//IF Klep.Status = FALSE THEN
+ //   Klep.SturingOpen(TRUE);          // klep omhoog / blokkeren
+//END_IF;
 
 // // Motor.Stop();                  // rollerband uit
 // // _OutputPalletNaarDepallet := FALSE;

@@ -4,6 +4,9 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	Depalletizer : FB_Depalletizer;
+	Palletizer : FB_Palletizer;
+	BufferA1 : FB_BufferA;
+	BufferA2 : FB_BufferA;
 	Zuignap1 : FB_Vacuumzuignap;
 	Zuignap2 : FB_Vacuumzuignap;
 	Zuignap3 : FB_Vacuumzuignap;
@@ -13,12 +16,12 @@ VAR
 	StopKnop : FB_DrukKnop;
 	ResetKnop : FB_DrukKnop;
 	
-	
+	Klep : FB_Klep;
 	MotorZuig : FB_MotorZuigSchuif;
 	MotorSchuif : FB_MotorZuigSchuif;
 	Druksensor : FB_Druksensor;
 	ControlWes : ControlTestWESSE;
-	Klep : FB_Klep;
+	
 	
 	
 	
@@ -61,6 +64,9 @@ Depalletizer.Zuignap3 := Zuignap3;
 Depalletizer.Zuignap4 := Zuignap4;
 Depalletizer.Druksensor1 := Druksensor;
 Depalletizer.KlepDepalletEind := Klep;
+BufferA1.Klep := Klep;
+BufferA2.Klep := Klep;
+
 
 Besturing.StartKnop := StartKnop;
 Besturing.StopKnop := StopKnop;
@@ -68,6 +74,8 @@ Besturing.ResetKnop := ResetKnop;
 
 ControlWES.Besturing := Besturing;
 ControlWes.Depalletizer := Depalletizer;
+ControlWes.BufferA1 := BufferA1;
+ControlWes.BufferA2 := BufferA2;
 
 
 
@@ -91,6 +99,9 @@ Klep();
 
 //Equipements
 Depalletizer();
+Palletizer();
+BufferA1();
+BufferA2();
 
 //unit modules
 ControlWes();

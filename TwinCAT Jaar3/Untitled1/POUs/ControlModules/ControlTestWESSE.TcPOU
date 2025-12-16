@@ -5,6 +5,8 @@
 VAR_INPUT
 	Depalletizer : ITF_Depalletizer;
 	Besturing : ITF_Besturing;
+	BufferA1 : ITF_BufferA;
+	BufferA2 : ITF_BufferA;
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -25,6 +27,8 @@ END_VAR
 
 IF setidle = TRUE THEN											//triggeren
 	Depalletizer.InputState := E_PackMLStates.Idle;
+	BufferA1.InputState := E_PackMLStates.Idle;
+	BufferA2.InputState := E_PackMLStates.Idle;
 END_IF
 
 
@@ -53,7 +57,35 @@ IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
 END_IF
 
 
-]]></ST>
+// communicatie bufferA1 en depalletizer
+
+IF BufferA1.OutputPalletNaarDepallet = TRUE THEN
+	Depalletizer.InputPalletVanafBufA := TRUE;
+	ELSE 
+		Depalletizer.InputPalletVanafBufA := FALSE;
+	
+
+IF Depalletizer.KlaarVoorInvoer = TRUE THEN
+	BufferA1.DepalletizerReady := TRUE;
+	ELSE
+	BufferA1.DepalletizerReady := FALSE;	
+END_IF
+END_IF
+
+// communicatie depalletizer bufferA2
+
+IF BufferA2.OutputPalletNaarDepallet = FALSE THEN
+	Depalletizer.InputPalletBijUitgang := FALSE;
+	ELSE 
+		Depalletizer.InputPalletBijUitgang := TRUE;
+	
+
+	IF Depalletizer.KlaarVoorUitvoer = TRUE THEN
+		BufferA2.DepalletizerReady := TRUE;
+		ELSE
+		BufferA2.DepalletizerReady := FALSE;	
+END_IF
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

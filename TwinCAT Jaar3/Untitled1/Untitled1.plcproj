@@ -49,6 +49,9 @@
     <Compile Include="POUs\EquipmentModules\Besturing\ITF_Besturing.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\BufferA\ITF_BufferA.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\EquipmentModules\Depalletizer\FB_Depalletizer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -56,9 +59,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\BufferA\FB_BufferA.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\EquipmentModules\FB_BufferA\ITF_BufferA.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\Palletizer\FB_Palletizer.TcPOU">
@@ -115,6 +115,7 @@
     <Folder Include="POUs\EquipmentModules\BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\EquipmentModules\Besturing" />
+    <Folder Include="POUs\EquipmentModules\Palletizer" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\Druksensor" />
     <Folder Include="POUs\Units\Klep" />

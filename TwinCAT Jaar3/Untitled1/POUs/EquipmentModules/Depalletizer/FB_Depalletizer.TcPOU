@@ -11,6 +11,7 @@ VAR_INPUT
 	Zuignap4 : ITF_Vacuumzuignap;
 	Druksensor1 : ITF_Druksensor;
 	KlepDepalletEind : ITF_UnitKlep;
+	
 END_VAR
 VAR_OUTPUT
 END_VAR
