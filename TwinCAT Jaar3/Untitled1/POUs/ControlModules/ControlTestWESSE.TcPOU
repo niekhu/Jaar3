@@ -4,11 +4,10 @@
     <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE IMPLEMENTS ITF_ControlTestWesNiek
 VAR_INPUT
 	Depalletizer : ITF_Depalletizer;
+	Palletizer : ITF_Palletizer;
 	Besturing : ITF_Besturing;
-	BufferA1 : ITF_BufferA;
-	BufferA2 : ITF_BufferA;
-END_VAR
-VAR_OUTPUT
+	BufferA1 : ITF_BufferA;	// Buffer vóór depalletizer
+	BufferA2 : ITF_BufferA;	// Buffer ná depalletizer (richting palletizer)
 END_VAR
 VAR
 	Joehoe : BOOL;
@@ -20,13 +19,43 @@ VAR
 	GelezenAlarmenDepalletizer : ARRAY[1..20] OF ST_AlarmenDepalletizer;
 	GelezenStatusBesturing : E_DrukknoppenStatus;
 	
+	GelezenCurrentStatePalletizer : E_PackMLStates;
+	
+	testInjectPalletBufA1 : BOOL;
+	testDepalletizerReadyBufA1 : BOOL;
+	_simPalletBufA1 : BOOL;
+	
+	testInjectPalletBufA2 : BOOL;
+	testPalletizerReadyBufA2 : BOOL;
+	_simPalletBufA2 : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// testwaarden creeren om controlblok te simuleren
 
+IF testInjectPalletBufA1 = TRUE THEN
+	_simPalletBufA1 := TRUE;
+END_IF
+
+IF BufferA1.OutputPalletNaarDepallet = TRUE THEN
+	_simPalletBufA1 := FALSE;
+END_IF
+
+BufferA1.PalletDetected := _simPalletBufA1;
+
+IF testInjectPalletBufA2 = TRUE THEN
+	_simPalletBufA2 := TRUE;
+END_IF
+
+IF BufferA2.OutputPalletNaarDepallet = TRUE THEN
+	_simPalletBufA2 := FALSE;
+END_IF
+
+BufferA2.PalletDetected := _simPalletBufA2;
+
 IF setidle = TRUE THEN											//triggeren
 	Depalletizer.InputState := E_PackMLStates.Idle;
+	Palletizer.InputState := E_PackMLStates.Idle;
 	BufferA1.InputState := E_PackMLStates.Idle;
 	BufferA2.InputState := E_PackMLStates.Idle;
 END_IF
@@ -34,26 +63,36 @@ END_IF
 
 IF setstarting = TRUE THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Starting;
+	Palletizer.InputState := E_PackMLStates.Starting;
+	BufferA1.InputState := E_PackMLStates.Starting;
+	BufferA2.InputState := E_PackMLStates.Starting;
 END_IF
 
 IF setexecute = TRUE THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Execute;
+	Palletizer.InputState := E_PackMLStates.Execute;
+	BufferA1.InputState := E_PackMLStates.Execute;
+	BufferA2.InputState := E_PackMLStates.Execute;
 END_IF
 
 
 IF setstopping = TRUE THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Stopping;
+	Palletizer.InputState := E_PackMLStates.Stopping;
+	BufferA1.InputState := E_PackMLStates.Stopping;
+	BufferA2.InputState := E_PackMLStates.Stopping;
 END_IF
 
 
 GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
 GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
-
+GelezenCurrentStatePalletizer := Palletizer.CurrentState;
 
 IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
 	Joehoe := TRUE;
 	Besturing.StatusLampRood();
 	Depalletizer.InputPalletVanafBufA := TRUE;
+	_simPalletBufA1 := TRUE;
 END_IF
 
 
@@ -65,7 +104,7 @@ IF BufferA1.OutputPalletNaarDepallet = TRUE THEN
 		Depalletizer.InputPalletVanafBufA := FALSE;
 	
 
-IF Depalletizer.KlaarVoorInvoer = TRUE THEN
+IF Depalletizer.KlaarVoorInvoer = TRUE OR testDepalletizerReadyBufA1 = TRUE  THEN
 	BufferA1.DepalletizerReady := TRUE;
 	ELSE
 	BufferA1.DepalletizerReady := FALSE;	
@@ -80,7 +119,7 @@ IF BufferA2.OutputPalletNaarDepallet = FALSE THEN
 		Depalletizer.InputPalletBijUitgang := TRUE;
 	
 
-	IF Depalletizer.KlaarVoorUitvoer = TRUE THEN
+	IF Depalletizer.KlaarVoorUitvoer = TRUE  OR testPalletizerReadyBufA2 = TRUE THEN
 		BufferA2.DepalletizerReady := TRUE;
 		ELSE
 		BufferA2.DepalletizerReady := FALSE;	

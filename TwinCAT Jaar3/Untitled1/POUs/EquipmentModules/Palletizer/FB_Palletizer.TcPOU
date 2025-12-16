@@ -29,6 +29,9 @@ VAR
     _ActiveStatePal : E_PackMLStates := E_PackMLStates.Idle;   // interne actieve state
     CurrentStatePal : E_PackMLStates := E_PackMLStates.Idle;   // feedback naar control
 
+    TriggerState : E_PackMLStates := E_PackMLStates.Idle;      // toegevoegd (zoals Depalletizer)
+    VorigeInputState : E_PackMLStates := E_PackMLStates.Idle;  // toegevoegd
+
     // =========================
     // Alarm / safety (later)
     // =========================
@@ -52,24 +55,51 @@ VAR
 
     // Execute sequence (later)
     Step : INT := 0;
+
+	//vanaf hier tijdelijke var door missende units
+	RolbandAanUit : BOOL;
+	LiftOmhoogYesNo : BOOL;
+	LiftOmlaagYesNo : BOOL;
+
+	Pin1UitYesNo : BOOL;
+	Pin2UitYesNo : BOOL;
+	Pin3UitYesNo : BOOL;
+	Pin4UitYesNo : BOOL;
+
+	// “feedback” die jij handmatig zet om steps door te laten lopen
+	Pin1UitAangekomen : BOOL;
+	Pin2UitAangekomen : BOOL;
+	Pin3UitAangekomen : BOOL;
+	Pin4UitAangekomen : BOOL;
+
+	Pin1InAangekomen : BOOL;
+	Pin2InAangekomen : BOOL;
+	Pin3InAangekomen : BOOL;
+	Pin4InAangekomen : BOOL;
+
+	LiftBovenAangekomen : BOOL;
+	LiftBenedenAangekomen : BOOL;
+	//eind var
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// 1) Latch command -> active (zodat 1x trigger genoeg is)
-IF _CmdStatePal <> _ActiveStatePal THEN
-    _ActiveStatePal := _CmdStatePal;
-END_IF;
+IF _CmdStatePal <> VorigeInputState THEN
+    TriggerState := _CmdStatePal;
+END_IF
+
+VorigeInputState := _CmdStatePal;
 
 // 2) Feedback state (wat ik NU aan het doen ben)
-CurrentStatePal := _ActiveStatePal;
+CurrentStatePal := TriggerState;
 
 // 3) (optioneel) bereken deur-toestemming (nu nog simpel; later met echte voorwaarden)
-_DoorOpenAllowed := FALSE;
+_DoorOpenAllowed := _EStopOk AND (CurrentStatePal = E_PackMLStates.Idle OR CurrentStatePal = E_PackMLStates.Stopped OR CurrentStatePal = E_PackMLStates.Held OR CurrentStatePal = E_PackMLStates.Suspended);
 // later (voorbeeld):
 // _DoorOpenAllowed := _EStopOk AND (CurrentStatePal = E_PackMLStates.Idle OR CurrentStatePal = E_PackMLStates.Stopped OR CurrentStatePal = E_PackMLStates.Held OR CurrentStatePal = E_PackMLStates.Suspended);
 
 // 4) PackML state machine (methods maak jij hierna aan)
-CASE _ActiveStatePal OF
+CASE TriggerState OF
 
     E_PackMLStates.Idle:
         Idle();
@@ -128,7 +158,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_AlarmActive := AlarmActive;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -147,7 +177,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_AlarmCode := AlarmCode;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -166,7 +196,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[CurrentStatePal := CurrentState;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -185,7 +215,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_DoorIsOpen := DoorIsOpen;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -204,7 +234,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_DoorOpenAllowed := DoorOpenAllowed;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -242,7 +272,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_EStopOk := EStopOk;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -252,67 +282,73 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Execute;
 
-// Doel execute: pallet innemen, pinnen grijpen, lift stapelen, terug naar rust
-// Alles in steps zodat je later makkelijk units invult.
-
 CASE Step OF
 
-    0: // Wachten op pallet bij ingang
-        // IF StorageFull THEN
-        //     // RollerMotor.Stop();
-        //     // StatusLamp.SetFull();
-        //     // evt Holding() of Stopping() afhankelijk van ontwerp
-        // ELSE
-        //     // RollerMotor.Run();
-        // END_IF
+0:
+	IF _PalletAtInFeed AND NOT _StorageFull THEN
+		RolbandAanUit := TRUE;
 
-        // IF PalletAtInFeed THEN
-        //     // RollerMotor.Run(); // pallet door laten lopen
-        //     Step := 10;
-        // END_IF
+		IF _PalletInPosition THEN
+			RolbandAanUit := FALSE;
+			Step := 10;
+		END_IF
+	ELSE
+		RolbandAanUit := FALSE;
+	END_IF
 
-        // Placeholder
-        // Step := 0;
 
-    10: // Pallet naar positie rijden tot lichtsensor einde/positie
-        // IF PalletInPosition THEN
-        //     // RollerMotor.Stop();
-        //     Step := 20;
-        // END_IF
+10:
+	Pin1UitYesNo := TRUE;
+	Pin2UitYesNo := TRUE;
+	Pin3UitYesNo := TRUE;
+	Pin4UitYesNo := TRUE;
 
-    20: // Pinnen uitschuiven om pallet te grijpen
-        // Pin1.Extend(); Pin2.Extend(); Pin3.Extend(); Pin4.Extend();
-        // IF Pin1.Status = Extended AND Pin2.Status = Extended AND Pin3.Status = Extended AND Pin4.Status = Extended THEN
-        //     Step := 30;
-        // END_IF
+	IF Pin1UitAangekomen AND Pin2UitAangekomen AND Pin3UitAangekomen AND Pin4UitAangekomen THEN
+		Step := 20;
+	END_IF
 
-    30: // Lift omhoog (stack maken)
-        // LiftServo.MoveUpOneLevel();  // of MoveToHeight(...)
-        // IF LimitSwitch / PositionReached THEN
-        //     Step := 40;
-        // END_IF
 
-    40: // Nieuwe pallet kan eronder: bestaande stapel omhoog -> afhankelijk mechaniek
-        // // hier zou je ook de stack-logica doen (hoeveel pallets, hoogte etc.)
-        // Step := 50;
+20:
+	LiftOmhoogYesNo := TRUE;
+	LiftOmlaagYesNo := FALSE;
 
-    50: // Lift terug naar rust / pallets neerzetten
-        // LiftServo.GoHome();
-        // IF LiftServo.Status = Home THEN
-        //     Step := 60;
-        // END_IF
+	IF LiftBovenAangekomen THEN
+		LiftOmhoogYesNo := FALSE;
+		Step := 30;
+	END_IF
 
-    60: // Pinnen intrekken en klaar voor volgende pallet
-        // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-        // IF Pin1.Status = Retracted AND ... THEN
-        //     Step := 0;
-        // END_IF
+
+30:
+	Pin1UitYesNo := FALSE;
+	Pin2UitYesNo := FALSE;
+	Pin3UitYesNo := FALSE;
+	Pin4UitYesNo := FALSE;
+
+	IF Pin1InAangekomen AND Pin2InAangekomen AND Pin3InAangekomen AND Pin4InAangekomen THEN
+		Step := 40;
+	END_IF
+
+
+40:
+	LiftOmlaagYesNo := TRUE;
+	LiftOmhoogYesNo := FALSE;
+
+	IF LiftBenedenAangekomen THEN
+		LiftOmlaagYesNo := FALSE;
+
+		_PalletAtInFeed := FALSE;
+		_PalletInPosition := FALSE;
+
+		Step := 0;
+	END_IF
+
 
 ELSE
-    Step := 0;
-END_CASE;
+	Step := 0;
+END_CASE
 
-Execute := TRUE;]]></ST>
+Execute := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Held" Id="{b55bfaea-9ac2-400e-965a-9535331cf67e}" FolderPath="Methods\">
@@ -321,9 +357,9 @@ Execute := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Held;
 
-// In Held blijft alles staan
-// // RollerMotor.Stop();
-// // LiftServo.HoldPosition();
+RolbandAanUit := FALSE;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
 Held := TRUE;]]></ST>
       </Implementation>
@@ -334,15 +370,15 @@ Held := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Holding;
 
-// Holding = gecontroleerd pauzeren (positie behouden)
-// // RollerMotor.Stop();
-// // LiftServo.HoldPosition();
-// // StatusLamp.SetHold();
+RolbandAanUit := FALSE;
 
-// Zodra alles stil staat -> Held
-_ActiveStatePal := E_PackMLStates.Held;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
-Holding := TRUE;]]></ST>
+TriggerState := E_PackMLStates.Held;
+
+Holding := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Idle" Id="{14dcf620-4eca-4676-82d0-855220591e82}" FolderPath="Methods\">
@@ -351,18 +387,20 @@ Holding := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Idle;
 
-// // RollerMotor.Stop();
-// // LiftServo.Stop();
-// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-// // StatusLamp.SetIdle();
-// // Deur gesloten houden tenzij open toegestaan
+RolbandAanUit := FALSE;
 
-// // IF DoorOpenAllowed AND DoorOpenRequest THEN
-// //     // DoorActuator.Open();   // als je later een deur-actuator hebt
-// // END_IF
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := TRUE;
 
-// In Idle blijven tot control een andere state triggert
-Idle := TRUE;]]></ST>
+Pin1UitYesNo := FALSE;
+Pin2UitYesNo := FALSE;
+Pin3UitYesNo := FALSE;
+Pin4UitYesNo := FALSE;
+
+Step := 0;
+
+Idle := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="InputState" Id="{e710e0b2-3ee0-42cd-b804-7c79824640cd}" FolderPath="Properties\">
@@ -399,7 +437,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_PalletAtInFeed := PalletAtInFeed;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -418,7 +456,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_PalletInPosition := PalletInPosition;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -428,20 +466,14 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Resetting;
 
-// Resetting = alles naar basis/idle condities
-// // _AlarmActive := FALSE;
-// // _AlarmCode := 0;
-// // Step := 0;
-// // RollerMotor.Stop();
-// // LiftServo.GoHome();
-// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-// // StatusLamp.SetResetting();
-
-// Reset klaar -> Idle
-_ActiveStatePal := E_PackMLStates.Idle;
 Step := 0;
+_AlarmActive := FALSE;
+_AlarmCode := 0;
 
-Resetting := TRUE;]]></ST>
+TriggerState := E_PackMLStates.Idle;
+
+Resetting := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Starting" Id="{4a3e5953-84c4-41e7-a958-1b74ee60f666}" FolderPath="Methods\">
@@ -450,27 +482,26 @@ Resetting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Starting;
 
-// Doel starting: naar veilige startpositie / klaar om pallets te verwerken
-// Voorbeelden (later):
-// // RollerMotor.Stop();
-// // LiftServo.GoHome();                 // lift naar startpositie
-// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-// // StatusLamp.SetStarting();
-// // IF EStopOk = FALSE THEN
-// //     // _AlarmActive := TRUE; _AlarmCode := 1001;
-// // END_IF
+RolbandAanUit := FALSE;
 
-// Startcondities checken (later met echte statuses)
-// IF (LiftServo.Status = Home) AND (Pin1.Status = Retracted) AND ... THEN
-//     _ActiveStatePal := E_PackMLStates.Execute;
-//     Step := 0;
-// END_IF
+LiftOmlaagYesNo := TRUE;
+LiftOmhoogYesNo := FALSE;
 
-// Voor nu: direct door naar Execute (zodat je ziet dat flow werkt)
-_ActiveStatePal := E_PackMLStates.Execute;
-Step := 0;
+Pin1UitYesNo := FALSE;
+Pin2UitYesNo := FALSE;
+Pin3UitYesNo := FALSE;
+Pin4UitYesNo := FALSE;
 
-Starting := TRUE;]]></ST>
+IF  _EStopOk AND NOT _DoorIsOpen AND
+	LiftBenedenAangekomen AND
+	Pin1InAangekomen AND Pin2InAangekomen AND Pin3InAangekomen AND Pin4InAangekomen
+THEN
+	TriggerState := E_PackMLStates.Execute;
+	Step := 0;
+END_IF
+
+Starting := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopped" Id="{33b48153-f3a7-47de-8cf8-6ac124fe3b32}" FolderPath="Methods\">
@@ -479,11 +510,12 @@ Starting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Stopped;
 
-// In stopped: alles uit, wachten op Resetting/Starting
-// // RollerMotor.Stop();
-// // LiftServo.Stop();
+RolbandAanUit := FALSE;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
-Stopped := TRUE;]]></ST>
+Stopped := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{cbd45afb-ba08-45da-9160-712941d6e40f}" FolderPath="Methods\">
@@ -492,15 +524,14 @@ Stopped := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Stopping;
 
-// Stoppen = gecontroleerd stilzetten en naar Stopped
-// // RollerMotor.Stop();
-// // LiftServo.Stop();
-// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-// // StatusLamp.SetStopping();
+RolbandAanUit := FALSE;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
-_ActiveStatePal := E_PackMLStates.Stopped;
+TriggerState := E_PackMLStates.Stopped;
 
-Stopping := TRUE;]]></ST>
+Stopping := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="StorageFull" Id="{d80f0c9b-02a2-425d-ad7e-65678d1810dd}" FolderPath="Properties\">
@@ -518,7 +549,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[_StorageFull := StorageFull;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -528,10 +559,12 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspended;
 
-// In suspended wacht je op Unsuspending command
-// // alles blijft veilig uit
+RolbandAanUit := FALSE;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
-Suspended := TRUE;]]></ST>
+Suspended := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspending" Id="{0dd5f12e-8033-42e3-9131-1e90a5f8e595}" FolderPath="Methods\">
@@ -540,17 +573,14 @@ Suspended := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspending;
 
-// Suspending = gecontroleerd naar veilige toestand om later opnieuw te starten
-// (bijv. na error / geen input / wachttijd)
-// // RollerMotor.Stop();
-// // LiftServo.GoSafe();
-// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
-// // StatusLamp.SetSuspending();
+RolbandAanUit := FALSE;
+LiftOmhoogYesNo := FALSE;
+LiftOmlaagYesNo := FALSE;
 
-// Als veilig -> Suspended
-_ActiveStatePal := E_PackMLStates.Suspended;
+TriggerState := E_PackMLStates.Suspended;
 
-Suspending := TRUE;]]></ST>
+Suspending := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unholding" Id="{2351bdac-eb65-45f6-a51b-6a7044f90e63}" FolderPath="Methods\">
@@ -559,11 +589,7 @@ Suspending := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Unholding;
 
-// Unholding = hervatten vanuit waar je was
-// // StatusLamp.SetResume();
-
-// Direct terug naar Execute (jij wilt Unholding -> Execute)
-_ActiveStatePal := E_PackMLStates.Execute;
+TriggerState := E_PackMLStates.Execute;
 
 Unholding := TRUE;
 ]]></ST>
@@ -575,13 +601,10 @@ Unholding := TRUE;
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Unsuspending;
 
-// Unsuspending = weer klaarzetten en dan doorgaan
-// // StatusLamp.SetUnsuspending();
-// // check safe ok -> dan execute
+TriggerState := E_PackMLStates.Execute;
 
-_ActiveStatePal := E_PackMLStates.Execute;
-
-Unsuspending := TRUE;]]></ST>
+Unsuspending := TRUE;
+]]></ST>
       </Implementation>
     </Method>
   </POU>
