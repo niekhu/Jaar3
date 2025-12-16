@@ -2,6 +2,59 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BufferA" Id="{f4348fe5-00a7-44c8-b996-13a856095685}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA IMPLEMENTS ITF_BufferA
+
+VAR_INPUT
+    Klep : ITF_UnitKlep;          // unit-klep van Buffer A
+END_VAR
+VAR
+    // =========================================================
+    // PackML (zelfde patroon als Depalletizer)
+    // =========================================================
+    TriggerState     : E_PackMLStates := E_PackMLStates.Idle;
+    VorigeInputState : E_PackMLStates := E_PackMLStates.Idle;
+
+    // =========================================================
+    // Backing vars voor properties (koppel je properties hieraan)
+    // =========================================================
+    _inInputState              : E_PackMLStates := E_PackMLStates.Idle; // <- property InputState (SET)
+    _inDepalletizerReady       : BOOL;                                  // <- property DepalletizerReady (SET)
+    _inPalletDetected          : BOOL;                                  // <- property PalletDetected (SET of unit)
+    _outCurrentState           : E_PackMLStates := E_PackMLStates.Idle; // <- property CurrentState (GET)
+    _outOutputPalletNaarDepal  : BOOL;                                  // <- property OutputPalletNaarDepallet (GET)
+
+    // =========================================================
+    // Werk-variabelen (met test overrides)
+    // =========================================================
+    PalletDetectedW   : BOOL;
+    DepalletizerReadyW: BOOL;
+
+    // =========================================================
+    // Tijdelijke vars door missende units (net als bij Wesse)
+    // =========================================================
+    RolbandAanUit : BOOL;       // later echte unit / interface
+
+    // =========================================================
+    // Testbools (simpel testen zonder units)
+    // testbool1: force pallet aanwezig
+    // testbool2: force pallet NIET aanwezig
+    // testbool3: force depalletizer ready
+    // testbool4: force depalletizer NIET ready
+    // =========================================================
+    testbool1 : BOOL;
+    testbool2 : BOOL;
+    testbool3 : BOOL;
+    testbool4 : BOOL;
+
+    // "Gelezen" debug (voor online volgen)
+    GelezenKlepStatus           : BOOL;
+    GelezenCurrentStateBufA     : E_PackMLStates;
+    GelezenOutputPalletNaarDepal: BOOL;
+    GelezenPalletDetected       : BOOL;
+    GelezenDepalletizerReady    : BOOL;
+END_VAR
+
+
+(* oude code 
 VAR_INPUT
     Klep : ITF_UnitKlep;          // unit-klep van Buffer A
 END_VAR
@@ -20,9 +73,31 @@ VAR
     _DepalletizerReady  : BOOL;  // // depalletizer kan pallet ontvangen
     _OutputPalletNaarDepallet : BOOL;
 END_VAR
-]]></Declaration>
+*)]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE _ActiveStateBufA OF
+      <ST><![CDATA[// =========================================================
+// 1) Werkwaarden bepalen + test overrides
+// =========================================================
+PalletDetectedW := _inPalletDetected;
+DepalletizerReadyW := _inDepalletizerReady;
+
+IF testbool1 THEN PalletDetectedW := TRUE; END_IF;
+IF testbool2 THEN PalletDetectedW := FALSE; END_IF;
+IF testbool3 THEN DepalletizerReadyW := TRUE; END_IF;
+IF testbool4 THEN DepalletizerReadyW := FALSE; END_IF;
+
+// =========================================================
+// 2) TriggerState alleen updaten bij wijziging InputState
+// =========================================================
+IF _inInputState <> VorigeInputState THEN
+    TriggerState := _inInputState;
+END_IF
+VorigeInputState := _inInputState;
+
+// =========================================================
+// 3) Methods uitvoeren obv TriggerState
+// =========================================================
+CASE TriggerState OF
 
     E_PackMLStates.Idle:
         Idle();
@@ -59,8 +134,18 @@ END_VAR
 
     E_PackMLStates.Stopped:
         Stopped();
+ELSE
+	TriggerState := E_PackMLStates.Idle;
+END_CASE
 
-END_CASE]]></ST>
+// =========================================================
+// 4) Debug “gelezen” variabelen
+// =========================================================
+GelezenKlepStatus            := Klep.Status;
+GelezenCurrentStateBufA      := _outCurrentState;
+GelezenOutputPalletNaarDepal := _outOutputPalletNaarDepal;
+GelezenPalletDetected        := PalletDetectedW;
+GelezenDepalletizerReady     := DepalletizerReadyW;]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{0ebe38f1-04b8-4439-9d6e-d2c4e985b1f4}" />
     <Folder Name="Properties" Id="{a8e3dc76-af7a-439b-a9e5-02b228da3813}" />
@@ -71,15 +156,16 @@ END_CASE]]></ST>
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[CurrentState := CurrentStateBufA;]]></ST>
+          <ST><![CDATA[CurrentState := _outCurrentState;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{cde23ec8-4002-4e6f-9b23-fb3ffcb334da}">
-        <Declaration><![CDATA[VAR
+      <Set Name="Set" Id="{a782705d-8ccc-4eaa-b58f-a64c12ad1d9f}">
+        <Declaration><![CDATA[
+VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[CurrentStateBufA := CurrentState;]]></ST>
+          <ST><![CDATA[_outCurrentState := CurrentState;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -90,7 +176,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[DepalletizerReady := _DepalletizerReady;]]></ST>
+          <ST><![CDATA[DepalletizerReady := _inDepalletizerReady;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{17acb11b-00f5-4ed7-be55-74d4844fd6eb}">
@@ -98,7 +184,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_DepalletizerReady := DepalletizerReady;]]></ST>
+          <ST><![CDATA[_inDepalletizerReady := DepalletizerReady;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -106,26 +192,28 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Execute;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Execute;
 
-// IF _PalletDetected AND _DepalletizerReady THEN
-//     // Klep naar beneden = pallet doorlaten
-//     Klep.SturingOpen(FALSE);
-//     // Motor.Start();                         // rollerband aan
-//     // _OutputPalletNaarDepallet := TRUE;     // pallet naar depalletizer
-//
-// ELSIF _PalletDetected AND NOT _DepalletizerReady THEN
-//     // Klep omhoog = pallet tegenhouden
-//     Klep.SturingOpen(TRUE);
-//     // Motor.Stop();                          // rollerband uit
-//     // _OutputPalletNaarDepallet := FALSE;
-//
-// ELSE
-//     // Geen pallet → klep naar beneden, band aan, klaar voor nieuwe pallet
-//     Klep.SturingOpen(FALSE);
-//     // Motor.Start();
-//     // _OutputPalletNaarDepallet := FALSE;
-// END_IF;
+// Simpelste test-logica zolang units ontbreken:
+// - pallet gedetecteerd + depallet ready => doorlaten + output TRUE
+// - pallet gedetecteerd + NIET ready   => tegenhouden + output FALSE
+// - geen pallet                        => klaarzetten voor nieuwe pallet
+
+IF PalletDetectedW AND DepalletizerReadyW THEN
+    Klep.SturingOpen(FALSE);               // doorlaten
+    RolbandAanUit := TRUE;
+    _outOutputPalletNaarDepal := TRUE;
+
+ELSIF PalletDetectedW AND NOT DepalletizerReadyW THEN
+    Klep.SturingOpen(TRUE);                // tegenhouden
+    RolbandAanUit := FALSE;
+    _outOutputPalletNaarDepal := FALSE;
+
+ELSE
+    Klep.SturingOpen(FALSE);               // klaar voor nieuwe pallet
+    RolbandAanUit := TRUE;
+    _outOutputPalletNaarDepal := FALSE;
+END_IF
 
 Execute := TRUE;
 ]]></ST>
@@ -135,17 +223,11 @@ Execute := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Held : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Held;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Held;
+_outOutputPalletNaarDepal := FALSE;
 
-// Held = pauze actief → alles blijft vastgehouden
-// Voor nu (veilig): klep dicht
-IF Klep.Status THEN
-    Klep.SturingOpen(FALSE);     // FALSE = dicht
-END_IF;
-
-// later:
-// // Motor.Stop();
-// // wacht op Unholding-command van control
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
 Held := TRUE;
 ]]></ST>
@@ -155,18 +237,15 @@ Held := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Holding : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Holding;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Holding;
+_outOutputPalletNaarDepal := FALSE;
 
-// Holding: gecontroleerd pauzeren → klep dicht
-Klep.SturingOpen(FALSE);
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
-// Klaar? → Held
-IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Held;
-END_IF;
-
-// later:
-// // Motor.Stop();
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Held;
+END_IF
 
 Holding := TRUE;
 ]]></ST>
@@ -176,16 +255,12 @@ Holding := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Idle : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Idle;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Idle;
+_outOutputPalletNaarDepal := FALSE;
+RolbandAanUit := FALSE;
 
-// In Idle: klep moet veilig “dicht” staan (TRUE).
-	
-//IF Klep.Status = FALSE THEN
- //   Klep.SturingOpen(TRUE);          // klep omhoog / blokkeren
-//END_IF;
-
-// // Motor.Stop();                  // rollerband uit
-// // _OutputPalletNaarDepallet := FALSE;
+// Veilig: pallet blokkeren (AANNAMES: TRUE = “omhoog/blokkeren”)
+Klep.SturingOpen(TRUE);
 
 Idle := TRUE;
 ]]></ST>
@@ -198,7 +273,7 @@ Idle := TRUE;
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[InputState := _ActiveStateBufA;]]></ST>
+          <ST><![CDATA[InputState := _inInputState;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{04e6635f-45ba-4753-9a98-28d94144726c}">
@@ -206,7 +281,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_ActiveStateBufA := InputState;]]></ST>
+          <ST><![CDATA[_inInputState := InputState;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -217,15 +292,16 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[OutputPalletNaarDepallet := _OutputPalletNaarDepallet;]]></ST>
+          <ST><![CDATA[OutputPalletNaarDepallet := _outOutputPalletNaarDepal;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{d9e0600d-2cdd-4a7c-b6ef-0b704964da7a}">
-        <Declaration><![CDATA[VAR
+      <Set Name="Set" Id="{9f9e40e1-0cab-4f38-81d0-b6bea4b66275}">
+        <Declaration><![CDATA[
+VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_OutputPalletNaarDepallet := OutputPalletNaarDepallet;]]></ST>
+          <ST><![CDATA[_outOutputPalletNaarDepal := OutputPalletNaarDepallet;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -236,7 +312,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[PalletDetected := _PalletDetected;]]></ST>
+          <ST><![CDATA[PalletDetected := _inPalletDetected;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{491c8289-2bb2-4a69-927e-09550f187474}">
@@ -244,7 +320,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_PalletDetected := PalletDetected;]]></ST>
+          <ST><![CDATA[_inPalletDetected := PalletDetected;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -252,17 +328,16 @@ END_VAR
       <Declaration><![CDATA[METHOD PUBLIC Resetting : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Resetting;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Resetting;
+_outOutputPalletNaarDepal := FALSE;
 
-// Reset: alles naar basis → klep dicht
-Klep.SturingOpen(FALSE);
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
-IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Idle;
-    // later:
-    // // Step := 0;
-    // // timers reset
-END_IF;
+// Klaar? -> Idle
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Idle;
+END_IF
 
 Resetting := TRUE;
 ]]></ST>
@@ -272,20 +347,16 @@ Resetting := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Starting : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Starting;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Starting;
+_outOutputPalletNaarDepal := FALSE;
 
-// Startconditie: klep naar veilig (dicht)
-Klep.SturingOpen(FALSE); // FALSE = dicht
+// Start: naar “doorlaat-positie” of “basis-positie” (jij had FALSE hier)
+Klep.SturingOpen(FALSE);
 
-// Klaar met Starting? → door naar Execute
-// Pas deze check aan aan jouw echte statusbetekenis:
+// Zodra klep op positie is -> naar Execute
 IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Execute;
-END_IF;
-
-// later:
-// // AND Motor.Status = Off
-// // AND Lichtsensor.Status = NoDetect
+    TriggerState := E_PackMLStates.Execute;
+END_IF
 
 Starting := TRUE;
 ]]></ST>
@@ -295,12 +366,11 @@ Starting := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Stopped : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Stopped;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Stopped;
+_outOutputPalletNaarDepal := FALSE;
 
-// Zeker weten dat de klep dicht staat
-IF Klep.Status THEN
-    Klep.SturingOpen(FALSE);          // FALSE = dicht
-END_IF;
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
 Stopped := TRUE;
 ]]></ST>
@@ -310,17 +380,15 @@ Stopped := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Stopping : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Stopping;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Stopping;
+_outOutputPalletNaarDepal := FALSE;
 
-// Stopping: netjes stoppen → klep dicht
-Klep.SturingOpen(FALSE);
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
-IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Stopped;
-END_IF;
-
-// later:
-// // Motor.Stop();
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Stopped;
+END_IF
 
 Stopping := TRUE;
 ]]></ST>
@@ -330,17 +398,11 @@ Stopping := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Suspended : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Suspended;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspended;
+_outOutputPalletNaarDepal := FALSE;
 
-// Suspended = veilig stilstaand
-// Voor nu: klep dicht
-IF Klep.Status THEN
-    Klep.SturingOpen(FALSE);     // FALSE = dicht
-END_IF;
-
-// later:
-// // Motor.Stop();
-// // wacht op Unsuspending-command (herstart)
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
 Suspended := TRUE;
 ]]></ST>
@@ -350,19 +412,15 @@ Suspended := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Suspending : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Suspending;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspending;
+_outOutputPalletNaarDepal := FALSE;
 
-// Suspending: veilig stilzetten → klep dicht
-Klep.SturingOpen(FALSE);
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
 
-// Klaar? → Suspended
-IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Suspended;
-END_IF;
-
-// later:
-// // Motor.Stop();
-// // eventueel markeren dat je straks opnieuw wilt starten
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Suspended;
+END_IF
 
 Suspending := TRUE;
 ]]></ST>
@@ -372,14 +430,11 @@ Suspending := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Unholding : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Unholding;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Unholding;
+_outOutputPalletNaarDepal := FALSE;
 
-// Unholding: pauze opheffen → direct terug naar Execute
-// (geen reset naar rustpositie)
-_ActiveStateBufA := E_PackMLStates.Execute;
-
-// later:
-// // niets resetten (Step blijft staan)
+// direct terug naar Execute
+TriggerState := E_PackMLStates.Execute;
 
 Unholding := TRUE;
 ]]></ST>
@@ -389,18 +444,13 @@ Unholding := TRUE;
       <Declaration><![CDATA[METHOD PUBLIC Unsuspending : BOOL
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateBufA := E_PackMLStates.Unsuspending;
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Unsuspending;
+_outOutputPalletNaarDepal := FALSE;
 
-// Unsuspending: hervatten NA onderbreking
-// 1) eerst rustpositie (klep dicht)
-// 2) daarna terug naar Execute (waar je dan opnieuw kan beginnen)
 Klep.SturingOpen(FALSE);
-
 IF Klep.Status = FALSE THEN
-    _ActiveStateBufA := E_PackMLStates.Execute;
-    // later:
-    // // Step := 0;  // opnieuw beginnen
-END_IF;
+    TriggerState := E_PackMLStates.Execute;
+END_IF
 
 Unsuspending := TRUE;
 ]]></ST>

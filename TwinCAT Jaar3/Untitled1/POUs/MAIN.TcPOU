@@ -17,13 +17,14 @@ VAR
 	ResetKnop : FB_DrukKnop;
 	
 	Klep : FB_Klep;
+	KlepBufA1 : FB_Klep;
+	KlepBufA2 : FB_Klep;
 	MotorZuig : FB_MotorZuigSchuif;
 	MotorSchuif : FB_MotorZuigSchuif;
 	Druksensor : FB_Druksensor;
 	ControlWes : ControlTestWESSE;
 	
-	
-	
+
 	
 	(*//hieronder meuk van Niek
 	    TestClk : BOOL;      // testbool
@@ -64,8 +65,8 @@ Depalletizer.Zuignap3 := Zuignap3;
 Depalletizer.Zuignap4 := Zuignap4;
 Depalletizer.Druksensor1 := Druksensor;
 Depalletizer.KlepDepalletEind := Klep;
-BufferA1.Klep := Klep;
-BufferA2.Klep := Klep;
+BufferA1.Klep := KlepBufA1;
+BufferA2.Klep := KlepBufA2;
 
 
 Besturing.StartKnop := StartKnop;
@@ -74,6 +75,7 @@ Besturing.ResetKnop := ResetKnop;
 
 ControlWES.Besturing := Besturing;
 ControlWes.Depalletizer := Depalletizer;
+ControlWES.Palletizer := Palletizer;
 ControlWes.BufferA1 := BufferA1;
 ControlWes.BufferA2 := BufferA2;
 
@@ -96,6 +98,8 @@ Zuignap2();
 Zuignap3();
 Zuignap4();
 Klep();
+KlepBufA1();
+KlepBufA2();
 
 //Equipements
 Depalletizer();
