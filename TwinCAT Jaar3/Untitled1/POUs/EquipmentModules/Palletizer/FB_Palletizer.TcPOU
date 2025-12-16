@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Palletizer" Id="{01892087-3837-44fd-a643-766816d2ad24}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Palletizer IMPLEMENTS ITF_Palletizer
+VAR_INPUT
+    // Alles komt later als echte units/interfaces. Nu alleen placeholders in comments.
+    // RollerMotor       : ITF_Motor;            // elektro asynchroon motor (rollerband)
+    // LiftServo         : ITF_Servo;            // servo ketting lift
+    // Pin1              : ITF_LinearActuator;   // 4x pinnen
+    // Pin2              : ITF_LinearActuator;
+    // Pin3              : ITF_LinearActuator;
+    // Pin4              : ITF_LinearActuator;
+    // LsInfeed          : ITF_Lichtsensor;      // lichtsensor ingang
+    // LsPosition        : ITF_Lichtsensor;      // lichtsensor einde/positie
+    // DistanceFull      : ITF_Afstandssensor;   // opslag vol
+    // DoorSensor        : ITF_DeurSensor;       // deur open sensor
+    // LimitSwitch       : ITF_LimitSwitch;      // limit switch (positie onbekend)
+    // EStop             : ITF_Noodstop;         // noodstop
+    // OpenButton        : ITF_DrukKnop;         // open knop met licht
+    // ResetButton       : ITF_DrukKnop;         // reset knop met licht
+    // StatusLamp        : ITF_StatusLamp;       // machinestatuslamp
+END_VAR
+
+VAR
+    // =========================
+    // PackML command & status
+    // =========================
+    _CmdStatePal    : E_PackMLStates := E_PackMLStates.Idle;   // van control (1x trigger)
+    _ActiveStatePal : E_PackMLStates := E_PackMLStates.Idle;   // interne actieve state
+    CurrentStatePal : E_PackMLStates := E_PackMLStates.Idle;   // feedback naar control
+
+    // =========================
+    // Alarm / safety (later)
+    // =========================
+    _AlarmActive : BOOL := FALSE;
+    _AlarmCode   : UDINT := 0;
+    _EStopOk     : BOOL := TRUE;    // later: EStop.Ok
+    _DoorIsOpen   : BOOL := FALSE;   // later: DoorSensor.Open
+
+    // =========================
+    // Deur bediening (later)
+    // =========================
+    _DoorOpenRequest  : BOOL := FALSE;  // request vanuit control/HMI
+    _DoorOpenAllowed  : BOOL := FALSE;  // berekend (later)
+
+    // =========================
+    // Proces signalen (later)
+    // =========================
+    _PalletAtInFeed    : BOOL := FALSE; // later: LsInfeed.Detect
+    _PalletInPosition  : BOOL := FALSE; // later: LsPosition.Detect
+    _StorageFull       : BOOL := FALSE; // later: DistanceFull.Full
+
+    // Execute sequence (later)
+    Step : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// 1) Latch command -> active (zodat 1x trigger genoeg is)
+IF _CmdStatePal <> _ActiveStatePal THEN
+    _ActiveStatePal := _CmdStatePal;
+END_IF;
+
+// 2) Feedback state (wat ik NU aan het doen ben)
+CurrentStatePal := _ActiveStatePal;
+
+// 3) (optioneel) bereken deur-toestemming (nu nog simpel; later met echte voorwaarden)
+_DoorOpenAllowed := FALSE;
+// later (voorbeeld):
+// _DoorOpenAllowed := _EStopOk AND (CurrentStatePal = E_PackMLStates.Idle OR CurrentStatePal = E_PackMLStates.Stopped OR CurrentStatePal = E_PackMLStates.Held OR CurrentStatePal = E_PackMLStates.Suspended);
+
+// 4) PackML state machine (methods maak jij hierna aan)
+CASE _ActiveStatePal OF
+
+    E_PackMLStates.Idle:
+        Idle();
+
+    E_PackMLStates.Starting:
+        Starting();
+
+    E_PackMLStates.Execute:
+        Execute();
+
+    E_PackMLStates.Holding:
+        Holding();
+
+    E_PackMLStates.Held:
+        Held();
+
+    E_PackMLStates.Unholding:
+        Unholding();
+
+    E_PackMLStates.Suspending:
+        Suspending();
+
+    E_PackMLStates.Suspended:
+        Suspended();
+
+    E_PackMLStates.Unsuspending:
+        Unsuspending();
+
+    E_PackMLStates.Stopping:
+        Stopping();
+
+    E_PackMLStates.Stopped:
+        Stopped();
+
+    E_PackMLStates.Resetting:
+        Resetting();
+
+END_CASE
+]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{2411fb30-dde0-4d1e-a72d-103cc5262fde}" />
+    <Folder Name="Properties" Id="{f17e31d7-e075-4eb3-8dc3-3f972bfb1b56}" />
+    <Property Name="AlarmActive" Id="{d7b450da-7824-4bd0-81e2-c0a95cad9401}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{eca61404-5a79-4429-95f6-08988908187b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AlarmActive := _AlarmActive;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{906ec274-904a-42e8-a9a8-b3a672975994}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="AlarmCode" Id="{7775918f-adb8-440a-a083-a693ec6e35ed}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{bee063f1-d350-4cc0-9ddf-11a4c5476562}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AlarmCode := _AlarmCode;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ca9637bc-d66f-4208-9988-26723f9017e8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="CurrentState" Id="{86f7f3c9-e77a-4903-966c-69e094622844}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{d21af37f-af47-40c7-9306-c35e3188c8cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentState := CurrentStatePal;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{22c2287f-24b9-4ef4-bf61-4cc56975a5c7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="DoorIsOpen" Id="{63494c90-322d-4e57-8251-fba1448e45e3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY DoorIsOpen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1dfbb15f-9d04-4806-8b55-8787f8e62506}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DoorIsOpen := _DoorIsOpen;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{49730893-7421-4c3c-af1b-f4379f1f7258}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="DoorOpenAllowed" Id="{c1dd9ef3-8cb6-40f3-b162-dd650ec12e30}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY DoorOpenAllowed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f76b4f28-b3fc-4f08-b645-0fd36abcd3f3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DoorOpenAllowed := _DoorOpenAllowed;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d212a0f7-a7b6-4545-a555-9f085216c532}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="DoorOpenRequest" Id="{0b451954-fb07-41ea-8774-059201d15865}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY DoorOpenRequest : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6988e8a2-99a8-4038-b649-1043cde7c52a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DoorOpenRequest := _DoorOpenRequest;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{374400ba-bd0b-4493-b00f-9bd286d247c2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_DoorOpenRequest := DoorOpenRequest;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="EStopOk" Id="{f31c760d-6c16-463a-9eca-26809f55fd3c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY EStopOk : BOOL]]></Declaration>
+      <Get Name="Get" Id="{004a68f6-c794-41bf-8766-161c9ab2aa7d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EStopOk := _EStopOk;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8d171750-53fb-49e1-9f26-19141af429de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Execute" Id="{16a58c6d-d9e6-4e7f-a0b7-9d7181b8bae5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Execute;
+
+// Doel execute: pallet innemen, pinnen grijpen, lift stapelen, terug naar rust
+// Alles in steps zodat je later makkelijk units invult.
+
+CASE Step OF
+
+    0: // Wachten op pallet bij ingang
+        // IF StorageFull THEN
+        //     // RollerMotor.Stop();
+        //     // StatusLamp.SetFull();
+        //     // evt Holding() of Stopping() afhankelijk van ontwerp
+        // ELSE
+        //     // RollerMotor.Run();
+        // END_IF
+
+        // IF PalletAtInFeed THEN
+        //     // RollerMotor.Run(); // pallet door laten lopen
+        //     Step := 10;
+        // END_IF
+
+        // Placeholder
+        // Step := 0;
+
+    10: // Pallet naar positie rijden tot lichtsensor einde/positie
+        // IF PalletInPosition THEN
+        //     // RollerMotor.Stop();
+        //     Step := 20;
+        // END_IF
+
+    20: // Pinnen uitschuiven om pallet te grijpen
+        // Pin1.Extend(); Pin2.Extend(); Pin3.Extend(); Pin4.Extend();
+        // IF Pin1.Status = Extended AND Pin2.Status = Extended AND Pin3.Status = Extended AND Pin4.Status = Extended THEN
+        //     Step := 30;
+        // END_IF
+
+    30: // Lift omhoog (stack maken)
+        // LiftServo.MoveUpOneLevel();  // of MoveToHeight(...)
+        // IF LimitSwitch / PositionReached THEN
+        //     Step := 40;
+        // END_IF
+
+    40: // Nieuwe pallet kan eronder: bestaande stapel omhoog -> afhankelijk mechaniek
+        // // hier zou je ook de stack-logica doen (hoeveel pallets, hoogte etc.)
+        // Step := 50;
+
+    50: // Lift terug naar rust / pallets neerzetten
+        // LiftServo.GoHome();
+        // IF LiftServo.Status = Home THEN
+        //     Step := 60;
+        // END_IF
+
+    60: // Pinnen intrekken en klaar voor volgende pallet
+        // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+        // IF Pin1.Status = Retracted AND ... THEN
+        //     Step := 0;
+        // END_IF
+
+ELSE
+    Step := 0;
+END_CASE;
+
+Execute := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Held" Id="{b55bfaea-9ac2-400e-965a-9535331cf67e}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Held : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Held;
+
+// In Held blijft alles staan
+// // RollerMotor.Stop();
+// // LiftServo.HoldPosition();
+
+Held := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Holding" Id="{52861f9b-a481-4e23-b1c5-cef64c3ef4eb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Holding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Holding;
+
+// Holding = gecontroleerd pauzeren (positie behouden)
+// // RollerMotor.Stop();
+// // LiftServo.HoldPosition();
+// // StatusLamp.SetHold();
+
+// Zodra alles stil staat -> Held
+_ActiveStatePal := E_PackMLStates.Held;
+
+Holding := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Idle" Id="{14dcf620-4eca-4676-82d0-855220591e82}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Idle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Idle;
+
+// // RollerMotor.Stop();
+// // LiftServo.Stop();
+// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+// // StatusLamp.SetIdle();
+// // Deur gesloten houden tenzij open toegestaan
+
+// // IF DoorOpenAllowed AND DoorOpenRequest THEN
+// //     // DoorActuator.Open();   // als je later een deur-actuator hebt
+// // END_IF
+
+// In Idle blijven tot control een andere state triggert
+Idle := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InputState" Id="{e710e0b2-3ee0-42cd-b804-7c79824640cd}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY InputState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{56a237f1-68f6-40b0-bff6-449d06cb3f65}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputState := _CmdStatePal;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4be1caf8-933c-4f9d-8a71-87f693701266}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_CmdStatePal := InputState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PalletAtInFeed" Id="{ba000df6-d778-49ce-bd26-d658733b31e3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PalletAtInFeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8f14f7c4-34d5-4fc7-b4e1-a198e824f166}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PalletAtInFeed := _PalletAtInFeed;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f8ddcfbc-e844-48ff-b381-0e6efae71e5b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PalletInPosition" Id="{b0fe5337-b48e-4cd7-97dd-f88d45ce7267}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PalletInPosition : BOOL]]></Declaration>
+      <Get Name="Get" Id="{02c129c5-a62d-44a7-94a0-16e435716629}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PalletInPosition := _PalletInPosition;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{0617f62a-eabd-43ca-94a1-4de5e38af927}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Resetting" Id="{db63cd78-6dfc-4b29-9463-c18ba5eaec19}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Resetting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Resetting;
+
+// Resetting = alles naar basis/idle condities
+// // _AlarmActive := FALSE;
+// // _AlarmCode := 0;
+// // Step := 0;
+// // RollerMotor.Stop();
+// // LiftServo.GoHome();
+// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+// // StatusLamp.SetResetting();
+
+// Reset klaar -> Idle
+_ActiveStatePal := E_PackMLStates.Idle;
+Step := 0;
+
+Resetting := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Starting" Id="{4a3e5953-84c4-41e7-a958-1b74ee60f666}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Starting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Starting;
+
+// Doel starting: naar veilige startpositie / klaar om pallets te verwerken
+// Voorbeelden (later):
+// // RollerMotor.Stop();
+// // LiftServo.GoHome();                 // lift naar startpositie
+// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+// // StatusLamp.SetStarting();
+// // IF EStopOk = FALSE THEN
+// //     // _AlarmActive := TRUE; _AlarmCode := 1001;
+// // END_IF
+
+// Startcondities checken (later met echte statuses)
+// IF (LiftServo.Status = Home) AND (Pin1.Status = Retracted) AND ... THEN
+//     _ActiveStatePal := E_PackMLStates.Execute;
+//     Step := 0;
+// END_IF
+
+// Voor nu: direct door naar Execute (zodat je ziet dat flow werkt)
+_ActiveStatePal := E_PackMLStates.Execute;
+Step := 0;
+
+Starting := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopped" Id="{33b48153-f3a7-47de-8cf8-6ac124fe3b32}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopped : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Stopped;
+
+// In stopped: alles uit, wachten op Resetting/Starting
+// // RollerMotor.Stop();
+// // LiftServo.Stop();
+
+Stopped := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{cbd45afb-ba08-45da-9160-712941d6e40f}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopping : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Stopping;
+
+// Stoppen = gecontroleerd stilzetten en naar Stopped
+// // RollerMotor.Stop();
+// // LiftServo.Stop();
+// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+// // StatusLamp.SetStopping();
+
+_ActiveStatePal := E_PackMLStates.Stopped;
+
+Stopping := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StorageFull" Id="{d80f0c9b-02a2-425d-ad7e-65678d1810dd}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY StorageFull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1804146a-488c-464c-8d7b-8003a984bb2c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StorageFull := _StorageFull;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ad87cd23-966a-43c6-b2c0-c10a90a9a3f7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Suspended" Id="{6a115e32-659e-43cc-88d2-1267419091bd}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspended : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspended;
+
+// In suspended wacht je op Unsuspending command
+// // alles blijft veilig uit
+
+Suspended := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Suspending" Id="{0dd5f12e-8033-42e3-9131-1e90a5f8e595}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspending;
+
+// Suspending = gecontroleerd naar veilige toestand om later opnieuw te starten
+// (bijv. na error / geen input / wachttijd)
+// // RollerMotor.Stop();
+// // LiftServo.GoSafe();
+// // Pin1.Retract(); Pin2.Retract(); Pin3.Retract(); Pin4.Retract();
+// // StatusLamp.SetSuspending();
+
+// Als veilig -> Suspended
+_ActiveStatePal := E_PackMLStates.Suspended;
+
+Suspending := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unholding" Id="{2351bdac-eb65-45f6-a51b-6a7044f90e63}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unholding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Unholding;
+
+// Unholding = hervatten vanuit waar je was
+// // StatusLamp.SetResume();
+
+// Direct terug naar Execute (jij wilt Unholding -> Execute)
+_ActiveStatePal := E_PackMLStates.Execute;
+
+Unholding := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unsuspending" Id="{1ee279d3-4eb2-48a5-ba89-aef09f4f2dbe}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unsuspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CurrentStatePal := E_PackMLStates.Unsuspending;
+
+// Unsuspending = weer klaarzetten en dan doorgaan
+// // StatusLamp.SetUnsuspending();
+// // check safe ok -> dan execute
+
+_ActiveStatePal := E_PackMLStates.Execute;
+
+Unsuspending := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

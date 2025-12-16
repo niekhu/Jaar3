@@ -58,6 +58,15 @@
     <Compile Include="POUs\EquipmentModules\BufferA\FB_BufferA.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\FB_BufferA\ITF_BufferA.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Palletizer\FB_Palletizer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Palletizer\ITF_Palletizer.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>

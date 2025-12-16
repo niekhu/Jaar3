@@ -27,6 +27,11 @@ VAR
     Klep1   : FB_Klep;   // unit
     BufferA : FB_BufferA; // equipment
 	
+	 // Test voor BufferA 
+    CtrlBufA : FB_BufferA_TestControl;
+	TestState          : E_PackMLStates;   // welke PackML-state naar BufferA
+	
+	TestClk : BOOL;      
 	TestStart  : BOOL;
     TestStop   : BOOL;
     TestReset  : BOOL;
