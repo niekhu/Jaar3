@@ -52,6 +52,94 @@
                     }
                 ],
                 "type": "integer"
+            },
+            "ADS-PLC1.E_PackMLStates": {
+                "attributes": {
+                    "generate_implicit_init_function": "",
+                    "qualified_only": "",
+                    "strict": "",
+                    "to_string": ""
+                },
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                ],
+                "options": [
+                    {
+                        "label": "Idle",
+                        "value": 0
+                    },
+                    {
+                        "label": "Starting",
+                        "value": 1
+                    },
+                    {
+                        "label": "Execute",
+                        "value": 2
+                    },
+                    {
+                        "label": "Resetting",
+                        "value": 3
+                    },
+                    {
+                        "label": "Holding",
+                        "value": 4
+                    },
+                    {
+                        "label": "Held",
+                        "value": 5
+                    },
+                    {
+                        "label": "Unholding",
+                        "value": 6
+                    },
+                    {
+                        "label": "Suspending",
+                        "value": 7
+                    },
+                    {
+                        "label": "Suspended",
+                        "value": 8
+                    },
+                    {
+                        "label": "Unsuspending",
+                        "value": 9
+                    },
+                    {
+                        "label": "Stopping",
+                        "value": 10
+                    },
+                    {
+                        "label": "Stopped",
+                        "value": 11
+                    },
+                    {
+                        "label": "Aborting",
+                        "value": 12
+                    },
+                    {
+                        "label": "Aborted",
+                        "value": 13
+                    },
+                    {
+                        "label": "Clearing",
+                        "value": 14
+                    }
+                ],
+                "type": "integer"
             }
         }
     },
@@ -813,6 +901,40 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.Depalletizer.AantalLagenVerwijderd": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Depalletizer::AantalLagenVerwijderd",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/INT"
+                    },
+                    {
+                        "propertyOrder": 31
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.Depalletizer.CurrentStateDep": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Depalletizer::CurrentStateDep",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
+                    },
+                    {
+                        "propertyOrder": 10
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.Depalletizer.GelezenStatusDruksensor": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -843,6 +965,23 @@
                     {
                         "comment": "1ma gemeten staat gelijk aan 0,375 bar (specs sensor)",
                         "propertyOrder": 3
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Druksensor::StatusDruksensor",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_DruksensorStatus"
+                    },
+                    {
+                        "propertyOrder": 4
                     }
                 ]
             },
@@ -3857,8 +3996,11 @@
                 "ADS.CheckLicense": 3,
                 "ADS.Diagnostics": 3,
                 "ADS.PLC1": 3,
+                "ADS.PLC1.MAIN.Depalletizer.AantalLagenVerwijderd": 3,
+                "ADS.PLC1.MAIN.Depalletizer.CurrentStateDep": 3,
                 "ADS.PLC1.MAIN.Depalletizer.GelezenStatusDruksensor": 3,
                 "ADS.PLC1.MAIN.Druksensor.BarPerMa": 3,
+                "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,
                 "CreateEvent": 3,

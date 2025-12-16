@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_ControlTestWesNiek" Id="{649c8754-d58c-4c47-a718-f4ea8576dd07}">
+    <Declaration><![CDATA[INTERFACE ITF_ControlTestWesNiek
+]]></Declaration>
+    <Folder Name="HMIDepalletizer" Id="{997b8582-d383-4605-97f3-6c83282cb7ee}" />
+    <Property Name="HMIDepalletizerCurrentState" Id="{0ef3e29f-48aa-47b7-a5ce-7e52534533a3}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{44c9355d-12cd-4dd0-a2c3-140a0ca4ecb0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{f8588cc0-52a7-415a-ae9d-883a7735beff}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIKlaarVoorInvoer" Id="{4be0e5f1-2cf7-4ae8-8288-a8d84ce840ab}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIKlaarVoorInvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bc735157-6c15-468c-881e-fb3321376b62}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{ef98c771-acb1-4cbd-bb77-26f31ee886d9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIKlaarVoorUitvoer" Id="{b821f182-8226-4bc9-bab9-24dc0e3f4a57}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIKlaarVoorUitvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c7404342-cb2e-4b30-8c13-d982bf95b7fd}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e485a1d8-b46d-4e09-8aeb-645deae30f1f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMILiftAanUit" Id="{ffba2307-5455-4f89-b95c-731ed3633573}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{5c99a85a-dca1-4fd5-825d-8d702237016d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{96917651-9a2e-4dfe-ba9c-fe25e61d34f9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorSchuifStatus" Id="{93b4d50d-0133-4eb2-b5dd-e3afa33e9b41}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIMotorSchuifStatus : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{31f888ff-2d92-4273-9c85-a0798e5c8d3f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{b8765be3-2151-4250-90e1-b3f0da3472c2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorZuigStatus" Id="{4fd9bfa6-0362-4998-b829-87154b6bb0a3}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIMotorZuigStatus : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{78720a31-3c24-4304-a680-698b968b8f25}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{9e2faccf-cab5-4b81-be1b-a857cffe1038}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPinnenUitYesNo" Id="{2a3cff79-4fc7-4cf9-8754-a72f5540bb84}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d4bac406-4082-424b-8a18-ba7b83fae055}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{17aceb82-828d-4ca8-b05d-18ee02f03a8b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIRolbandAanUit" Id="{9090e5b2-e364-4d06-80c5-f357c562fdea}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIRolbandAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{07cc6c29-0b75-449e-a463-5d7e94f44c31}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2181057f-2073-4afa-892d-8591fed4b9c2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

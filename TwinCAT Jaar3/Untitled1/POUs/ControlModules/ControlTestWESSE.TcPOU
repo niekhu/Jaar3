@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="ControlTestWESSE" Id="{354c57cc-84b3-4f8a-b977-849f64cddfa0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE
+    <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE IMPLEMENTS ITF_ControlTestWesNiek
 VAR_INPUT
 	Depalletizer : ITF_Depalletizer;
 	Besturing : ITF_Besturing;
@@ -87,5 +87,160 @@ IF BufferA2.OutputPalletNaarDepallet = FALSE THEN
 END_IF
 END_IF]]></ST>
     </Implementation>
+    <Folder Name="Properties" Id="{9389d657-1ea7-407f-9ac5-73fb6e4ece44}">
+      <Folder Name="HMIDepalletizer" Id="{2eafec69-78b7-4062-833a-7c1d9eb97673}" />
+    </Folder>
+    <Property Name="HMIDepalletizerCurrentState" Id="{081d8233-0e4c-4309-b735-0a4fb032b0a8}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{7d5f1157-599f-41f7-996e-914695dc4d8a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIDepalletizerCurrentState := Depalletizer.CurrentState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{0ed1c926-f617-4976-83ce-4285a5d76d39}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIKlaarVoorInvoer" Id="{c77e7409-720f-4c06-9abf-5bbc95394c74}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIKlaarVoorInvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{901a27f8-7f11-4b50-a717-dd712ced6ce6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIKlaarvoorInvoer := Depalletizer.KlaarVoorInvoer;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{eb0cfa7e-b319-491e-9fce-689d98612fb3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIKlaarVoorUitvoer" Id="{18a9c081-b01f-4db2-a24e-a3d2baddbe0f}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIKlaarVoorUitvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9e45b299-a93a-41a4-863e-996a75f5945b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIKlaarVoorUitvoer := Depalletizer.KlaarVoorUitvoer;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{53387f50-7fdd-4f57-a299-3a8bae8edc17}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILiftAanUit" Id="{8a2ba6b5-99b2-4174-8250-948ecba56410}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e840f05f-b0fd-4bf2-bb4e-fa4bee2308cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILiftAanUit := Depalletizer.HMILiftAanUit;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{fabd264f-3711-41be-b89c-53c852ec4826}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorSchuifStatus" Id="{ffab7e7b-748d-4a6b-90b4-bcd914f2638d}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIMotorSchuifStatus : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{47467e7f-0523-4e54-ba37-62941c101402}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorSchuifStatus := Depalletizer.HMIMotorSchuif;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{741c0488-011e-4323-9f28-5d39eebca80f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorZuigStatus" Id="{d161d7d0-fbee-44b8-b5b9-db949190626d}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIMotorZuigStatus : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{5f07b81c-f290-4208-b7cb-b3a321c5c4c6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorZuigStatus := Depalletizer.HMIMotorZuig;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{35cd212c-051a-43c1-8a56-8ff192504208}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPinnenUitYesNo" Id="{609d8ae5-3a6c-48af-a4c8-d005b0650f05}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{5d755506-1b28-4340-ab4b-330060261313}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIPinnenUitYesNo := Depalletizer.HMIPinnenUitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{87123a91-e0f4-4ae7-97f2-bcbca190b312}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIRolbandAanUit" Id="{5436050e-fd47-4c49-a5e0-0d37c399b8a4}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIRolbandAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7e6a2cae-07b0-4ad5-9325-5a4becbc8412}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIRolbandAanUit := Depalletizer.HMIRolbandAanUit;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{72c3f18c-2f14-4d05-848c-b545606e881a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
   </POU>
 </TcPlcObject>

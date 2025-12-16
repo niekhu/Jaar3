@@ -135,6 +135,7 @@
     <Folder Include="Imports\Videos" />
     <Folder Include="KeyboardLayouts\" />
     <Folder Include="Localization" />
+    <Folder Include="HMIPagina'sGeheleMachine" />
     <Folder Include="Themes" />
     <Folder Include="Themes\Base-Dark\Images\" />
     <Folder Include="Themes\Base\" />
@@ -145,6 +146,15 @@
     <Folder Include="Properties" />
     <Content Include=".eslintrc.json">
       <Visible>false</Visible>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\Depalletizer.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\Palletizer.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Manifest\Depalletizer.png">
+      <SubType>Content</SubType>
     </Content>
     <Content Include="Server\ADS\ADS.Config.hmiwesse.json">
       <SubType>Content</SubType>

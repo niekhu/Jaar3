@@ -18,7 +18,7 @@ END_VAR
 VAR
 	//PackmlState input en current
 	InputStateDep : E_PackMLStates;	
-	CurrentStateDep : E_PackMLStates;
+	CurrentStateDep : E_PackMLStates := E_PackMLStates.Idle;
 	TriggerState : E_PackMLStates;
 	VorigeInputState : E_PackMLStates;
 	//eind var
@@ -244,7 +244,9 @@ GelezenStatusDruksensor := Druksensor1.Status;
 ]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{41eb30da-c817-4a57-90b2-9b373696aeab}" />
-    <Folder Name="Properties" Id="{0a932fc3-77da-47ab-9595-fa212dce3ce7}" />
+    <Folder Name="Properties" Id="{0a932fc3-77da-47ab-9595-fa212dce3ce7}">
+      <Folder Name="HMI" Id="{2505297c-9f56-4a5a-becd-68c4ed171c73}" />
+    </Folder>
     <Property Name="AlarmenDepallet" Id="{42935b8e-377b-470c-ab11-71e67ce28088}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
       <Get Name="Get" Id="{022fe51e-576e-4aa5-9b7f-a184868bb8a3}">
@@ -487,6 +489,101 @@ END_VAR
         <ST><![CDATA[CurrentStateDep := E_PackMLStates.Held;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="HMILiftAanUit" Id="{05444e37-8315-4f1e-8199-c0f4af030b8f}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{87a8742c-8dfb-4145-8b7e-2cb22369489f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILiftAanUit := LiftBewegingYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{245fef96-8de1-408c-b82f-eeb66c5930b8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorSchuif" Id="{8098e8c1-9d30-4f72-a013-ebb87a54b861}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIMotorSchuif : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{7df2f439-78c8-4ef8-a753-84f159ba2927}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorSchuif := MotorSchuif.Status;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{acee3a41-8754-4ead-b545-44468ff5bc1d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorZuig" Id="{4de50e8f-a637-435f-add2-9df89853a897}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIMotorZuig : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{856dcf3c-a6d7-4f6e-b9eb-6b18db156be6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorZuig := MotorZuig.Status;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{58406b4e-8698-4d77-8b8f-24e001c04d53}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPinnenUitYesNo" Id="{fec89354-c920-497e-b69e-80b9fb2d1229}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c5c076ca-dc2d-4a8f-851e-7e55da1d0b86}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIPinnenUitYesNo := PinnenUitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{72e2be26-2f90-49fd-a679-56fff97dabc0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIRolbandAanUit" Id="{489b2919-4206-4b8e-b130-9b79e96bf96e}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIRolbandAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9f031a67-08e0-4ffd-a209-95fb1a3b0be8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIRolbandAanUit := RolbandAanUit;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{178da827-396d-4fc8-8380-60ae04edf7cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Holding" Id="{9ee0f93f-9ee6-40ae-91af-7b218154d752}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Holding : BOOL
 VAR_INPUT

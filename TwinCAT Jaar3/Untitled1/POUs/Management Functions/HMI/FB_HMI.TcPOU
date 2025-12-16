@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMI" Id="{cec392d0-0468-40f1-bcf8-6c1287cd568f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
+VAR_INPUT
+	HMIWaarden : ITF_ControlTestWesNiek;
+			
+END_VAR
+VAR_OUTPUT
+	
+END_VAR
+VAR
+//Depalletizer HMI
+DepalletizerCurrentStateDep : E_PackMLStates;
+KlaarVoorInvoer : BOOL;
+KlaarVoorUitvoer : BOOL;
+LiftAanUit : BOOL;
+MotorSchuifStatus : E_MotorZuigSchuifStatus;
+MotorZuigStatus : E_MotorZuigSchuifStatus;
+PinnenUitYesNo : BOOL;
+RolbandAanUit : BOOL;
+UpdateHMI : BOOL;
+//Eind Depalletizer HMI	
+
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Depalletizer HMI
+IF UpdateHMI = TRUE THEN
+DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;
+KlaarVoorInvoer := HMIWaarden.HMIKlaarVoorInvoer;
+KlaarVoorUitvoer := HMIWaarden.HMIKlaarVoorUitvoer;
+LiftAanUit := HMIWaarden.HMILiftAanUit;
+MotorSchuifStatus := HMIWaarden.HMIMotorSchuifStatus;
+MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
+PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
+RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
+END_IF
+//Einde Depalletizer HMI]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

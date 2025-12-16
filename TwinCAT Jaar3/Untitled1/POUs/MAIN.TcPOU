@@ -15,6 +15,7 @@ VAR
 	StartKnop : FB_DrukKnop;
 	StopKnop : FB_DrukKnop;
 	ResetKnop : FB_DrukKnop;
+	HMIWaarden : FB_HMI;
 	
 	Klep : FB_Klep;
 	MotorZuig : FB_MotorZuigSchuif;
@@ -66,6 +67,7 @@ Depalletizer.Druksensor1 := Druksensor;
 Depalletizer.KlepDepalletEind := Klep;
 BufferA1.Klep := Klep;
 BufferA2.Klep := Klep;
+HMIWaarden.HMIWaarden := ControlWes;
 
 
 Besturing.StartKnop := StartKnop;
@@ -106,6 +108,8 @@ BufferA2();
 //unit modules
 ControlWes();
 
+//management functions
+HMIWaarden();
 
 
 
