@@ -147,9 +147,6 @@
     <Content Include=".eslintrc.json">
       <Visible>false</Visible>
     </Content>
-    <Content Include="HMIPagina'sGeheleMachine\Depalletizer.content">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="HMIPagina'sGeheleMachine\Palletizer.content">
       <SubType>Content</SubType>
     </Content>

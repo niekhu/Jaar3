@@ -20,6 +20,7 @@ MotorZuigStatus : E_MotorZuigSchuifStatus;
 PinnenUitYesNo : BOOL;
 RolbandAanUit : BOOL;
 UpdateHMI : BOOL;
+
 //Eind Depalletizer HMI	
 
 
