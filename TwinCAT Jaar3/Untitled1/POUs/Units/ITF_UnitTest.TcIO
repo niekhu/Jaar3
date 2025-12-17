@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_ControlTestWesNiek" Id="{649c8754-d58c-4c47-a718-f4ea8576dd07}">
-    <Declaration><![CDATA[INTERFACE ITF_ControlTestWesNiek
+  <Itf Name="ITF_UnitTest" Id="{649c8754-d58c-4c47-a718-f4ea8576dd07}">
+    <Declaration><![CDATA[INTERFACE ITF_UnitTest
 ]]></Declaration>
     <Folder Name="HMIDepalletizer" Id="{997b8582-d383-4605-97f3-6c83282cb7ee}" />
     <Property Name="HMIDepalletizerCurrentState" Id="{0ef3e29f-48aa-47b7-a5ce-7e52534533a3}" FolderPath="HMIDepalletizer\">

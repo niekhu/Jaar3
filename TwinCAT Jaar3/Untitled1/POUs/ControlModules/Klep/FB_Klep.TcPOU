@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Klep" Id="{a42b2b1d-3d0d-4ad8-8a49-e659df0386f5}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_Klep IMPLEMENTS ITF_UnitKlep
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Klep IMPLEMENTS ITF_Klep
 VAR
     _cmdOpen : BOOL;   // laatst aangevraagde command
     _status  : BOOL;   // huidige status van de klep

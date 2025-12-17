@@ -3,7 +3,7 @@
   <POU Name="FB_HMI" Id="{cec392d0-0468-40f1-bcf8-6c1287cd568f}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
 VAR_INPUT
-	HMIWaarden : ITF_ControlTestWesNiek;
+	HMIWaarden : ITF_UnitTest;
 			
 END_VAR
 VAR_OUTPUT

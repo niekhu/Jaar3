@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <Itf Name="ITF_UnitKlep" Id="{8f7e2527-7432-4896-9b73-73cf77b72106}">
-    <Declaration><![CDATA[INTERFACE ITF_UnitKlep
+  <Itf Name="ITF_Klep" Id="{8f7e2527-7432-4896-9b73-73cf77b72106}">
+    <Declaration><![CDATA[INTERFACE ITF_Klep
 ]]></Declaration>
     <Property Name="Status" Id="{768541d2-34f0-426d-a14b-133f9a89d851}">
       <Declaration><![CDATA[PROPERTY Status : BOOL]]></Declaration>

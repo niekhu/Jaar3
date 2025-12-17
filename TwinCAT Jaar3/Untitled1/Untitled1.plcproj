@@ -40,10 +40,10 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ControlModules\ControlTestWESSE.TcPOU">
+    <Compile Include="POUs\Units\UnitTest.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ControlModules\ITF_ControlTestWesNiek.TcIO">
+    <Compile Include="POUs\Units\ITF_UnitTest.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\Besturing\FB_Besturing.TcPOU">
@@ -73,43 +73,43 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Management Functions\HMI\FB_HMI.TcPOU">
+    <Compile Include="POUs\ManagementFunctions\HMI\FB_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Druksensor\FB_Druksensor.TcPOU">
+    <Compile Include="POUs\ControlModules\Druksensor\FB_Druksensor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
+    <Compile Include="POUs\ControlModules\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DrukKnop\FB_DrukKnop.TcPOU">
+    <Compile Include="POUs\ControlModules\DrukKnop\FB_DrukKnop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DrukKnop\ITF_DrukKnop.TcIO">
+    <Compile Include="POUs\ControlModules\DrukKnop\ITF_DrukKnop.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Klep\FB_Klep.TcPOU">
+    <Compile Include="POUs\ControlModules\Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Klep\ITF_UnitKlep.TcIO">
+    <Compile Include="POUs\ControlModules\Klep\ITF_Klep.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LimitSwitch\FB_LimitSwitch.TcPOU">
+    <Compile Include="POUs\ControlModules\LimitSwitch\FB_LimitSwitch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LimitSwitch\ITF_LimitSwitch.TcIO">
+    <Compile Include="POUs\ControlModules\LimitSwitch\ITF_LimitSwitch.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
+    <Compile Include="POUs\ControlModules\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
+    <Compile Include="POUs\ControlModules\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
+    <Compile Include="POUs\ControlModules\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
+    <Compile Include="POUs\ControlModules\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -117,20 +117,20 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\EquipmentModules" />
-    <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\Units" />
     <Folder Include="POUs\EquipmentModules\BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
     <Folder Include="POUs\EquipmentModules\Besturing" />
     <Folder Include="POUs\EquipmentModules\Palletizer" />
-    <Folder Include="POUs\Management Functions" />
-    <Folder Include="POUs\Management Functions\HMI" />
-    <Folder Include="POUs\Units" />
-    <Folder Include="POUs\Units\Druksensor" />
-    <Folder Include="POUs\Units\Klep" />
-    <Folder Include="POUs\Units\MotorZuigSchuif" />
-    <Folder Include="POUs\Units\DrukKnop" />
-    <Folder Include="POUs\Units\LimitSwitch" />
-    <Folder Include="POUs\Units\Vacuumzuignap" />
+    <Folder Include="POUs\ManagementFunctions" />
+    <Folder Include="POUs\ManagementFunctions\HMI" />
+    <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\ControlModules\Druksensor" />
+    <Folder Include="POUs\ControlModules\Klep" />
+    <Folder Include="POUs\ControlModules\MotorZuigSchuif" />
+    <Folder Include="POUs\ControlModules\DrukKnop" />
+    <Folder Include="POUs\ControlModules\LimitSwitch" />
+    <Folder Include="POUs\ControlModules\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>

@@ -23,7 +23,7 @@ VAR
 	MotorZuig : FB_MotorZuigSchuif;
 	MotorSchuif : FB_MotorZuigSchuif;
 	Druksensor : FB_Druksensor;
-	ControlWes : ControlTestWESSE;
+	ControlWes : UnitTest;
 	
 
 	

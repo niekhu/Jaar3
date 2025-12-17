@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA IMPLEMENTS ITF_BufferA
 
 VAR_INPUT
-    Klep : ITF_UnitKlep;          // unit-klep van Buffer A
+    Klep : ITF_Klep;          // unit-klep van Buffer A
 END_VAR
 VAR
     // =========================================================

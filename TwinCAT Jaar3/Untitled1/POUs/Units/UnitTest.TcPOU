@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="ControlTestWESSE" Id="{354c57cc-84b3-4f8a-b977-849f64cddfa0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ControlTestWESSE IMPLEMENTS ITF_ControlTestWesNiek
+  <POU Name="UnitTest" Id="{354c57cc-84b3-4f8a-b977-849f64cddfa0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK UnitTest IMPLEMENTS ITF_UnitTest
 VAR_INPUT
 	Depalletizer : ITF_Depalletizer;
 	Palletizer : ITF_Palletizer;
