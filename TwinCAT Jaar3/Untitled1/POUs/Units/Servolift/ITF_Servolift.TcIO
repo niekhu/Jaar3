@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Servolift" Id="{7b701dd8-bb17-4569-93a9-ba3f88269520}">
+    <Declaration><![CDATA[INTERFACE ITF_Servolift
+]]></Declaration>
+    <Property Name="Actie" Id="{8072b5da-f9fc-4aa8-9ec0-f51e749e72c6}">
+      <Declaration><![CDATA[PROPERTY Actie : E_ServoliftCommand]]></Declaration>
+      <Get Name="Get" Id="{716aa708-71f5-47cf-9b4e-b8cb00f0591e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{90c21a10-cb63-45a5-8d93-ee2d36ac8ed5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Error" Id="{0a2fffdc-c069-4b16-a5fb-c7094f5d885b}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{46a9f4af-444f-4645-95ef-7689f89a4488}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Huidigepositie" Id="{357c26ec-cbdd-4ac0-8bb7-f4ad23e529d3}">
+      <Declaration><![CDATA[PROPERTY Huidigepositie : REAL]]></Declaration>
+      <Get Name="Get" Id="{74d1ce15-1359-4aaf-bf18-aa843729efda}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{ec498a30-ce7c-4767-995f-446e37ce5842}">
+      <Declaration><![CDATA[PROPERTY Status : E_ServoliftStatus]]></Declaration>
+      <Get Name="Get" Id="{433fbf67-9972-4986-8200-a29eba43ae11}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{a99b9fb2-03d5-4443-9f08-580c47856032}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

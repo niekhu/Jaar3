@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Servolift" Id="{996049b0-5368-47cc-bbe4-0520d5a9b47f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Servolift IMPLEMENTS ITF_Servolift
+VAR_INPUT
+	PositieFeedback : REAL; // Positie encoder van de servo motor
+	ServoErrorInput : BOOL; // Error Drive van de servo motor
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	// Interne waardes
+	Actie_Intern : E_ServoliftCommand;
+	Status_Intern : E_ServoliftStatus; 
+	Error_Intern : BOOL;
+	
+	Huidigepositie_Intern : REAL; 
+	
+	// Instelwaarden servo motor
+	Eindpositie : REAL := 1200.0; // In millimeters
+	Beginpositie : REAL := 0.0; // In millimeters
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{d31ea050-0194-4193-84a5-1574c7e389b7}" />
+    <Folder Name="Properties" Id="{bfa96eff-2c09-4843-9638-928ae1053428}" />
+    <Property Name="Actie" Id="{335ab6c9-fa1f-4431-bb96-174e3a5bea16}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Actie : E_ServoliftCommand
+]]></Declaration>
+      <Get Name="Get" Id="{b7ff9021-b073-4d4d-b999-613a388cc217}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Actie := Actie_Intern;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2d03164d-2f62-4e82-85cd-5fe8cb8125f2}">
+        <Declaration><![CDATA[VAR
+	Waarde : E_ServoliftCommand;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Actie_Intern := Waarde;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Error" Id="{35e17a18-2a7d-4f59-836c-d793c7669bad}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{99ce6fb6-8986-4d6e-a280-388ff4696724}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := Error_Intern; ]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Huidigepositie" Id="{894b5a1c-3d29-4377-bf07-926826e8b502}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Huidigepositie : REAL
+]]></Declaration>
+      <Get Name="Get" Id="{5e6c5ebb-7ec5-4085-9e3b-c6b9c3a6a393}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Huidigepositie := Huidigepositie_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{92d42477-4436-4c6f-bfe5-e96663b234d1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : E_ServoliftStatus
+]]></Declaration>
+      <Get Name="Get" Id="{9651ec8e-ee2b-40fa-9ab5-56bb03038437}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := Status_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{4cc145a8-3ec1-4f76-abdc-68186a253684}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Feedback verwerken
+Huidigepositie_Intern := PositieFeedback; 
+Error_Intern := ServoErrorInput; 
+
+IF Error_Intern THEN
+	Status_Intern := E_ServoliftStatus.Error;
+	RETURN;
+END_IF
+
+CASE Actie_Intern OF
+	
+	E_ServoliftCommand.Beweegomhoog:
+		Status_Intern := E_ServoliftStatus.Omhoogbewegen;
+		
+		IF Huidigepositie_Intern >= Eindpositie THEN
+			Actie_Intern := E_ServoliftCommand.Houdtvast;
+		END_IF
+	
+	E_ServoliftCommand.Beweegomlaag:
+		Status_Intern := E_ServoliftStatus.Omlaagbewegen;
+		
+		IF Huidigepositie_Intern <= Beginpositie THEN
+			Actie_Intern := E_ServoliftCommand.Houdtvast;
+		END_IF
+	
+	E_ServoliftCommand.Houdtvast:
+		Status_Intern := E_ServoliftStatus.Vasthouden;
+		
+	ELSE
+		Status_Intern := E_ServoliftStatus.Idle;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
