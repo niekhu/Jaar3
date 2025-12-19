@@ -1,7 +1,6 @@
-### TwinCAT3 ###
-# website: https://www.beckhoff.com/twincat3/
+### TwinCAT 3 ###
 
-# TwinCAT PLC
+# TwinCAT PLC project files (keep main ones)
 *.plcproj.bak
 *.plcproj.orig
 *.tpy
@@ -14,10 +13,10 @@
 LineIDs.dbg
 LineIDs.dbg.bak
 
-# TwinCAT C++ and shared types
-# ignoring the TMC file is only useful for plain PLC programming
-# as soon as shared data types (via tmc), C++ or in general TcCom-Module are used, the TMC file has to be part of the repository
-*.tmc
+# TMC files: comment/uncomment based on project usage
+# Ignore if you do plain PLC only
+# Do NOT ignore if using shared types, TcCom modules, C++
+# *.tmc
 *.tmcRefac
 
 # TwinCAT project files
@@ -37,7 +36,7 @@ LineIDs.dbg.bak
 # Multiuser specific
 **/.TcGit/
 
-# exclude not required folders
+# Exclude not required folders
 **/_Boot/
 **/_CompileInfo/
 **/_Libraries/
@@ -45,16 +44,11 @@ LineIDs.dbg.bak
 **/_Deployment/
 **/_Repository/
 
-
-# To include a specific library directory (i.e. third party/custom libs),
-# use pattern `!/**/_Libraries/<directory name>/` i.e. `!/**/_Libraries/www.tcunit.org/`
-#
-
 # VS Shell project specific files and folders
 **/.vs/
 *.~u
 *.project.~u
 *.suo
 
-# TwinCAT generated files
+# TwinCAT generated files (optional, may include TMC if plain PLC)
 *.tmc
