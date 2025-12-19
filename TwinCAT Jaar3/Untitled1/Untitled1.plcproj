@@ -40,6 +40,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\DeurSensor\FB_DeurSensor.TcPOU">
+    <Compile Include="POUs\Units\Druksensor\FB_Druksensor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\DeurSensor\ITF_DeurSensor.TcIO">
@@ -56,7 +57,6 @@
     </Compile>
     <Compile Include="POUs\Units\LineaireActuatorZuignap\ITF_CilinderZuignap.TcIO">
       <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Units\MechanischeRem\FB_MechanischeRem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +69,7 @@
     <Compile Include="POUs\Units\MotorAC\ITF_MotorAC.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
@@ -76,12 +77,12 @@
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
     <Folder Include="POUs\EquipmentModules\BufferB" />
-    <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\DeurSensor" />
     <Folder Include="POUs\Units\LichtSensor" />
     <Folder Include="POUs\Units\MechanischeRem" />
     <Folder Include="POUs\Units\MotorAC" />
     <Folder Include="POUs\Units\LineaireActuatorZuignap" />
+>>>>>>>>> Temporary merge branch 2
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
