@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BufferB" Id="{587a92e8-1993-43bb-903c-4e0b642b7b20}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferB IMPLEMENTS ITF_BufferB
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ActueelOpPositie 
+	
+
+VerwachtOpPositie 
+	]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_BufferB" Id="{887b6997-c26d-4cf1-bafb-eee559c0e8e6}">
+    <Declaration><![CDATA[INTERFACE ITF_BufferB
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

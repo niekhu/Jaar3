@@ -3,10 +3,32 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-END_VAR
-]]></Declaration>
+	Buffer2 : FB_BufferB;
+	Buffer3 : FB_BufferB;
+	Buffer4 : FB_BufferB;
+	
+	Motor2 : FB_MotorAC;
+	Motor3 : FB_MotorAC;
+	Motor4 : FB_MotorAC;
+	
+	LichtSensor2 : FB_LichtSensor;
+	LichtSensor3 : FB_LichtSensor;
+	LichtSensor4 : FB_LichtSensor;
+END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[Buffer2();
+Buffer3();
+Buffer4();
+
+Motor2();
+Motor3();
+Motor4();
+
+LichtSensor2();
+LichtSensor3();
+LichtSensor4();
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
