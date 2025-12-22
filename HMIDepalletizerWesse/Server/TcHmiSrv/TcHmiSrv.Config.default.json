@@ -53,6 +53,44 @@
                 ],
                 "type": "integer"
             },
+            "ADS-PLC1.E_MotorZuigSchuifStatus": {
+                "attributes": {
+                    "generate_implicit_init_function": "",
+                    "qualified_only": "",
+                    "strict": "",
+                    "to_string": ""
+                },
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "options": [
+                    {
+                        "label": "Kort",
+                        "value": 0
+                    },
+                    {
+                        "label": "Lang",
+                        "value": 1
+                    },
+                    {
+                        "label": "GoToKort",
+                        "value": 2
+                    },
+                    {
+                        "label": "GoToLang",
+                        "value": 3
+                    },
+                    {
+                        "label": "Error",
+                        "value": 4
+                    }
+                ],
+                "type": "integer"
+            },
             "ADS-PLC1.E_PackMLStates": {
                 "attributes": {
                     "generate_implicit_init_function": "",
@@ -140,6 +178,16 @@
                     }
                 ],
                 "type": "integer"
+            },
+            "ADS-PLC1.STRING-50": {
+                "allOf": [
+                    {
+                        "maxLength": 50
+                    },
+                    {
+                        "$ref": "tchmi:general#/definitions/String"
+                    }
+                ]
             }
         }
     },
@@ -918,6 +966,23 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.Depalletizer.AlarmDruksensor": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Depalletizer::AlarmDruksensor",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_DruksensorStatus"
+                    },
+                    {
+                        "propertyOrder": 15
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.Depalletizer.CurrentStateDep": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -947,6 +1012,41 @@
                     },
                     {
                         "propertyOrder": 49
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.Depalletizer.InputStateDep": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Depalletizer::InputStateDep",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
+                    },
+                    {
+                        "comment": "PackmlState input en current",
+                        "propertyOrder": 9
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.Depalletizer.StartingSensorOk": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Depalletizer::StartingSensorOk",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 22
                     }
                 ]
             },
@@ -1034,6 +1134,91 @@
                     },
                     {
                         "propertyOrder": 4
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::LiftAanUit",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.MotorSchuifStatus": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::MotorSchuifStatus",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_MotorZuigSchuifStatus"
+                    },
+                    {
+                        "propertyOrder": 6
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::PinnenUitYesNo",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 8
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.RolbandAanUit": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::RolbandAanUit",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 9
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekst",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
+                    },
+                    {
+                        "propertyOrder": 11
                     }
                 ]
             },
@@ -4049,14 +4234,21 @@
                 "ADS.Diagnostics": 3,
                 "ADS.PLC1": 3,
                 "ADS.PLC1.MAIN.Depalletizer.AantalLagenVerwijderd": 3,
+                "ADS.PLC1.MAIN.Depalletizer.AlarmDruksensor": 3,
                 "ADS.PLC1.MAIN.Depalletizer.CurrentStateDep": 3,
                 "ADS.PLC1.MAIN.Depalletizer.GelezenStatusDruksensor": 3,
+                "ADS.PLC1.MAIN.Depalletizer.InputStateDep": 3,
+                "ADS.PLC1.MAIN.Depalletizer.StartingSensorOk": 3,
                 "ADS.PLC1.MAIN.Druksensor.BarPerMa": 3,
                 "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.MotorSchuifStatus": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.RolbandAanUit": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,
                 "CreateEvent": 3,

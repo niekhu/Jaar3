@@ -30,7 +30,7 @@ VAR
 	i : INT;
 	AlarmDruksensor1Bestaat : BOOL;
 	AlarmMotorSchuifBestaat : BOOL;
-	AlarmMotorZuigBestaat : BOOL;
+	AlarmMotorZuigBestaat : BOOL;				// Let op, hier toevoegen toevoegen als er een unit met alarm onder depalletizer valt
 	fbLocalTime : FB_LocalSystemTime;
 	//eind var
 	
@@ -50,7 +50,7 @@ VAR
 	AantalLagenBlikjesTotaal : INT := 3;
 	AantalLagenVerwijderd : INT;
 	Step : INT;
-	//vanaf hier tijdelijke var door missende units
+	//vanaf hier tijdelijke var door missende units. 	LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
 	RolbandAanUit : BOOL;
 	LichtsensorDetectYesNo : BOOL;
 	PinnenUitYesNo :BOOL;
@@ -62,7 +62,7 @@ VAR
 	SensorBlikjesOpBandYesNo : BOOL;
 	EindLiftBeneden : BOOL;
 	SensorUitgang : BOOL;
-	//eind var
+	//eind var tijdelijk en method execute
 
 	//voor het uitvoeren van testplannen
 	testbool : BOOL;
@@ -128,7 +128,7 @@ CASE TriggerState OF							//switchcase die de method uitvoert die hoort bij de 
 END_CASE
 
 
-// Vanaf hier controleren van errors van control modules en in property verwerken
+// Vanaf hier controleren van errors van control modules en in property verwerken. Voor elke unit error hier een gelijke if toevoegen
 
 IF Druksensor1.Status = E_DruksensorStatus.SensorInputError THEN
     // Alarm voor het eerst
@@ -291,7 +291,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Execute;
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Execute;
 CASE Step OF
 
 
@@ -299,7 +300,7 @@ CASE Step OF
 
 0:
     IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN		//check of er pallet klaarstaat en er nog geen pallet in depallet is
-        RolbandAanUit := TRUE;
+        RolbandAanUit := TRUE;			// rolband aan
 		KlaarVoorInvoerDep := TRUE;
         Step := 10;
     END_IF
@@ -323,10 +324,10 @@ CASE Step OF
 20:
     IF TimerExtra.Q THEN
         IF AantalLagenVerwijderd < AantalLagenBlikjesTotaal THEN
-            RolbandAanUit := FALSE;
+            RolbandAanUit := FALSE;			//rolband uit
             DepalletPalletBinnen := TRUE;
 			KlaarVoorInvoerDep := FALSE;
-            PinnenUitYesNo := TRUE;			//vasthouden pallet in lift
+            PinnenUitYesNo := TRUE;			//vasthouden pallet in lift (pinnen uit)
             LiftBewegingYesNo := TRUE;   // lift omhoog
             Step := 30;
         ELSE
@@ -339,9 +340,9 @@ CASE Step OF
 // Wachten tot lift op hoogte is
 
 30:
-    IF AfstandssensorDetectYesNo THEN
+    IF AfstandssensorDetectYesNo THEN			//afstandssensor detecteert
         LiftBewegingYesNo := FALSE;	//lift stil
-        ZuigBenedenBoven := TRUE;  // zuignappen omlaag
+        ZuigBenedenBoven := TRUE;  // zuignappen omlaag op karton
         Step := 40;
     END_IF
 
@@ -349,8 +350,8 @@ CASE Step OF
 // Wachten tot zuignappen beneden zijn
 
 40:
-    IF ZuigBenedenAangekomen THEN
-        Zuignap1.Oppakken();
+    IF ZuigBenedenAangekomen THEN			//terugmelding dat zuignappen beneden zijn
+        Zuignap1.Oppakken();				
         Zuignap2.Oppakken();
         Zuignap3.Oppakken();
         Zuignap4.Oppakken();
@@ -375,7 +376,7 @@ CASE Step OF
 // Wachten tot zuigunit boven is
 
 60:
-    IF  ZuigBovenAangekomen THEN
+    IF  ZuigBovenAangekomen THEN		//terugmelding zuignappen zijn omhoog
 		Step := 70;
         MotorZuig.SturingLang(); // uitschuiven van de motor zodat karton naar kartonopslag gaat
         Step := 70;
@@ -458,10 +459,10 @@ CASE Step OF
 
 210:
     IF NOT InputPalletBijUitgang THEN		//controle of er een pallet voor de uitgang staat
-        RolbandAanUit := TRUE;
+        RolbandAanUit := TRUE;				//rolband aan
 		KlaarVoorUitvoerDep := TRUE;
-        IF NOT SensorUitgang THEN			//pallet is uit depalletizer
-            RolbandAanUit := FALSE;			//reset voor volgende pallet
+        IF NOT SensorUitgang THEN			//pallet is uit depalletizer vervolgens reset voor volgende pallet
+            RolbandAanUit := FALSE;			//rolband uit
             AantalLagenVerwijderd := 0;
             TimerExtra(IN := FALSE);
             DepalletPalletBinnen := FALSE;
@@ -592,8 +593,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStateDep := E_PackMLStates.Holding;
 
-LiftbewegingYesNo := FALSE; 		//sturing om tot Held te komen
-RolbandAanUit := FALSE;
+LiftbewegingYesNo := FALSE; 		//lift uit		//sturing om tot Held te komen
+RolbandAanUit := FALSE;				//rolband uit
 
 IF LiftbewegingYesNo = FALSE AND RolbandAanUit = FALSE AND (MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort OR MotorSchuif.Status = E_MotorZuigSchuifStatus.Lang)
 	AND (MotorZuig.Status = E_MotorZuigSchuifStatus.Kort OR MotorZuig.Status = E_MotorZuigSchuifStatus.Lang) THEN //evt nog check pinnen stil
@@ -601,7 +602,8 @@ IF LiftbewegingYesNo = FALSE AND RolbandAanUit = FALSE AND (MotorSchuif.Status =
 END_IF
 
 
-// de IF is checken of status Held is bereikt]]></ST>
+// de IF is checken of status Held is bereikt
+//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen]]></ST>
       </Implementation>
     </Method>
     <Method Name="Idle" Id="{53c5baf1-bd08-4e97-999e-1b6af5cbd2b8}" FolderPath="Methods\">
@@ -737,7 +739,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Starting;
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Starting;
 
 IF  MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND MotorZuig.Status = E_MotorZuigSchuifStatus.Kort AND		//check van startposities en sensoren op normale input
 	Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND						
@@ -792,7 +795,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Stopping;
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Stopping;
 
 //mechanische rem erop
 
