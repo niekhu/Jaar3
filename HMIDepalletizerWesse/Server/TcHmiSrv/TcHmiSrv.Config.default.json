@@ -901,6 +901,41 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.BufferA1.GelezenKlepStatus": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::BufferA1::GelezenKlepStatus",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "\"Gelezen\" debug (voor online volgen)",
+                        "propertyOrder": 16
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.BufferA1.GelezenPalletDetected": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::BufferA1::GelezenPalletDetected",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 19
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.Depalletizer.AantalLagenVerwijderd": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1034,6 +1069,41 @@
                     },
                     {
                         "propertyOrder": 4
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletAtInFeed",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 13
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletizerCurrentStatePal",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
+                    },
+                    {
+                        "comment": "Eind Depalletizer HMI\t\r\nPalletizer HMI",
+                        "propertyOrder": 11
                     }
                 ]
             },
@@ -4048,6 +4118,8 @@
                 "ADS.CheckLicense": 3,
                 "ADS.Diagnostics": 3,
                 "ADS.PLC1": 3,
+                "ADS.PLC1.MAIN.BufferA1.GelezenKlepStatus": 3,
+                "ADS.PLC1.MAIN.BufferA1.GelezenPalletDetected": 3,
                 "ADS.PLC1.MAIN.Depalletizer.AantalLagenVerwijderd": 3,
                 "ADS.PLC1.MAIN.Depalletizer.CurrentStateDep": 3,
                 "ADS.PLC1.MAIN.Depalletizer.GelezenStatusDruksensor": 3,
@@ -4056,6 +4128,8 @@
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,

@@ -3,11 +3,7 @@
   <POU Name="FB_HMI" Id="{cec392d0-0468-40f1-bcf8-6c1287cd568f}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
 VAR_INPUT
-	HMIWaarden : ITF_UnitTest;
-			
-END_VAR
-VAR_OUTPUT
-	
+	HMIWaarden : ITF_UnitTest;	
 END_VAR
 VAR
 //Depalletizer HMI
@@ -20,9 +16,24 @@ MotorZuigStatus : E_MotorZuigSchuifStatus;
 PinnenUitYesNo : BOOL;
 RolbandAanUit : BOOL;
 UpdateHMI : BOOL;
-
 //Eind Depalletizer HMI	
 
+//Palletizer HMI
+PalletizerCurrentStatePal : E_PackMLStates;
+StorageFull : BOOL;
+PalletAtInFeed : BOOL;
+LiftOmhoogYesNo : BOOL;
+LiftOmlaagYesNo : BOOL;
+Pin1UitYesNo : BOOL;
+Pin2UitYesNo : BOOL;
+Pin3UitYesNo : BOOL;
+Pin4UitYesNo : BOOL;
+AlarmActivePal : BOOL;
+AlarmCodePal : UDINT;
+DoorsOpenPal : BOOL;
+EStopOkPal : BOOL;
+StepPal : INT;
+//Eind Palletizer HMI
 
 END_VAR
 ]]></Declaration>
@@ -38,7 +49,26 @@ MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
 PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
 RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
 END_IF
-//Einde Depalletizer HMI]]></ST>
+//Einde Depalletizer HMI
+
+//Palletizer HMI
+IF UpdateHMI = TRUE THEN
+PalletizerCurrentStatePal := HMIWaarden.HMIPalletizerCurrentState;
+StorageFull := HMIWaarden.HMIStorageFull;
+PalletAtInFeed := HMIWaarden.HMIPalletAtInFeed;
+LiftOmhoogYesNo := HMIWaarden.HMILiftOmhoogYesNo;
+LiftOmlaagYesNo := HMIWaarden.HMILiftOmlaagYesNo;
+Pin1UitYesNo := HMIWaarden.HMIPin1UitYesNo;
+Pin2UitYesNo := HMIWaarden.HMIPin2UitYesNo;
+Pin3UitYesNo := HMIWaarden.HMIPin3UitYesNo;
+Pin4UitYesNo := HMIWaarden.HMIPin4UitYesNo;
+AlarmActivePal := HMIWaarden.HMIAlarmActivePal;
+AlarmCodePal := HMIWaarden.HMIAlarmCodePal;
+DoorsOpenPal := HMIWaarden.HMIDoorsOpenPal;
+EStopOkPal := HMIWaarden.HMIEStopOkPal;
+StepPal := HMIWaarden.HMIStepPal;
+END_IF
+// Einde Palletizer HMI]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

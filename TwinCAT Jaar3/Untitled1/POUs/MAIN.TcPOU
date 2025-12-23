@@ -23,7 +23,7 @@ VAR
 	MotorZuig : FB_MotorZuigSchuif;
 	MotorSchuif : FB_MotorZuigSchuif;
 	Druksensor : FB_Druksensor;
-	ControlWes : UnitTest;
+	_UnitTest : UnitTest;
 	
 
 	
@@ -68,18 +68,18 @@ Depalletizer.Druksensor1 := Druksensor;
 Depalletizer.KlepDepalletEind := Klep;
 BufferA1.Klep := Klep;
 BufferA2.Klep := Klep;
-HMIWaarden.HMIWaarden := ControlWes;
+HMIWaarden.HMIWaarden := _UnitTest;
 
 
 Besturing.StartKnop := StartKnop;
 Besturing.StopKnop := StopKnop;
 Besturing.ResetKnop := ResetKnop;
 
-ControlWES.Besturing := Besturing;
-ControlWes.Depalletizer := Depalletizer;
-ControlWES.Palletizer := Palletizer;
-ControlWes.BufferA1 := BufferA1;
-ControlWes.BufferA2 := BufferA2;
+_UnitTest.Besturing := Besturing;
+_UnitTest.Depalletizer := Depalletizer;
+_UnitTest.Palletizer := Palletizer;
+_UnitTest.BufferA1 := BufferA1;
+_UnitTest.BufferA2 := BufferA2;
 
 
 
@@ -110,7 +110,7 @@ BufferA1();
 BufferA2();
 
 //unit modules
-ControlWes();
+_UnitTest();
 
 //management functions
 HMIWaarden();

@@ -4,12 +4,49 @@
     <Declaration><![CDATA[INTERFACE ITF_UnitTest
 ]]></Declaration>
     <Folder Name="HMIDepalletizer" Id="{997b8582-d383-4605-97f3-6c83282cb7ee}" />
+    <Folder Name="HMIPalletizer" Id="{dafef6e5-5a6c-4d6d-9cd2-6e8aff06602e}" />
+    <Property Name="HMIAlarmActivePal" Id="{f0101de8-d7be-4fcc-aa5a-c6459f29ff5c}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmActivePal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{85eb246a-baa0-483a-b879-c80570174522}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{7022c5a9-10d7-473a-94ac-078a0bca8fdd}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIAlarmCodePal" Id="{2345bb15-6850-43d3-b8fe-250b689c763e}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmCodePal : UDINT]]></Declaration>
+      <Get Name="Get" Id="{c15e36a6-fb75-4f6e-8ea6-852782b41007}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{5219c307-256f-4d48-87c9-aeb37b3bf0a8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIDepalletizerCurrentState" Id="{0ef3e29f-48aa-47b7-a5ce-7e52534533a3}" FolderPath="HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{44c9355d-12cd-4dd0-a2c3-140a0ca4ecb0}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{f8588cc0-52a7-415a-ae9d-883a7735beff}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIDoorsOpenPal" Id="{704b8adf-aff1-4987-9eeb-80b8db65f158}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIDoorsOpenPal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{92eb426c-b45e-463e-a718-8f41772d61ad}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2e67606d-dca0-4050-837b-201109866616}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIEStopOkPal" Id="{2b0a1a40-94b0-4fd0-b976-1cffb120445e}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIEStopOkPal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{3505d7d9-4a58-4819-bdec-6a9847492e0b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e725d0f9-0405-4a5e-abb6-402100b1906a}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
@@ -40,6 +77,24 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="HMILiftOmhoogYesNo" Id="{06786b10-459f-40ff-a383-8c124e2e52d2}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftOmhoogYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b243f600-4149-45d6-b6b8-acd77844fa0c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{231dc2fe-3e4b-439c-8452-ab4fe04ac1db}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMILiftOmlaagYesNo" Id="{7af71990-f6d8-4496-934c-9ad6a782c880}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftOmlaagYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d01de2a7-fb72-4e28-922a-9d94802aede0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{55c4ccbd-b852-4bfd-9473-3796d8648e54}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIMotorSchuifStatus" Id="{93b4d50d-0133-4eb2-b5dd-e3afa33e9b41}" FolderPath="HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIMotorSchuifStatus : E_MotorZuigSchuifStatus]]></Declaration>
       <Get Name="Get" Id="{31f888ff-2d92-4273-9c85-a0798e5c8d3f}">
@@ -58,6 +113,60 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="HMIPalletAtInFeed" Id="{888e6ba2-413c-4d6c-a059-df5c482f3adb}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPalletAtInFeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{3f7d19e5-2564-47b5-a078-6e1f8f9b7e98}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d43574ef-9777-47f6-bd27-f48b155df6fa}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPalletizerCurrentState" Id="{33db2ddf-590b-472d-b980-0351e8bb2343}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPalletizerCurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{9161a727-8499-4be4-9aca-353c42aa98ae}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{908abe89-4c5a-4194-8ae7-e4621835efc9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPin1UitYesNo" Id="{f118e3c4-2350-4b36-ac16-dbd18b0f65a0}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin1UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{691a02b6-11e9-42b9-9942-9d4ee6064966}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1d075074-350e-45d6-9c72-a10e9c676bf5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPin2UitYesNo" Id="{74994e41-c1d9-470c-82bb-52a6b5303095}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin2UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{db2f9f45-5c01-4a5f-8cce-c945ae4aa59f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{3877cb34-10b7-4f37-914d-84a144724226}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPin3UitYesNo" Id="{f5d1c16f-628a-426e-b567-28c448b60c0e}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin3UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{05de62c5-89a7-4044-a7ff-16a78550e10b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{6df00f53-68c9-4515-b955-3a904d3861e3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIPin4UitYesNo" Id="{f35d5f77-19b7-4309-b4a2-3a4a9d699db2}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin4UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{15ce8704-728a-4176-af60-c3addb757d95}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{767c2fbe-349d-4155-88e8-3ddc025d76e7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIPinnenUitYesNo" Id="{2a3cff79-4fc7-4cf9-8754-a72f5540bb84}" FolderPath="HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
       <Get Name="Get" Id="{d4bac406-4082-424b-8a18-ba7b83fae055}">
@@ -73,6 +182,24 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{2181057f-2073-4afa-892d-8591fed4b9c2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIStepPal" Id="{127453b9-b2f2-44e2-881e-022d2a9bbe20}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIStepPal : INT]]></Declaration>
+      <Get Name="Get" Id="{8ce0e993-c823-436e-b713-46c6a4ed2063}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{626e196c-c8cd-4614-9bcc-2300d748c2a7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIStorageFull" Id="{54f91201-8c6f-49e8-b7bc-b02d448e5c8f}" FolderPath="HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIStorageFull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{07f8ed91-8860-4b9a-b4c4-a580b8c411e6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0c46674d-a6c5-4c83-9143-b322f64362bc}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>

@@ -156,6 +156,9 @@
     <Content Include="Images\Manifest\Depalletizer.png">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\Manifest\Palletizer.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Server\ADS\ADS.Config.hmiwesse.json">
       <SubType>Content</SubType>
     </Content>

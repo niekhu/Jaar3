@@ -128,7 +128,46 @@ END_IF]]></ST>
     </Implementation>
     <Folder Name="Properties" Id="{9389d657-1ea7-407f-9ac5-73fb6e4ece44}">
       <Folder Name="HMIDepalletizer" Id="{2eafec69-78b7-4062-833a-7c1d9eb97673}" />
+      <Folder Name="HMIPalletizer" Id="{6de38cc3-41d4-4218-b1db-40bbd282586d}" />
     </Folder>
+    <Property Name="HMIAlarmActivePal" Id="{99c2d439-31dd-4088-802b-0025b7687a12}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmActivePal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fe58e0ca-de00-43c6-8c4e-12c214c91c57}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIAlarmActivePal := Palletizer.AlarmActive;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ed6624f8-84a1-4d83-84e8-21fe90b912bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIAlarmCodePal" Id="{bb6cc7ea-9ddb-4f36-961b-3ebb2db6f76a}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmCodePal : UDINT]]></Declaration>
+      <Get Name="Get" Id="{d5e4bc14-d646-4426-a7c6-24d46e73c497}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2e7cd193-5dc0-47f8-a383-ec437a8ce1c6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIDepalletizerCurrentState" Id="{081d8233-0e4c-4309-b735-0a4fb032b0a8}" FolderPath="Properties\HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{7d5f1157-599f-41f7-996e-914695dc4d8a}">
@@ -140,6 +179,44 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{0ed1c926-f617-4976-83ce-4285a5d76d39}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIDoorsOpenPal" Id="{142ca2df-5238-434e-8f06-b4d7b856dbc9}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIDoorsOpenPal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e32a3162-06a8-4f5e-abf0-69f6a184c3a4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8d3d2216-458a-4f2f-9bd9-c38c1d3d701e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIEStopOkPal" Id="{baa27888-68a6-416d-b16c-b741cc01583c}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIEStopOkPal : BOOL]]></Declaration>
+      <Get Name="Get" Id="{901bb35d-f373-47cf-b498-0d39a4d86825}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{08acc542-d9fe-4dac-9e01-0af69bd0f1e0}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -205,6 +282,44 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMILiftOmhoogYesNo" Id="{a986de66-ea40-487d-b229-12d1a804006d}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftOmhoogYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9dfd7d47-2845-41c1-872e-625e61782227}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMILiftOmhoogYesNo := Palletizer.LiftOmhoogYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c50add60-cc37-4764-a8f3-7a3af3fb18fe}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILiftOmlaagYesNo" Id="{1fa16bf8-79a9-4680-8bde-5f05055efcdb}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILiftOmlaagYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4bdd57bb-e0a3-41f4-8d1f-5bb32b93f5b2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMILiftOmlaagYesNo := Palletizer.LiftOmlaagYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cb7931d6-9c21-409e-93eb-7921e25dd132}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIMotorSchuifStatus" Id="{ffab7e7b-748d-4a6b-90b4-bcd914f2638d}" FolderPath="Properties\HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIMotorSchuifStatus : E_MotorZuigSchuifStatus]]></Declaration>
       <Get Name="Get" Id="{47467e7f-0523-4e54-ba37-62941c101402}">
@@ -243,6 +358,120 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMIPalletAtInFeed" Id="{7ebaba5a-7498-464e-b6d4-06ac9e8f941c}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPalletAtInFeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e0a2ab95-281c-49d7-9d60-e8d0080420f9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIPalletAtInFeed := Palletizer.PalletAtInFeed;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{58a4c355-0fcb-4a7f-818b-d23ab2d6fb8c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPalletizerCurrentState" Id="{00507e6a-4a33-4f45-9f3f-0d489967059c}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPalletizerCurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{3fe71a56-12ae-4791-8446-bdd28f276c90}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIPalletizerCurrentState := Palletizer.CurrentState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{825f282d-995a-4c47-a4e4-8671487a7f81}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPin1UitYesNo" Id="{683272eb-4916-4979-b8d4-94290b5a04d9}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin1UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{03b0e95a-0b3b-4b02-b5f8-0d06acd653e7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMIPin1UitYesNo := Palletizer.Pin1UitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{20fc47a0-d132-4f36-8979-1aafa8db4ccb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPin2UitYesNo" Id="{2e2907a4-2154-4256-a864-1cf1c291c39d}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin2UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8fff7766-7263-4394-a116-c1d69f9bfd26}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMIPin2UitYesNo := Palletizer.Pin2UitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9d03a3e9-2f13-4227-935e-288b21bb3a3c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPin3UitYesNo" Id="{34c6482b-7708-4854-8034-0c543fe2ad4f}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin3UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9a2159e7-c026-415c-9659-70b8402ddcc7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMIPin3UitYesNo := Palletizer.Pin3UitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{f082b95c-6914-4147-a474-27c6b2cfbd17}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPin4UitYesNo" Id="{0b75316e-ac2b-40fc-9291-687c631946d1}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIPin4UitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{54cb80f7-d0d4-46ff-b808-8294a9282b6c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[// HMIPin4UitYesNo := Palletizer.Pin4UitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{71de8041-4ac0-45ec-befe-680e38b0c304}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIPinnenUitYesNo" Id="{609d8ae5-3a6c-48af-a4c8-d005b0650f05}" FolderPath="Properties\HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
       <Get Name="Get" Id="{5d755506-1b28-4340-ab4b-330060261313}">
@@ -273,6 +502,44 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{72c3f18c-2f14-4d05-848c-b545606e881a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIStepPal" Id="{81fa29f4-ff12-473f-963f-9c4cbfbda8d1}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIStepPal : INT]]></Declaration>
+      <Get Name="Get" Id="{231c714a-a54c-420b-b3eb-0cbe22a381de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1b2eb2b7-ece4-45d5-a439-20b7275aa2b3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIStorageFull" Id="{4950a4b4-5ed0-4a58-8fda-6592966562a7}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIStorageFull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{136a98a3-3860-48ad-8574-4d6876afa8b4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIStorageFull := Palletizer.StorageFull;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{b3ce7ece-663c-4744-94d3-b7fc01b350c7}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
