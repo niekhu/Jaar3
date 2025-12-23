@@ -16,6 +16,9 @@ MotorZuigStatus : E_MotorZuigSchuifStatus;
 PinnenUitYesNo : BOOL;
 RolbandAanUit : BOOL;
 UpdateHMI : BOOL;
+StatusTekst : STRING(50);
+StatusTekstZuig : STRING(50);
+StatusTekstSchuif : STRING(50);
 //Eind Depalletizer HMI	
 
 //Palletizer HMI
@@ -39,7 +42,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Depalletizer HMI
-IF UpdateHMI = TRUE THEN
+
 DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;
 KlaarVoorInvoer := HMIWaarden.HMIKlaarVoorInvoer;
 KlaarVoorUitvoer := HMIWaarden.HMIKlaarVoorUitvoer;
@@ -48,6 +51,50 @@ MotorSchuifStatus := HMIWaarden.HMIMotorSchuifStatus;
 MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
 PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
 RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
+
+CASE DepalletizerCurrentStateDep OF
+    0:          	StatusTekst := 'Idle';
+    1:       		StatusTekst := 'Starting';
+    2:        		StatusTekst := 'Execute';
+   	3:     			StatusTekst := 'Resetting';
+    4:        		StatusTekst := 'Holding';
+    5:           	StatusTekst := 'Held';
+    6:      		StatusTekst := 'Unholding';
+    7:     			StatusTekst := 'Suspending';
+    8:      		StatusTekst := 'Suspended';
+    9:   			StatusTekst := 'Unsuspending';
+    10:       		StatusTekst := 'Stopping';
+    11:        		StatusTekst := 'Stopped';
+    12:       		StatusTekst := 'Aborting';
+    13:        		StatusTekst := 'Aborted';
+    14:       		StatusTekst := 'Clearing';
+ELSE
+    				StatusTekst := 'Onbekende status';
+END_CASE
+
+CASE MotorZuigStatus OF
+    0:          	StatusTekstZuig := 'Kort';
+    1:       		StatusTekstZuig := 'Lang';
+    2:        		StatusTekstZuig := 'GoToKort';
+   	3:     			StatusTekstZuig := 'GoToLang';
+    4:        		StatusTekstZuig := 'Error';
+   
+ELSE
+    				StatusTekstZuig := 'Onbekende status';
+END_CASE
+
+CASE MotorSchuifStatus OF
+    0:          	StatusTekstSchuif := 'Kort';
+    1:       		StatusTekstSchuif := 'Lang';
+    2:        		StatusTekstSchuif := 'GoToKort';
+   	3:     			StatusTekstSchuif := 'GoToLang';
+    4:        		StatusTekstSchuif := 'Error';
+   
+ELSE
+    				StatusTekstZuig := 'Onbekende status';
+END_CASE
+//Einde Depalletizer HMI
+]]></ST>
 END_IF
 //Einde Depalletizer HMI
 
