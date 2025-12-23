@@ -4,26 +4,6 @@
     <RecentColors>[
   {
     "counter": 0,
-    "color": "#FF0BE133"
-  },
-  {
-    "counter": 0,
-    "color": "#FF2596BE"
-  },
-  {
-    "counter": 0,
-    "color": "#FF215BE6"
-  },
-  {
-    "counter": 0,
-    "color": "#FF3260D0"
-  },
-  {
-    "counter": 0,
-    "color": "#FFE42727"
-  },
-  {
-    "counter": 0,
     "color": "#FFC3C3C3"
   },
   {
@@ -32,31 +12,11 @@
   },
   {
     "counter": 0,
-    "color": "#FF0E0A5E"
+    "color": "#FFAEAEAE"
   },
   {
     "counter": 0,
-    "color": "#FF0F0B0B"
-  },
-  {
-    "counter": 0,
-    "color": "#FFE82A2A"
-  },
-  {
-    "counter": 0,
-    "color": "#FFFD2727"
-  },
-  {
-    "counter": 0,
-    "color": "#FFDE2222"
-  },
-  {
-    "counter": 0,
-    "color": "#FF2C42B8"
-  },
-  {
-    "counter": 0,
-    "color": "#FF1F17AE"
+    "color": "#FF8A7272"
   },
   {
     "counter": 0,
@@ -64,25 +24,68 @@
   },
   {
     "counter": 0,
-    "color": "#FFEB1515"
+    "color": "#FF000000"
   },
   {
     "counter": 0,
-    "color": "#FFF21616"
+    "color": ""
   },
   {
     "counter": 0,
-    "color": "#FFDD1919"
+    "color": ""
   },
   {
     "counter": 0,
-    "color": "#FFFCFCFC"
+    "color": ""
   },
   {
     "counter": 0,
-    "color": "#FFDA2424"
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
   }
 ]</RecentColors>
+    <TcHmiEditor_SplitAreaStates>{
+  "EditorSettings": []
+}</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
   200.0,
   50.0,
@@ -156,15 +159,12 @@
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ControlTypeAttributesTree>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_ThemedResourceTree>[
-  212.66666666666666,
+  214.4,
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ThemedResourceTree>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_ContextTree>[
   300.0,
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ContextTree>
-    <TcHmiEditor_SplitAreaStates>{
-  "EditorSettings": []
-}</TcHmiEditor_SplitAreaStates>
   </PropertyGroup>
 </Project>
