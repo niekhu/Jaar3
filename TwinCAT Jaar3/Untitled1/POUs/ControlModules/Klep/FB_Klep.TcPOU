@@ -8,7 +8,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[//ik wou nog een bericht zetten in de git dus vandaar deze comment maar het ging erover dat ik problemen had met mergen en dat mijn alarmen die ik had gelust niet meer bestaan :) dus die ga ik morgen opnieuw bouwen maar daar heb ik nu geen zin in want het is bijna 2 uur s'avonds :) en waarom lees je dit hele bericht trouwens dat was echt een verspilling van je tijd :0 xoxo groetjes niek]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{215c97dc-4785-4f3f-80d3-672f5b9c53d7}" />
     <Folder Name="Properties" Id="{8948e215-6589-49b0-8016-a5dec4d22119}" />
