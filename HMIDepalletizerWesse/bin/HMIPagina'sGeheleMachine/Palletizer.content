@@ -1,0 +1,21 @@
+<div id="Palletizer" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="800" data-tchmi-height="640">
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(255, 255, 255, 1)"
+}
+</script>
+<div id="TcHmiTextblock_7" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="103" data-tchmi-left-unit="px" data-tchmi-text="Huidige State" data-tchmi-top="205" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
+</div>
+<div id="TcHmiTextblock_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="43" data-tchmi-left-unit="px" data-tchmi-top="251" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="rue&quot;">
+
+
+
+
+
+
+</div>
+<div id="TcHmiImage_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="514" data-tchmi-height-unit="px" data-tchmi-left="187" data-tchmi-left-unit="px" data-tchmi-top="64" data-tchmi-top-unit="px" data-tchmi-width="494" data-tchmi-width-unit="px" data-tchmi-src="Images/Manifest/Palletizer.png">
+</div>
+</div>
