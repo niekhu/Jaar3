@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_HMI" Id="{cec392d0-0468-40f1-bcf8-6c1287cd568f}" SpecialFunc="None">
+  <POU Name="FB_HMI" Id="{3b54da06-855d-435b-bdd0-2b3e3be57200}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
 VAR_INPUT
 	HMIWaarden : ITF_UnitTest;	
@@ -38,8 +38,7 @@ EStopOkPal : BOOL;
 StepPal : INT;
 //Eind Palletizer HMI
 
-END_VAR
-]]></Declaration>
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Depalletizer HMI
 
@@ -93,9 +92,6 @@ CASE MotorSchuifStatus OF
 ELSE
     				StatusTekstZuig := 'Onbekende status';
 END_CASE
-//Einde Depalletizer HMI
-]]></ST>
-END_IF
 //Einde Depalletizer HMI
 
 //Palletizer HMI
