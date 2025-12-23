@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_DrukknoppenStatus" Id="{752a2515-1a0f-458a-8578-c36c76913157}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_DrukknoppenStatus :
+(
+	StartKnop := 0,
+	StopKnop,
+	ResetKnop
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

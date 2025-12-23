@@ -58,3 +58,6 @@ LineIDs.dbg.bak
 
 # TwinCAT generated files
 *.tmc
+# TwinCAT HMI, filter downloaded JSON schema files
+json-schema.org
+

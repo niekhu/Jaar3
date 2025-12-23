@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMI" Id="{3b54da06-855d-435b-bdd0-2b3e3be57200}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
+VAR_INPUT
+	HMIWaarden : ITF_UnitTest;	
+END_VAR
+VAR
+//Depalletizer HMI
+DepalletizerCurrentStateDep : E_PackMLStates;
+KlaarVoorInvoer : BOOL;
+KlaarVoorUitvoer : BOOL;
+LiftAanUit : BOOL;
+MotorSchuifStatus : E_MotorZuigSchuifStatus;
+MotorZuigStatus : E_MotorZuigSchuifStatus;
+PinnenUitYesNo : BOOL;
+RolbandAanUit : BOOL;
+UpdateHMI : BOOL;
+StatusTekst : STRING(50);
+StatusTekstZuig : STRING(50);
+StatusTekstSchuif : STRING(50);
+//Eind Depalletizer HMI	
+
+//Palletizer HMI
+PalletizerCurrentStatePal : E_PackMLStates;
+StorageFull : BOOL;
+PalletAtInFeed : BOOL;
+LiftOmhoogYesNo : BOOL;
+LiftOmlaagYesNo : BOOL;
+Pin1UitYesNo : BOOL;
+Pin2UitYesNo : BOOL;
+Pin3UitYesNo : BOOL;
+Pin4UitYesNo : BOOL;
+AlarmActivePal : BOOL;
+AlarmCodePal : UDINT;
+DoorsOpenPal : BOOL;
+EStopOkPal : BOOL;
+StepPal : INT;
+//Eind Palletizer HMI
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Depalletizer HMI
+
+DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;
+KlaarVoorInvoer := HMIWaarden.HMIKlaarVoorInvoer;
+KlaarVoorUitvoer := HMIWaarden.HMIKlaarVoorUitvoer;
+LiftAanUit := HMIWaarden.HMILiftAanUit;
+MotorSchuifStatus := HMIWaarden.HMIMotorSchuifStatus;
+MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
+PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
+RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
+
+CASE DepalletizerCurrentStateDep OF
+    0:          	StatusTekst := 'Idle';
+    1:       		StatusTekst := 'Starting';
+    2:        		StatusTekst := 'Execute';
+   	3:     			StatusTekst := 'Resetting';
+    4:        		StatusTekst := 'Holding';
+    5:           	StatusTekst := 'Held';
+    6:      		StatusTekst := 'Unholding';
+    7:     			StatusTekst := 'Suspending';
+    8:      		StatusTekst := 'Suspended';
+    9:   			StatusTekst := 'Unsuspending';
+    10:       		StatusTekst := 'Stopping';
+    11:        		StatusTekst := 'Stopped';
+    12:       		StatusTekst := 'Aborting';
+    13:        		StatusTekst := 'Aborted';
+    14:       		StatusTekst := 'Clearing';
+ELSE
+    				StatusTekst := 'Onbekende status';
+END_CASE
+
+CASE MotorZuigStatus OF
+    0:          	StatusTekstZuig := 'Kort';
+    1:       		StatusTekstZuig := 'Lang';
+    2:        		StatusTekstZuig := 'GoToKort';
+   	3:     			StatusTekstZuig := 'GoToLang';
+    4:        		StatusTekstZuig := 'Error';
+   
+ELSE
+    				StatusTekstZuig := 'Onbekende status';
+END_CASE
+
+CASE MotorSchuifStatus OF
+    0:          	StatusTekstSchuif := 'Kort';
+    1:       		StatusTekstSchuif := 'Lang';
+    2:        		StatusTekstSchuif := 'GoToKort';
+   	3:     			StatusTekstSchuif := 'GoToLang';
+    4:        		StatusTekstSchuif := 'Error';
+   
+ELSE
+    				StatusTekstZuig := 'Onbekende status';
+END_CASE
+//Einde Depalletizer HMI
+
+//Palletizer HMI
+IF UpdateHMI = TRUE THEN
+PalletizerCurrentStatePal := HMIWaarden.HMIPalletizerCurrentState;
+StorageFull := HMIWaarden.HMIStorageFull;
+PalletAtInFeed := HMIWaarden.HMIPalletAtInFeed;
+LiftOmhoogYesNo := HMIWaarden.HMILiftOmhoogYesNo;
+LiftOmlaagYesNo := HMIWaarden.HMILiftOmlaagYesNo;
+Pin1UitYesNo := HMIWaarden.HMIPin1UitYesNo;
+Pin2UitYesNo := HMIWaarden.HMIPin2UitYesNo;
+Pin3UitYesNo := HMIWaarden.HMIPin3UitYesNo;
+Pin4UitYesNo := HMIWaarden.HMIPin4UitYesNo;
+AlarmActivePal := HMIWaarden.HMIAlarmActivePal;
+AlarmCodePal := HMIWaarden.HMIAlarmCodePal;
+DoorsOpenPal := HMIWaarden.HMIDoorsOpenPal;
+EStopOkPal := HMIWaarden.HMIEStopOkPal;
+StepPal := HMIWaarden.HMIStepPal;
+END_IF
+// Einde Palletizer HMI]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

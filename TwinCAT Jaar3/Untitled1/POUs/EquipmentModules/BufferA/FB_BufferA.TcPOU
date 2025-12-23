@@ -1,25 +1,460 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="FB_BufferA" Id="{f4348fe5-00a7-44c8-b996-13a856095685}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA IMPLEMENTS ITF_BufferA
+
 VAR_INPUT
-    klep   : ITF_UnitKlep;   // unit-interface
-    i_bClk : BOOL;           // command van boven (TRUE = open)
+    Klep : ITF_Klep;          // unit-klep van Buffer A
+END_VAR
+VAR
+    // =========================================================
+    // PackML (zelfde patroon als Depalletizer)
+    // =========================================================
+    TriggerState     : E_PackMLStates := E_PackMLStates.Idle;
+    VorigeInputState : E_PackMLStates := E_PackMLStates.Idle;
+
+    // =========================================================
+    // Backing vars voor properties (koppel je properties hieraan)
+    // =========================================================
+    _inInputState              : E_PackMLStates := E_PackMLStates.Idle; // <- property InputState (SET)
+    _inDepalletizerReady       : BOOL;                                  // <- property DepalletizerReady (SET)
+    _inPalletDetected          : BOOL;                                  // <- property PalletDetected (SET of unit)
+    _outCurrentState           : E_PackMLStates := E_PackMLStates.Idle; // <- property CurrentState (GET)
+    _outOutputPalletNaarDepal  : BOOL;                                  // <- property OutputPalletNaarDepallet (GET)
+
+    // =========================================================
+    // Werk-variabelen (met test overrides)
+    // =========================================================
+    PalletDetectedW   : BOOL;
+    DepalletizerReadyW: BOOL;
+
+    // =========================================================
+    // Tijdelijke vars door missende units (net als bij Wesse)
+    // =========================================================
+    RolbandAanUit : BOOL;       // later echte unit / interface
+
+    // =========================================================
+    // Testbools (simpel testen zonder units)
+    // testbool1: force pallet aanwezig
+    // testbool2: force pallet NIET aanwezig
+    // testbool3: force depalletizer ready
+    // testbool4: force depalletizer NIET ready
+    // =========================================================
+    testbool1 : BOOL;
+    testbool2 : BOOL;
+    testbool3 : BOOL;
+    testbool4 : BOOL;
+
+    // "Gelezen" debug (voor online volgen)
+    GelezenKlepStatus           : BOOL;
+    GelezenCurrentStateBufA     : E_PackMLStates;
+    GelezenOutputPalletNaarDepal: BOOL;
+    GelezenPalletDetected       : BOOL;
+    GelezenDepalletizerReady    : BOOL;
 END_VAR
 
-VAR_OUTPUT
-    o_bKlepOpen : BOOL;      // status naar boven (TRUE = open)
-END_VAR
 
+(* oude code 
+VAR_INPUT
+    Klep : ITF_UnitKlep;          // unit-klep van Buffer A
+END_VAR
+VAR
+    // PackML command (1x getriggerd door control)
+    _CmdStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // Interne actieve state (hier draait de buffer écht op)
+    _ActiveStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // Feedback naar control (wat doe ik NU)
+    CurrentStateBufA : E_PackMLStates := E_PackMLStates.Idle;
+
+    // later te gebruiken signalen (nu alleen comments)
+    _PalletDetected     : BOOL;  // // lichtsensor Buffer A
+    _DepalletizerReady  : BOOL;  // // depalletizer kan pallet ontvangen
+    _OutputPalletNaarDepallet : BOOL;
+END_VAR
+*)]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// =========================================================
+// 1) Werkwaarden bepalen + test overrides
+// =========================================================
+PalletDetectedW := _inPalletDetected;
+DepalletizerReadyW := _inDepalletizerReady;
+
+IF testbool1 THEN PalletDetectedW := TRUE; END_IF;
+IF testbool2 THEN PalletDetectedW := FALSE; END_IF;
+IF testbool3 THEN DepalletizerReadyW := TRUE; END_IF;
+IF testbool4 THEN DepalletizerReadyW := FALSE; END_IF;
+
+// =========================================================
+// 2) TriggerState alleen updaten bij wijziging InputState
+// =========================================================
+IF _inInputState <> VorigeInputState THEN
+    TriggerState := _inInputState;
+END_IF
+VorigeInputState := _inInputState;
+
+// =========================================================
+// 3) Methods uitvoeren obv TriggerState
+// =========================================================
+CASE TriggerState OF
+
+    E_PackMLStates.Idle:
+        Idle();
+
+    E_PackMLStates.Starting:
+        Starting();
+
+    E_PackMLStates.Execute:
+        Execute();
+
+    E_PackMLStates.Resetting:
+        Resetting();
+
+    E_PackMLStates.Holding:
+        Holding();
+
+    E_PackMLStates.Held:
+        Held();
+
+    E_PackMLStates.Unholding:
+        Unholding();
+
+    E_PackMLStates.Suspending:
+        Suspending();
+
+    E_PackMLStates.Suspended:
+        Suspended();
+
+    E_PackMLStates.Unsuspending:
+        Unsuspending();
+
+    E_PackMLStates.Stopping:
+        Stopping();
+
+    E_PackMLStates.Stopped:
+        Stopped();
+ELSE
+	TriggerState := E_PackMLStates.Idle;
+END_CASE
+
+// =========================================================
+// 4) Debug “gelezen” variabelen
+// =========================================================
+GelezenKlepStatus            := Klep.Status;
+GelezenCurrentStateBufA      := _outCurrentState;
+GelezenOutputPalletNaarDepal := _outOutputPalletNaarDepal;
+GelezenPalletDetected        := PalletDetectedW;
+GelezenDepalletizerReady     := DepalletizerReadyW;]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{0ebe38f1-04b8-4439-9d6e-d2c4e985b1f4}" />
+    <Folder Name="Properties" Id="{a8e3dc76-af7a-439b-a9e5-02b228da3813}" />
+    <Property Name="CurrentState" Id="{22976e27-03bd-461c-a25e-c44c78050df1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{1f57e63b-f978-4713-91b4-e10e152828f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentState := _outCurrentState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a782705d-8ccc-4eaa-b58f-a64c12ad1d9f}">
+        <Declaration><![CDATA[
 VAR
 END_VAR
 ]]></Declaration>
-    <Implementation>
-      <ST><![CDATA[// Stuur de klep-unit aan
-klep.SturingOpen(i_bClk);
+        <Implementation>
+          <ST><![CDATA[_outCurrentState := CurrentState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="DepalletizerReady" Id="{e8df924c-5ac5-4da0-8458-fb1d694f5523}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC DepalletizerReady : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8fcb829b-bca0-4100-89a2-e1ed43247008}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DepalletizerReady := _inDepalletizerReady;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{17acb11b-00f5-4ed7-be55-74d4844fd6eb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_inDepalletizerReady := DepalletizerReady;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Execute" Id="{3bae9621-bf61-4f4e-8037-2783d181ed4d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Execute : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Execute;
 
-// Lees status van klep uit en geef die door naar boven
-o_bKlepOpen := klep.Status;]]></ST>
-    </Implementation>
+// Simpelste test-logica zolang units ontbreken:
+// - pallet gedetecteerd + depallet ready => doorlaten + output TRUE
+// - pallet gedetecteerd + NIET ready   => tegenhouden + output FALSE
+// - geen pallet                        => klaarzetten voor nieuwe pallet
+
+IF PalletDetectedW AND DepalletizerReadyW THEN
+    Klep.SturingOpen(FALSE);               // doorlaten
+    RolbandAanUit := TRUE;
+    _outOutputPalletNaarDepal := TRUE;
+
+ELSIF PalletDetectedW AND NOT DepalletizerReadyW THEN
+    Klep.SturingOpen(TRUE);                // tegenhouden
+    RolbandAanUit := FALSE;
+    _outOutputPalletNaarDepal := FALSE;
+
+ELSE
+    Klep.SturingOpen(FALSE);               // klaar voor nieuwe pallet
+    RolbandAanUit := TRUE;
+    _outOutputPalletNaarDepal := FALSE;
+END_IF
+
+Execute := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Held" Id="{7de6d903-1642-4780-83ef-024fa07c02d4}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Held : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Held;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+Held := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Holding" Id="{f3215803-7556-4f9c-ac5c-659c067ba981}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Holding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Holding;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Held;
+END_IF
+
+Holding := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Idle" Id="{d321b098-3b8d-4f60-b30b-e293959ea482}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Idle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Idle;
+_outOutputPalletNaarDepal := FALSE;
+RolbandAanUit := FALSE;
+
+// Veilig: pallet blokkeren (AANNAMES: TRUE = “omhoog/blokkeren”)
+Klep.SturingOpen(TRUE);
+
+Idle := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InputState" Id="{eec66c81-fb70-4086-be00-314149f6db04}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC InputState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{ec40c04b-0159-4ede-b0e8-b346a742b8da}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputState := _inInputState;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{04e6635f-45ba-4753-9a98-28d94144726c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_inInputState := InputState;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="OutputPalletNaarDepallet" Id="{ca8180fe-c9d3-4c36-bdb1-65b69f03b991}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC OutputPalletNaarDepallet : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b5ff1d19-95ee-4c33-b1cc-9f9a69b048f8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OutputPalletNaarDepallet := _outOutputPalletNaarDepal;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9f9e40e1-0cab-4f38-81d0-b6bea4b66275}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_outOutputPalletNaarDepal := OutputPalletNaarDepallet;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PalletDetected" Id="{b9d51e40-b0e9-4e1a-acd3-999774bd0383}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC PalletDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{57ba0723-fd7b-493a-8c9f-31a38a532f74}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PalletDetected := _inPalletDetected;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{491c8289-2bb2-4a69-927e-09550f187474}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_inPalletDetected := PalletDetected;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Resetting" Id="{94902bf6-9535-4301-a4f2-60668b114e79}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Resetting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Resetting;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+// Klaar? -> Idle
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Idle;
+END_IF
+
+Resetting := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Starting" Id="{52e7ac40-d502-4f4e-8f61-f6f2ce8f7994}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Starting : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Starting;
+_outOutputPalletNaarDepal := FALSE;
+
+// Start: naar “doorlaat-positie” of “basis-positie” (jij had FALSE hier)
+Klep.SturingOpen(FALSE);
+
+// Zodra klep op positie is -> naar Execute
+IF Klep.Status = FALSE THEN
+    TriggerState := E_PackMLStates.Execute;
+END_IF
+
+Starting := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopped" Id="{c0991e28-a91a-42ca-9e5c-1716ef3e21bc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopped : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Stopped;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+Stopped := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stopping" Id="{beb6be39-b0ad-4a16-8041-cb85d93f20a5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Stopping : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Stopping;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Stopped;
+END_IF
+
+Stopping := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Suspended" Id="{8f6f27b6-0738-496f-ad57-64e4cb65ba51}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspended : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspended;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+Suspended := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Suspending" Id="{035c5fa3-9f75-4cb8-85a2-1d53998c10e3}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Suspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspending;
+_outOutputPalletNaarDepal := FALSE;
+
+RolbandAanUit := FALSE;
+Klep.SturingOpen(TRUE);
+
+IF Klep.Status = TRUE THEN
+    TriggerState := E_PackMLStates.Suspended;
+END_IF
+
+Suspending := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unholding" Id="{1c760e06-dd2a-4b03-afbc-48595da354d3}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unholding : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Unholding;
+_outOutputPalletNaarDepal := FALSE;
+
+// direct terug naar Execute
+TriggerState := E_PackMLStates.Execute;
+
+Unholding := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unsuspending" Id="{29d85dfd-2bd2-463c-b952-24c8427bffcb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PUBLIC Unsuspending : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_outCurrentState := E_PackMLStates.Unsuspending;
+_outOutputPalletNaarDepal := FALSE;
+
+Klep.SturingOpen(FALSE);
+IF Klep.Status = FALSE THEN
+    TriggerState := E_PackMLStates.Execute;
+END_IF
+
+Unsuspending := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

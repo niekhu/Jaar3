@@ -3,42 +3,99 @@
   <POU Name="FB_Depalletizer" Id="{604c825a-b299-42a4-9d94-06f2cd7a73fd}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Depalletizer IMPLEMENTS ITF_Depalletizer
 VAR_INPUT
-	Schuif : ITF_MotorZuigSchuif;
+	MotorSchuif : ITF_MotorZuigSchuif;			//Alle benodigde Interfaces binnenhalen
+	MotorZuig : ITF_MotorZuigSchuif;
 	Zuignap1 : ITF_Vacuumzuignap;
 	Zuignap2 : ITF_Vacuumzuignap;
 	Zuignap3 : ITF_Vacuumzuignap;
 	Zuignap4 : ITF_Vacuumzuignap;
 	Druksensor1 : ITF_Druksensor;
-	KlepDepallet : ITF_UnitKlep;
-
+	KlepDepalletEind : ITF_Klep;
+	
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
+	//PackmlState input en current
 	InputStateDep : E_PackMLStates;	
-	CurrentStateDep : E_PackMLStates;
+	CurrentStateDep : E_PackMLStates := E_PackMLStates.Idle;
+	TriggerState : E_PackMLStates;
+	VorigeInputState : E_PackMLStates;
+	//eind var
+	
+	//Alarmen binnenhalen en opslaan
+	Alarmrecord : ST_AlarmenDepalletizer;
+	Alarmen : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+	AlarmDruksensor : E_DruksensorStatus;
+	i : INT;
+	AlarmDruksensor1Bestaat : BOOL;
+	AlarmMotorSchuifBestaat : BOOL;
+	AlarmMotorZuigBestaat : BOOL;				// Let op, hier toevoegen toevoegen als er een unit met alarm onder depalletizer valt
+	fbLocalTime : FB_LocalSystemTime;
+	//eind var
+	
+	//voor method starting
+	StartingPositiesOk : BOOL;
+	StartingSensorOk : BOOL;
+	//eind var
+	
+	//voor method execute
+	InputPalletVanafBufADep : BOOL; 
+	InputPalletBijUitgangDep :BOOL; //koppelen via control
+	KlaarVoorInvoerDep : BOOL;
+	KlaarvoorUitvoerDep : BOOL;
+	DepalletPalletBinnen : BOOL;
+	TimerExtra : TON;
+	MinimaleDrukZuignappen : LREAL := 1.875;
+	AantalLagenBlikjesTotaal : INT := 3;
+	AantalLagenVerwijderd : INT;
+	Step : INT;
+	//vanaf hier tijdelijke var door missende units. 	LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+	RolbandAanUit : BOOL;
+	LichtsensorDetectYesNo : BOOL;
+	PinnenUitYesNo :BOOL;
+	LiftBewegingYesNo : BOOL;
+	AfstandssensorDetectYesNo : BOOL;
+	ZuigBenedenBoven : BOOL;
+	ZuigBenedenAangekomen : BOOL;
+	ZuigBovenAangekomen : BOOL;
+	SensorBlikjesOpBandYesNo : BOOL;
+	EindLiftBeneden : BOOL;
+	SensorUitgang : BOOL;
+	//eind var tijdelijk en method execute
 
-
-
+	//voor het uitvoeren van testplannen
 	testbool : BOOL;
 	testbool2 : BOOL;
 	GelezenStatusMotorSchuif : E_MotorZuigSchuifStatus;
 	GelezenStatusVacuumzuignap : E_VacuumzuignapStatus;
 	GelezenDruk : REAL;
 	GelezenStatusDruksensor : E_DruksensorStatus;
+	Active: INT;
+	joejoe : BOOL;
+	// eind var
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE InputStateDep OF
+      <ST><![CDATA[fbLocalTime();									//Huidige tijd bijhouden
+
+IF InputStateDep <> VorigeInputState THEN		//Gebruikt voor method naar method activering terwijl geluisterd kan worden naar unit blok
+	TriggerState := InputStateDep;
+END_IF
+
+VorigeInputState := InputStatedep;
+
+CASE TriggerState OF							//switchcase die de method uitvoert die hoort bij de ontvangen Packmlstate
 
     E_PackMLStates.Idle:
         Idle();
+		
+	E_PackMLStates.Execute:
+	Execute();	
 
     E_PackMLStates.Starting:
         Starting();
-
-    E_PackMLStates.Execute:
-        Execute();
 
     E_PackMLStates.Resetting:
         Resetting();
@@ -46,39 +103,119 @@ END_VAR
     E_PackMLStates.Holding:
         Holding();
 
-    E_PackMLStates.Held:
-        Held();
-
     E_PackMLStates.Unholding:
         Unholding();
 
     E_PackMLStates.Suspending:
         Suspending();
 
-    E_PackMLStates.Suspended:
-        Suspended();
-
     E_PackMLStates.Unsuspending:
         Unsuspending();
 
     E_PackMLStates.Stopping:
         Stopping();
+		
+	E_PackMLStates.Suspended:
+        Suspended(); 
+		
+	E_PackMLStates.Held:
+        Held();	
 
-    E_PackMLStates.Stopped:
-        Stopped();
+	E_PackMLStates.Stopped:
+        Stopped();	
 
-    E_PackMLStates.Aborting:
-        Aborting();
-
-    E_PackMLStates.Aborted:
-        Aborted();
-
-    E_PackMLStates.Clearing:
-        Clearing();
 
 END_CASE
 
 
+// Vanaf hier controleren van errors van control modules en in property verwerken. Voor elke unit error hier een gelijke if toevoegen
+
+IF Druksensor1.Status = E_DruksensorStatus.SensorInputError THEN
+    // Alarm voor het eerst
+	IF NOT AlarmDruksensor1Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Druksensor1Error';
+            Alarmen[i].Text := 'InputBuitenRange';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmDruksensor1Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Druksensor1Error' AND
+           Alarmen[i].Text = 'InputBuitenRange' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmDruksensor1Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+
+IF MotorZuig.Status = E_MotorZuigSchuifStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmMotorZuigBestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'MotorZuigError';
+            Alarmen[i].Text := 'InternetFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmMotorZuigBestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'MotorZuigError' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmMotorZuigBestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+
+
+IF MotorSchuif.Status = E_MotorZuigSchuifStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmMotorSchuifBestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'MotorSchuifError';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmMotorSchuifBestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'MotorSchuifError' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmMotorSchuifBestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
 
 
 
@@ -86,62 +223,49 @@ END_CASE
 
 
 
+// hieronder om controls te testen
 
-
-
-
-
-
-
-
-
-IF testbool = TRUE THEN
-	Schuif.SturingKort();
+(* IF testbool = TRUE THEN
+	MotorSchuif.SturingKort();
 	Zuignap1.Loslaten();
 END_IF
 
 IF testbool2 = TRUE THEN
-	Schuif.SturingLang();
+	MotorSchuif.SturingLang();
 	Zuignap1.Oppakken();
 END_IF
 
-GelezenStatusMotorSchuif := Schuif.Status;
+GelezenStatusMotorSchuif := MotorSchuif.Status;
 GelezenStatusVacuumzuignap := Zuignap1.Status;
 GelezenDruk := Druksensor1.Druk;
 GelezenStatusDruksensor := Druksensor1.Status;
 
-
+*)
 ]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{41eb30da-c817-4a57-90b2-9b373696aeab}" />
-    <Folder Name="Properties" Id="{0a932fc3-77da-47ab-9595-fa212dce3ce7}" />
-    <Method Name="Aborted" Id="{0bfc1c67-cbbf-4ee0-9411-dfa1daf9e1fa}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Aborted : BOOL
-VAR_INPUT
+    <Folder Name="Properties" Id="{0a932fc3-77da-47ab-9595-fa212dce3ce7}">
+      <Folder Name="HMI" Id="{2505297c-9f56-4a5a-becd-68c4ed171c73}" />
+    </Folder>
+    <Property Name="AlarmenDepallet" Id="{42935b8e-377b-470c-ab11-71e67ce28088}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
+      <Get Name="Get" Id="{022fe51e-576e-4aa5-9b7f-a184868bb8a3}">
+        <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Aborting" Id="{874fcde3-a461-43b7-8542-2e8c8f07c54a}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Aborting : BOOL
-VAR_INPUT
+        <Implementation>
+          <ST><![CDATA[AlarmenDepallet := Alarmen;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2b101bbc-f482-4dc4-8809-b0129b12dcc8}">
+        <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Clearing" Id="{a7e21cb3-b81b-4227-8a32-6a19ec30fdab}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Clearing : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="CurrentState" Id="{5521c871-13ed-4e4c-a9b3-60eda6f215d2}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{abf65026-5da4-4773-9ad7-0771ec9a23a9}">
@@ -167,7 +291,194 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Execute;
+CASE Step OF
+
+
+// Wachten tot een pallet binnenkomt
+
+0:
+    IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN		//check of er pallet klaarstaat en er nog geen pallet in depallet is
+        RolbandAanUit := TRUE;			// rolband aan
+		KlaarVoorInvoerDep := TRUE;
+        Step := 10;
+    END_IF
+	IF NOT InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN
+		TriggerState := E_PackMLStates.Suspending;
+	END_IF
+
+
+// Lichtsensor ziet pallet
+
+10:
+    IF LichtsensorDetectYesNo THEN
+        KlepDepalletEind.SturingOpen(TRUE);
+        TimerExtra(IN := TRUE, PT := T#10S);
+        Step := 20;
+    END_IF
+
+
+// Wachten op timer en check lagen omdat code bij elke laag vanaf hier opnieuw begint
+
+20:
+    IF TimerExtra.Q THEN
+        IF AantalLagenVerwijderd < AantalLagenBlikjesTotaal THEN
+            RolbandAanUit := FALSE;			//rolband uit
+            DepalletPalletBinnen := TRUE;
+			KlaarVoorInvoerDep := FALSE;
+            PinnenUitYesNo := TRUE;			//vasthouden pallet in lift (pinnen uit)
+            LiftBewegingYesNo := TRUE;   // lift omhoog
+            Step := 30;
+        ELSE
+            // Alle lagen verwijderd 
+            Step := 200;
+        END_IF
+    END_IF
+
+
+// Wachten tot lift op hoogte is
+
+30:
+    IF AfstandssensorDetectYesNo THEN			//afstandssensor detecteert
+        LiftBewegingYesNo := FALSE;	//lift stil
+        ZuigBenedenBoven := TRUE;  // zuignappen omlaag op karton
+        Step := 40;
+    END_IF
+
+
+// Wachten tot zuignappen beneden zijn
+
+40:
+    IF ZuigBenedenAangekomen THEN			//terugmelding dat zuignappen beneden zijn
+        Zuignap1.Oppakken();				
+        Zuignap2.Oppakken();
+        Zuignap3.Oppakken();
+        Zuignap4.Oppakken();
+        Step := 50;
+    END_IF
+
+
+// Check of alle zuignappen vacuum hebben
+
+50:
+    IF  Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumOpppakken AND
+        Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumOpppakken AND
+        Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumOpppakken AND
+        Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumOpppakken AND
+        Druksensor1.Druk >= MinimaleDrukZuignappen THEN
+        
+        ZuigBenedenBoven := FALSE;    // zuignappen omhoog
+        Step := 60;
+    END_IF
+
+
+// Wachten tot zuigunit boven is
+
+60:
+    IF  ZuigBovenAangekomen THEN		//terugmelding zuignappen zijn omhoog
+		Step := 70;
+        MotorZuig.SturingLang(); // uitschuiven van de motor zodat karton naar kartonopslag gaat
+        Step := 70;
+    END_IF
+
+
+// Wachten tot schuif lang staat en karton loslaten
+
+70:
+    IF MotorZuig.Status = E_MotorZuigSchuifStatus.Lang THEN
+        Zuignap1.Loslaten();
+        Zuignap2.Loslaten();
+        Zuignap3.Loslaten();
+        Zuignap4.Loslaten();
+        Step := 80;
+    END_IF
+
+
+
+// Check of alles los is en schuif terug
+
+80:
+    IF  Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+        Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+        Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+        Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten THEN
+
+        MotorZuig.SturingKort();  // schuif terug
+        Step := 90;
+    END_IF
+
+
+// Wachten tot schuif terug is en check of blikjes band niet vol staat
+
+90:
+    IF MotorZuig.Status = E_MotorZuigSchuifStatus.Kort AND NOT SensorBlikjesOpBandYesNo THEN  
+        MotorSchuif.SturingLang(); // blikjes op band schuiven
+        Step := 100;
+    END_IF
+
+
+
+// Wachten tot MotorSchuif lang staat
+
+100:
+    IF MotorSchuif.Status = E_MotorZuigSchuifStatus.Lang THEN
+        MotorSchuif.SturingKort();
+        Step := 110;
+    END_IF
+
+
+
+// Wachten tot MotorSchuif terug is
+
+110:
+    IF MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND joejoe = TRUE THEN
+        AantalLagenVerwijderd := AantalLagenVerwijderd + 1;
+        Step := 20;    // Ga terug naar stap 20 voor volgende laag
+		RETURN;
+    END_IF
+
+
+
+
+
+// Vanaf deze stap als alle lagen blikjes van pallet zijn verwijderd
+
+200:
+    LiftBewegingYesNo := TRUE;      // lift omlaag
+
+    IF EindLiftBeneden THEN				//eindschakelaar lift beneden
+        LiftBewegingYesNo := FALSE;		//lift stil
+        KlepDepalletEind.SturingOpen(FALSE);		//klep omlaag
+        Step := 210;
+    END_IF
+
+
+
+// Pallet naar uitgang rijden
+
+210:
+    IF NOT InputPalletBijUitgang THEN		//controle of er een pallet voor de uitgang staat
+        RolbandAanUit := TRUE;				//rolband aan
+		KlaarVoorUitvoerDep := TRUE;
+        IF NOT SensorUitgang THEN			//pallet is uit depalletizer vervolgens reset voor volgende pallet
+            RolbandAanUit := FALSE;			//rolband uit
+            AantalLagenVerwijderd := 0;
+            TimerExtra(IN := FALSE);
+            DepalletPalletBinnen := FALSE;
+			KlaarVoorUitvoer := FALSE;
+            Step := 0;     // terug naar stap 1 voor nieuwe palletinvoer in depalletizer
+        END_IF
+		ELSE
+			TriggerState := E_PackMLStates.Suspending;
+    END_IF
+
+
+
+ELSE
+    Step := 0;   // terug naar stap 1 als er iets fout gaat
+END_CASE
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Held" Id="{abf5bffe-4e53-4e4f-a0f2-17eb456b0638}" FolderPath="Methods\">
@@ -176,16 +487,123 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Held;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="HMILiftAanUit" Id="{05444e37-8315-4f1e-8199-c0f4af030b8f}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{87a8742c-8dfb-4145-8b7e-2cb22369489f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILiftAanUit := LiftBewegingYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{245fef96-8de1-408c-b82f-eeb66c5930b8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorSchuif" Id="{8098e8c1-9d30-4f72-a013-ebb87a54b861}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIMotorSchuif : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{7df2f439-78c8-4ef8-a753-84f159ba2927}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorSchuif := MotorSchuif.Status;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{acee3a41-8754-4ead-b545-44468ff5bc1d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIMotorZuig" Id="{4de50e8f-a637-435f-add2-9df89853a897}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIMotorZuig : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{856dcf3c-a6d7-4f6e-b9eb-6b18db156be6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIMotorZuig := MotorZuig.Status;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{58406b4e-8698-4d77-8b8f-24e001c04d53}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIPinnenUitYesNo" Id="{fec89354-c920-497e-b69e-80b9fb2d1229}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIPinnenUitYesNo : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c5c076ca-dc2d-4a8f-851e-7e55da1d0b86}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIPinnenUitYesNo := PinnenUitYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{72e2be26-2f90-49fd-a679-56fff97dabc0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIRolbandAanUit" Id="{489b2919-4206-4b8e-b130-9b79e96bf96e}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIRolbandAanUit : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9f031a67-08e0-4ffd-a209-95fb1a3b0be8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIRolbandAanUit := RolbandAanUit;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{178da827-396d-4fc8-8380-60ae04edf7cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Holding" Id="{9ee0f93f-9ee6-40ae-91af-7b218154d752}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Holding : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Holding;
+
+LiftbewegingYesNo := FALSE; 		//lift uit		//sturing om tot Held te komen
+RolbandAanUit := FALSE;				//rolband uit
+
+IF LiftbewegingYesNo = FALSE AND RolbandAanUit = FALSE AND (MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort OR MotorSchuif.Status = E_MotorZuigSchuifStatus.Lang)
+	AND (MotorZuig.Status = E_MotorZuigSchuifStatus.Kort OR MotorZuig.Status = E_MotorZuigSchuifStatus.Lang) THEN //evt nog check pinnen stil
+	TriggerState := E_PackMLStates.Held;
+END_IF
+
+
+// de IF is checken of status Held is bereikt
+//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen]]></ST>
       </Implementation>
     </Method>
     <Method Name="Idle" Id="{53c5baf1-bd08-4e97-999e-1b6af5cbd2b8}" FolderPath="Methods\">
@@ -196,12 +614,52 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStateDep := E_PackMLStates.Idle;
 
+// De machine is aangezet, in deze state kunnen de errors worden gecontroleerd zonder dat de machine in beweging komt
+
 
 
 
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="InputPalletBijUitgang" Id="{f67f27b7-f37e-409b-84a2-206a9a997bc1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY InputPalletBijUitgang : BOOL]]></Declaration>
+      <Get Name="Get" Id="{48955d31-88e3-46f5-b460-9a6c9adaa2f2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputPalletBijUitgang := InputPalletBijUitgangDep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d25420c6-575d-41fb-aad8-6f448cbc2b10}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputPalletBijUitgangDep := InputPalletBijUitgang;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="InputPalletVanafBufA" Id="{8b1d69ae-1e74-42c5-89d0-37517e7e78cd}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY InputPalletVanafBufA : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ab2d230d-fb5c-41f5-8bda-d79154e0589a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputPalletVanafBufA := InputPalletVanafBufADep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ea8249c6-1be3-43a9-a130-d5132a554781}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InputPalletVanafBufADep := InputPalletVanafBufA;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="InputState" Id="{4302f528-8764-4bef-8b72-acc9ee6f8e24}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY InputState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{e211b0f1-ab3b-4059-8fd8-0ad7c175cd84}">
@@ -221,13 +679,58 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="KlaarVoorInvoer" Id="{a3269f5c-1bd3-48e4-995f-2aa7f1e43699}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY KlaarVoorInvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{84247885-6b80-48b0-8f8f-8d4c8cbf067c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlaarVoorInvoer := KlaarVoorInvoerDep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{290ee2a1-011f-4758-99ac-2ade8083a5f1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlaarVoorInvoerDep := KlaarVoorInvoer;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="KlaarVoorUitvoer" Id="{77dd73e5-139e-402f-a482-db1a49d10c3c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY KlaarVoorUitvoer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1cb396a8-4de8-4a86-afcf-b88703a95aa5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlaarVoorUitvoer := KlaarVoorUitvoerDep;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{bb288221-6126-4ad1-85b8-78f23c992d43}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlaarVoorUitvoerDep := KlaarVoorUitvoer;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Resetting" Id="{86e32daa-1809-4afe-ae0a-050d304e9de2}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Resetting : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Resetting;
+
+Step := 0;
+AantalLagenVerwijderd := 0;
+TimerExtra(IN := FALSE);
+DepalletPalletBinnen := FALSE;
+
+TriggerState := E_PackMLStates.Idle;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Starting" Id="{0c8238a0-26f8-4256-bb0d-748493f97bd5}" FolderPath="Methods\">
@@ -236,26 +739,45 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Starting;
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Starting;
 
-IF  Schuif.Status = E_MotorZuigSchuifStatus.Kort AND Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
+IF  MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND MotorZuig.Status = E_MotorZuigSchuifStatus.Kort AND		//check van startposities en sensoren op normale input
+	Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND						
 	Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
-	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND DrukSensor1.Status = E_DruksensorStatus.SensorInputOk AND 
-	KlepDepallet.Status = FALSE  THEN //vergeet de andere voorwaarden niet !!!!!
+	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND KlepDepalletEind.Status = TRUE	
+	// (1) check of lift beneden is (servo) (2) check of pinnen ingetrokken zijn (3) check rolband stil
+	THEN
+	StartingPositiesOk := TRUE;
 	
-	CurrentStateDep := E_PackMLStates.Idle;
 	ELSE
-		Schuif.SturingKort();
+		StartingPositiesOk := FALSE;
+		MotorSchuif.SturingKort();								//één of meer startcriteria die niet kloppen? sturen van startposities
+		MotorZuig.SturingKort();
 		Zuignap1.Loslaten();
 		Zuignap2.Loslaten();
 		Zuignap3.Loslaten();
 		Zuignap4.Loslaten();
-		KlepDepallet.SturingOpen(FALSE); 
+		KlepDepalletEind.SturingOpen(TRUE);
+		//(1) stuur lift omlaag (servo) (2) stuur pinnen naar ingetrokken positie (3) stuur rolband stil
+		
+END_IF
+	
+	
+IF DrukSensor1.Status = E_DruksensorStatus.SensorInputOk 	// (1) check of afstandssensor input ok is (2) check of lichtsensor input ok is
+	THEN
+	StartingSensorOk := TRUE;
+	ELSE
+		StartingSensorOk := FALSE;
 END_IF
 
 
 
-]]></ST>
+IF StartingPositiesOk = TRUE AND StartingSensorOk = TRUE THEN					//startcriteria goed? state verandert naar execute
+	TriggerState := E_PackMLStates.Execute;
+	StartingPositiesOk := FALSE;
+	StartingSensorOk := FALSE;
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopped" Id="{862a4bb4-364c-4936-8d10-c75d515773a0}" FolderPath="Methods\">
@@ -264,7 +786,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Stopped;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{c84b4a38-09b8-40eb-889d-b8cb17a1f62f}" FolderPath="Methods\">
@@ -273,7 +795,31 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[//LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
+CurrentStateDep := E_PackMLStates.Stopping;
+
+//mechanische rem erop
+
+LiftBewegingYesNo := TRUE; //lift naar beneden
+RolbandAanUit := FALSE;
+MotorSchuif.SturingKort();
+MotorZuig.SturingKort();
+Zuignap1.Loslaten();
+Zuignap2.Loslaten();
+Zuignap3.Loslaten();
+Zuignap4.Loslaten();
+
+
+
+IF EindLiftBeneden = TRUE AND MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND MotorZuig.Status = E_MotorZuigSchuifStatus.Kort
+	AND Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten 
+ 	AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten THEN
+	
+	PinnenUitYesNo := FALSE;
+	TriggerState := E_PackMLStates.Stopped;
+END_IF
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspended" Id="{10bd4b16-4905-4f00-a760-dfd80c61558a}" FolderPath="Methods\">
@@ -282,7 +828,17 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Suspended;
+
+IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN	
+	TriggerState := E_PackMLStates.Unsuspending;
+END_IF
+
+IF DepalletPalletBinnen AND NOT InputPalletBijUitgang THEN
+	TriggerState := E_PackMLStates.Unsuspending;
+END_IF
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspending" Id="{6449bf5c-880a-49ff-a3c3-47582521d253}" FolderPath="Methods\">
@@ -291,7 +847,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Suspending;		// machine staat nu al stil anders kan hij hier niet komen vanuit execute
+
+TriggerState := E_PackMLStates.Suspended;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unholding" Id="{cdd257db-9d5b-420e-8b45-aa519fc7f0c5}" FolderPath="Methods\">
@@ -300,7 +858,10 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Unholding;
+
+TriggerState := E_PackMLStates.Execute;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unsuspending" Id="{d115c6be-b751-498a-bb2d-3f6dd5c17c4d}" FolderPath="Methods\">
@@ -309,7 +870,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[CurrentStateDep := E_PackMLStates.Unsuspending;
+TriggerState := E_PackMLStates.Execute;]]></ST>
       </Implementation>
     </Method>
   </POU>

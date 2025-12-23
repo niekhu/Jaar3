@@ -16,8 +16,12 @@
     <Implicit_KindOfTask>{19d19652-fcb1-4786-8baa-444b97ed04fb}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{8ce1d55a-a60c-4d3c-a8ee-c6b66db0387a}</Implicit_Jitter_Distribution>
     <LibraryReferences>{dfb3d82d-b09f-4386-9942-8ac2416f04d2}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_DrukknoppenStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_DruksensorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -30,10 +34,28 @@
     <Compile Include="DUTs\E_PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_AlarmenDepalletizer.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ControlModules\ControlTestWESSE.TcPOU">
+    <Compile Include="POUs\ManagementFunctions\HMI\FB_HMI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\UnitTest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Units\ITF_UnitTest.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Besturing\FB_Besturing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Besturing\ITF_Besturing.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\BufferA\ITF_BufferA.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\EquipmentModules\Depalletizer\FB_Depalletizer.TcPOU">
@@ -45,43 +67,49 @@
     <Compile Include="POUs\EquipmentModules\BufferA\FB_BufferA.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\Palletizer\FB_Palletizer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Palletizer\ITF_Palletizer.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Druksensor\FB_Druksensor.TcPOU">
+    <Compile Include="POUs\ControlModules\Druksensor\FB_Druksensor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Druksensor\ITF_Druksensor.TcIO">
+    <Compile Include="POUs\ControlModules\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DrukKnop\FB_DrukKnop.TcPOU">
+    <Compile Include="POUs\ControlModules\DrukKnop\FB_DrukKnop.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DrukKnop\ITF_DrukKnop.TcIO">
+    <Compile Include="POUs\ControlModules\DrukKnop\ITF_DrukKnop.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Klep\FB_Klep.TcPOU">
+    <Compile Include="POUs\ControlModules\Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Klep\ITF_UnitKlep.TcIO">
+    <Compile Include="POUs\ControlModules\Klep\ITF_Klep.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LimitSwitch\FB_LimitSwitch.TcPOU">
+    <Compile Include="POUs\ControlModules\LimitSwitch\FB_LimitSwitch.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\LimitSwitch\ITF_LimitSwitch.TcIO">
+    <Compile Include="POUs\ControlModules\LimitSwitch\ITF_LimitSwitch.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
+    <Compile Include="POUs\ControlModules\MotorZuigSchuif\FB_MotorZuigSchuif.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
+    <Compile Include="POUs\ControlModules\MotorZuigSchuif\ITF_MotorZuigSchuif.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
+    <Compile Include="POUs\ControlModules\Vacuumzuignap\FB_Vacuumzuignap.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
+    <Compile Include="POUs\ControlModules\Vacuumzuignap\ITF_Vacuumzuignap.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -89,16 +117,20 @@
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\EquipmentModules" />
-    <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\Units" />
     <Folder Include="POUs\EquipmentModules\BufferA" />
     <Folder Include="POUs\EquipmentModules\Depalletizer" />
-    <Folder Include="POUs\Units" />
-    <Folder Include="POUs\Units\Druksensor" />
-    <Folder Include="POUs\Units\Klep" />
-    <Folder Include="POUs\Units\MotorZuigSchuif" />
-    <Folder Include="POUs\Units\DrukKnop" />
-    <Folder Include="POUs\Units\LimitSwitch" />
-    <Folder Include="POUs\Units\Vacuumzuignap" />
+    <Folder Include="POUs\EquipmentModules\Besturing" />
+    <Folder Include="POUs\EquipmentModules\Palletizer" />
+    <Folder Include="POUs\ManagementFunctions" />
+    <Folder Include="POUs\ManagementFunctions\HMI" />
+    <Folder Include="POUs\ControlModules" />
+    <Folder Include="POUs\ControlModules\Druksensor" />
+    <Folder Include="POUs\ControlModules\Klep" />
+    <Folder Include="POUs\ControlModules\MotorZuigSchuif" />
+    <Folder Include="POUs\ControlModules\DrukKnop" />
+    <Folder Include="POUs\ControlModules\LimitSwitch" />
+    <Folder Include="POUs\ControlModules\Vacuumzuignap" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -110,6 +142,10 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -125,8 +161,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -190,14 +226,14 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Boolean">System.Boolean</Type>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

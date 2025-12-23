@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_BufferA_TestControl" Id="{a408d9d4-03ff-442e-b9d9-79c94b6d179a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BufferA_TestControl
+VAR_INPUT
+    BufferA   : ITF_BufferA;        // equipment
+    TestState : E_PackMLStates;      // welke state wil je sturen
+END_VAR
+VAR
+    _LastCmd  : E_PackMLStates := E_PackMLStates.Idle;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Stuur alleen een nieuwe command-state als TestState verandert
+IF TestState <> _LastCmd THEN
+    BufferA.InputState := TestState;
+    _LastCmd := TestState;
+END_IF;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

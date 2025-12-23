@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MotorZuigSchuif" Id="{60d4b4a8-a1bb-4ed3-8c87-635035a0da9e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MotorZuigSchuif IMPLEMENTS ITF_MotorZuigSchuif				//MOTOR DIE KARTEN VAN DE PALLET NAAR DE ZIJKANT VERPLAATST
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	
+	StatusMotorZuigSchuif : E_MotorZuigSchuifStatus := E_MotorZuigSchuifStatus.Kort;	//drie variabelen die worden gebruikt in de methods
+	timerKort : TON;
+	ErrorTrigger : BOOL; 
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
+    StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Error;
+	END_IF]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{cffb7d77-b82a-4ba3-8693-3a66c9404830}" />
+    <Folder Name="Properties" Id="{2bd36a5f-fa8f-4d44-809c-ed24ca09c9a3}" />
+    <Property Name="Status" Id="{30c9f538-9a28-4c6a-8549-dc11f43c5f81}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : E_MotorZuigSchuifStatus]]></Declaration>
+      <Get Name="Get" Id="{8dfe6f5e-a6cb-4425-bc50-248ce4416186}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := StatusMotorZuigSchuif;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4ddf90c4-c882-4ef3-b0ef-7d1663c4c9a4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SturingKort" Id="{d310948d-e4e9-441e-8c2c-6b103810cceb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SturingKort : BOOL		//METHOD DIE DE SCHUIF INGETROKKEN ZET, DE SCHUIF HANGT NA DEZE METHOD RECHT BOVEN DE PALLET EN DUS KARTON
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
+    StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Error;
+    SturingKort := FALSE;
+    RETURN;
+END_IF
+
+IF StatusMotorZuigSchuif <> E_MotorZuigSchuifStatus.GoToKort AND							//Controle of sturing kort niet al eerder is geweest
+   StatusMotorZuigSchuif <> E_MotorZuigSchuifStatus.Kort THEN	
+   StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.GoToKort;
+    timerKort(IN := TRUE, PT := T#0S);
+END_IF
+
+IF StatusMotorZuigSchuif = E_MotorZuigSchuifStatus.GoToKort THEN							//Als het de eerste sturing kort is (GoToKort), wordt deze 5 seconde aangehouden en dan status kort
+    timerKort(IN := TRUE, PT := T#0S);
+
+    IF timerKort.Q THEN
+        StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Kort;
+		timerKort(IN := FALSE);
+    END_IF
+END_IF
+
+SturingKort := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SturingLang" Id="{54a6e14a-19cb-459d-8878-faf7b3492a1a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SturingLang : BOOL			//METHOD DIE DE SCHUIF UITGEDUWD ZET DUS KARTON HANGT NA DEZE STURING NAAST DE DEPALLETIZER
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
+    StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Error;
+    SturingLang := FALSE;
+    RETURN;
+END_IF
+
+IF StatusMotorZuigSchuif <> E_MotorZuigSchuifStatus.GoToLang AND							//Controle of sturing kort niet al eerder is geweest
+   StatusMotorZuigSchuif <> E_MotorZuigSchuifStatus.Lang THEN
+   StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.GoToLang;
+    timerKort(IN := TRUE, PT := T#0S);
+END_IF
+
+IF StatusMotorZuigSchuif = E_MotorZuigSchuifStatus.GoToLang THEN							//Als het de eerste sturing lang is (GoToLang), wordt deze 5 seconde aangehouden en dan status lang
+    timerKort(IN := TRUE, PT := T#0S);
+
+    IF timerKort.Q THEN
+        StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Lang;
+		timerKort(IN := FALSE);
+    END_IF
+END_IF
+
+SturingLang := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
