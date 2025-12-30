@@ -4,10 +4,6 @@
     <RecentColors>[
   {
     "counter": 0,
-    "color": "#FF241E89"
-  },
-  {
-    "counter": 0,
     "color": "#FFC3C3C3"
   },
   {
@@ -21,6 +17,10 @@
   {
     "counter": 0,
     "color": "#FF8A7272"
+  },
+  {
+    "counter": 0,
+    "color": "#FF241E89"
   },
   {
     "counter": 0,
@@ -93,11 +93,20 @@
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
       "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\Depalletizer.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
     }
   ]
 }</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
-  300.0,
+  200.0,
   50.0,
   180.0,
   80.0,

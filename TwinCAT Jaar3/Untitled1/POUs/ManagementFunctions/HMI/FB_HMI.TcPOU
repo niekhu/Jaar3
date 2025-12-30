@@ -118,7 +118,6 @@ AlarmActivePal := HMIWaarden.HMIAlarmActivePal;
 AlarmCodePal := HMIWaarden.HMIAlarmCodePal;
 DoorsOpenPal := HMIWaarden.HMIDoorsOpenPal;
 EStopOkPal := HMIWaarden.HMIEStopOkPal;
-StepPal := HMIWaarden.HMIStepPal;
 
 CASE PalletizerCurrentStatePal OF
     0:          	StatusTekstPal := 'Idle';

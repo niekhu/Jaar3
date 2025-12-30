@@ -222,15 +222,6 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
-    <Property Name="HMIStepPal" Id="{127453b9-b2f2-44e2-881e-022d2a9bbe20}" FolderPath="HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIStepPal : INT]]></Declaration>
-      <Get Name="Get" Id="{8ce0e993-c823-436e-b713-46c6a4ed2063}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{626e196c-c8cd-4614-9bcc-2300d748c2a7}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
-    </Property>
     <Property Name="HMIStorageFull" Id="{54f91201-8c6f-49e8-b7bc-b02d448e5c8f}" FolderPath="HMIPalletizer\">
       <Declaration><![CDATA[PROPERTY HMIStorageFull : BOOL]]></Declaration>
       <Get Name="Get" Id="{07f8ed91-8860-4b9a-b4c4-a580b8c411e6}">
