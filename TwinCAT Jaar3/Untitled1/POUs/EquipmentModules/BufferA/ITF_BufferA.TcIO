@@ -5,6 +5,24 @@
 ]]></Declaration>
     <Folder Name="Methods" Id="{d05e16d3-1850-476a-81df-379b6ac3b14e}" />
     <Folder Name="Properties" Id="{93eaff4e-68ac-4669-af1b-de1be30862cb}" />
+    <Property Name="AlarmActive" Id="{4e5c8ad7-3939-4b41-8cb6-b422450719ac}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{273a95c7-534e-44de-9395-616ef64703f0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{326db9c1-8022-467f-a9e4-25ecb35956f5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="AlarmCode" Id="{262a5aab-5db0-483d-93b8-335aad86d7f3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{aa75dfc4-5826-4beb-bbcb-86a8aa602f14}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{59a77eac-ee35-4348-8e15-385cc2c13448}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="CurrentState" Id="{c9ed79a3-7769-4cef-af7f-3e92a6c5fd35}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY CurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{aae3f351-b3ad-4476-bf17-72508a9a39a3}">
