@@ -27,6 +27,36 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\ControlModules\DeurSensor\FB_DeurSensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\DeurSensor\ITF_DeurSensor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\LichtSensor\FB_LichtSensor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\LichtSensor\ITF_LichtSensor.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\CilinderZuignap\FB_CilinderZuignap.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\CilinderZuignap\ITF_CilinderZuignap.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\MechanischeRem\FB_MechanischeRem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\MechanischeRem\ITF_MechanischeRem.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\MotorAC\FB_MotorAC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\MotorAC\ITF_MotorAC.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\EquipmentModules\BufferB\FB_BufferB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -39,50 +69,20 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Units\DeurSensor\FB_DeurSensor.TcPOU">
-    <Compile Include="POUs\Units\Druksensor\FB_Druksensor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\DeurSensor\ITF_DeurSensor.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\LichtSensor\FB_LichtSensor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\LichtSensor\ITF_LichtSensor.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\LineaireActuatorZuignap\FB_CilinderZuignap.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\LineaireActuatorZuignap\ITF_CilinderZuignap.TcIO">
-      <SubType>Code</SubType>
-    <Compile Include="POUs\Units\MechanischeRem\FB_MechanischeRem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\MechanischeRem\ITF_MechanischeRem.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\MotorAC\FB_MotorAC.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Units\MotorAC\ITF_MotorAC.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\ControlModules\DeurSensor" />
+    <Folder Include="POUs\ControlModules\LichtSensor" />
+    <Folder Include="POUs\ControlModules\CilinderZuignap" />
+    <Folder Include="POUs\ControlModules\MechanischeRem" />
+    <Folder Include="POUs\ControlModules\MotorAC" />
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
     <Folder Include="POUs\EquipmentModules\BufferB" />
-    <Folder Include="POUs\Units\DeurSensor" />
-    <Folder Include="POUs\Units\LichtSensor" />
-    <Folder Include="POUs\Units\MechanischeRem" />
-    <Folder Include="POUs\Units\MotorAC" />
-    <Folder Include="POUs\Units\LineaireActuatorZuignap" />
->>>>>>>>> Temporary merge branch 2
+    <Folder Include="POUs\EquipmentModules\Test_ControlModules" />
+    <Folder Include="POUs\Units" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
