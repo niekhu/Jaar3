@@ -1122,6 +1122,23 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmActivePal",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 23
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1289,6 +1306,23 @@
                     },
                     {
                         "propertyOrder": 11
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstPal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstPal",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
+                    },
+                    {
+                        "propertyOrder": 28
                     }
                 ]
             },
@@ -4347,6 +4381,7 @@
                 "ADS.PLC1.MAIN.Depalletizer.StartingSensorOk": 3,
                 "ADS.PLC1.MAIN.Druksensor.BarPerMa": 3,
                 "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
@@ -4357,6 +4392,7 @@
                 "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.RolbandAanUit": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstPal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekstSchuif": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuig": 3,
                 "ChangeUserSettings": 3,

@@ -150,7 +150,13 @@
     <Content Include="HMIPagina'sGeheleMachine\Depalletizer.content">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="HMIPagina'sGeheleMachine\BufA2.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="HMIPagina'sGeheleMachine\Palletizer.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Manifest\BufA.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Manifest\Depalletizer.png">

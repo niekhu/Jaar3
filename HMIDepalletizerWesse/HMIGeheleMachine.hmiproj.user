@@ -102,6 +102,15 @@
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
       "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\Palletizer.view",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
     }
   ]
 }</TcHmiEditor_SplitAreaStates>

@@ -1,0 +1,35 @@
+<div id="Palletizer_4" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="800" data-tchmi-height="640" data-tchmi-zindex="1" data-tchmi-zindex="1">
+
+
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(195, 195, 195, 1)"
+}
+</script>
+<div id="TcHmiTextblock_81" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Buffer A2" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="173" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_83" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="Huidige State" data-tchmi-top="80" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_84" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-top="106" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="rue&quot;" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_85" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-text="Alarm" data-tchmi-top="152" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-tooltip="%s%ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal%/s%" data-tchmi-border-color="%f%%/f%" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiRectangle_30" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-top="142" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_86" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-text="soort alarm" data-tchmi-top="186" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiImage_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="516" data-tchmi-height-unit="px" data-tchmi-left="-103" data-tchmi-left-unit="px" data-tchmi-src="Images/Manifest/BufA.png" data-tchmi-top="255" data-tchmi-top-unit="px" data-tchmi-width="893" data-tchmi-width-unit="px">
+</div>
+<div id="TcHmiTextblock_87" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="35" data-tchmi-height-unit="px" data-tchmi-left="673" data-tchmi-left-unit="px" data-tchmi-text="Ready voor palletizer" data-tchmi-top="353" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_88" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="673" data-tchmi-left-unit="px" data-tchmi-top="389" data-tchmi-top-unit="px" data-tchmi-width="72" data-tchmi-width-unit="px" data-tchmi-word-wrap="quot;Tru&quot;" data-tchmi-zindex="&quot;">
+</div>
+<div id="TcHmiTextblock_89" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="550" data-tchmi-left-unit="px" data-tchmi-text="Pallet detected" data-tchmi-top="267" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_90" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="550" data-tchmi-left-unit="px" data-tchmi-top="293" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-word-wrap="&quot;Tru" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_91" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="569" data-tchmi-left-unit="px" data-tchmi-text="Klep status" data-tchmi-top="570" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_92" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="569" data-tchmi-left-unit="px" data-tchmi-top="596" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-word-wrap="&quot;Tru" data-tchmi-zindex="1">
+</div>
+</div>
