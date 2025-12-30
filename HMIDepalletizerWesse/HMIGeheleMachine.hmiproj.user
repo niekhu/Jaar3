@@ -84,7 +84,17 @@
   }
 ]</RecentColors>
     <TcHmiEditor_SplitAreaStates>{
-  "EditorSettings": []
+  "EditorSettings": [
+    {
+      "Path": "HMIPagina'sGeheleMachine\\Palletizer.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
+    }
+  ]
 }</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
   200.0,
