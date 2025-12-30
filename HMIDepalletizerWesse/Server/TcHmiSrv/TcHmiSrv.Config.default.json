@@ -1208,6 +1208,41 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletAtInFeed",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 13
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletizerCurrentStatePal",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
+                    },
+                    {
+                        "comment": "Eind Depalletizer HMI\t\r\nPalletizer HMI",
+                        "propertyOrder": 11
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1259,15 +1294,15 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": {
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstSchuif": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletAtInFeed",
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstSchuif",
             "SCHEMA": {
                 "allOf": [
                     {
-                        "$ref": "tchmi:general#/definitions/BOOL"
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
                     },
                     {
                         "propertyOrder": 13
@@ -1276,19 +1311,18 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": {
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuig": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::PalletizerCurrentStatePal",
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstZuig",
             "SCHEMA": {
                 "allOf": [
                     {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
                     },
                     {
-                        "comment": "Eind Depalletizer HMI\t\r\nPalletizer HMI",
-                        "propertyOrder": 11
+                        "propertyOrder": 12
                     }
                 ]
             },
@@ -4316,13 +4350,15 @@
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.MotorSchuifStatus": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.RolbandAanUit": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstSchuif": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuig": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,
                 "CreateEvent": 3,
