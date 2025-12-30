@@ -36,7 +36,17 @@ AlarmCodePal : UDINT;
 DoorsOpenPal : BOOL;
 EStopOkPal : BOOL;
 StepPal : INT;
+StatusTekstPal : STRING(50);
 //Eind Palletizer HMI
+
+//BufferA HMI
+BufferA1AlarmActive : BOOL;
+BufferA1AlarmCode : UDINT;
+BufferA2AlarmActive : BOOL;
+BufferA2AlarmCode : UDINT;
+StatusTekstBufferA1 : STRING(50);
+StatusTekstBufferA2 : STRING(50);
+//Eind BufferA HMI
 
 END_VAR]]></Declaration>
     <Implementation>
@@ -95,7 +105,6 @@ END_CASE
 //Einde Depalletizer HMI
 
 //Palletizer HMI
-IF UpdateHMI = TRUE THEN
 PalletizerCurrentStatePal := HMIWaarden.HMIPalletizerCurrentState;
 StorageFull := HMIWaarden.HMIStorageFull;
 PalletAtInFeed := HMIWaarden.HMIPalletAtInFeed;
@@ -110,8 +119,50 @@ AlarmCodePal := HMIWaarden.HMIAlarmCodePal;
 DoorsOpenPal := HMIWaarden.HMIDoorsOpenPal;
 EStopOkPal := HMIWaarden.HMIEStopOkPal;
 StepPal := HMIWaarden.HMIStepPal;
+
+CASE PalletizerCurrentStatePal OF
+    0:          	StatusTekstPal := 'Idle';
+    1:       		StatusTekstPal := 'Starting';
+    2:        		StatusTekstPal := 'Execute';
+   	3:     			StatusTekstPal := 'Resetting';
+    4:        		StatusTekstPal := 'Holding';
+    5:           	StatusTekstPal := 'Held';
+    6:      		StatusTekstPal := 'Unholding';
+    7:     			StatusTekstPal := 'Suspending';
+    8:      		StatusTekstPal := 'Suspended';
+    9:   			StatusTekstPal := 'Unsuspending';
+    10:       		StatusTekstPal := 'Stopping';
+    11:        		StatusTekstPal := 'Stopped';
+    12:       		StatusTekstPal := 'Aborting';
+    13:        		StatusTekstPal := 'Aborted';
+    14:       		StatusTekstPal := 'Clearing';
+ELSE
+    				StatusTekstPal := 'Onbekende status';
+END_CASE
+// Einde Palletizer HMI
+
+//BufferA HMI
+BufferA1AlarmActive := HMIWaarden.HMIBufferA1AlarmActive;
+BufferA1AlarmCode := HMIWaarden.HMIBufferA1AlarmCode;
+
+BufferA2AlarmActive := HMIWaarden.HMIBufferA2AlarmActive;
+BufferA2AlarmCode := HMIWaarden.HMIBufferA2AlarmCode;
+
+IF BufferA1AlarmActive = TRUE THEN
+	StatusTekstBufferA1 := CONCAT('Alarm code: ', UDINT_TO_STRING(BufferA1AlarmCode));
+	StatusTekstBufferA1 := 'Alarm actief';
+ELSE
+	StatusTekstBufferA1 := 'OK';
 END_IF
-// Einde Palletizer HMI]]></ST>
+
+IF BufferA2AlarmActive = TRUE THEN
+	StatusTekstBufferA2 := CONCAT('Alarm code: ', UDINT_TO_STRING(BufferA2AlarmCode));
+	StatusTekstBufferA2 := 'Alarm actief';
+ELSE
+	StatusTekstBufferA2 := 'OK';
+END_IF
+//Einde BufferA HMI
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

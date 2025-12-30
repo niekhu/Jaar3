@@ -24,6 +24,42 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="HMIBufferA1AlarmActive" Id="{beec3193-b243-4f21-8f07-2d3a6c7d2499}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6850b273-143e-4192-9fa4-1d6f29ef1844}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{99b4bc77-e60e-449c-a58b-8050094f6bbe}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA1AlarmCode" Id="{4788b0ab-1259-4a4d-9315-426d8ac77743}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{70a3360b-6b37-4c3c-a456-663b8a9312ed}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{99940523-4dc9-45a3-96c5-bea9d3895da1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmActive" Id="{0392c006-6c82-4a41-9c8d-8f19857202a2}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{379d7835-e349-4db1-90d3-2156677fba25}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d09ae559-1971-4033-ac18-db406d98e737}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmCode" Id="{26f3b686-e584-4075-862e-d5b30543811b}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{79ea2436-bc72-4439-a32b-546a69ad78a1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{fd6f9d88-21fc-4feb-9d45-fe57854e2643}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIDepalletizerCurrentState" Id="{0ef3e29f-48aa-47b7-a5ce-7e52534533a3}" FolderPath="HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{44c9355d-12cd-4dd0-a2c3-140a0ca4ecb0}">
