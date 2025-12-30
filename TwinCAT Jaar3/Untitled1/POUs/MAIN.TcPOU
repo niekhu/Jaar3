@@ -14,6 +14,8 @@ VAR
 	LichtSensor2 : FB_LichtSensor;
 	LichtSensor3 : FB_LichtSensor;
 	LichtSensor4 : FB_LichtSensor;
+	
+	CilinderZuignap : FB_CilinderZuignap;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Buffer2();
@@ -28,7 +30,7 @@ LichtSensor2();
 LichtSensor3();
 LichtSensor4();
 
-]]></ST>
+CilinderZuignap();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

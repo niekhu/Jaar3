@@ -3,12 +3,10 @@
   <POU Name="FB_CilinderZuignap" Id="{e181b065-4cd3-400b-aaf5-87ebb79f5d25}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CilinderZuignap IMPLEMENTS ITF_CilinderZuignap
 VAR_INPUT
-	I_ActueelIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
-END_VAR
-VAR_OUTPUT
+	I_ActueelIngetrokken : BOOL := FALSE; // INGETROKKEN = TRUE, VERLENGT = FALSE
 END_VAR
 VAR
-	_VerwachtIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
+	_VerwachtIngetrokken : BOOL := FALSE; // INGETROKKEN = TRUE, VERLENGT = FALSE
 END_VAR
 ]]></Declaration>
     <Implementation>

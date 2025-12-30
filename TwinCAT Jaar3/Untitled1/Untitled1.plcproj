@@ -66,6 +66,9 @@
     <Compile Include="POUs\EquipmentModules\FB_depalletizer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\Test_ControlModules\Test_ControlModules.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
