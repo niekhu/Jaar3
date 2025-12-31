@@ -44,7 +44,8 @@ Status := 1;]]></ST>
       <Get Name="Get" Id="{a7d9da4b-452d-4627-997f-9c5005344c8c}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
-          <ST><![CDATA[VerwachtIngetrokken := _VerwachtIngetrokken;]]></ST>
+          <ST><![CDATA[VerwachtIngetrokken := _VerwachtIngetrokken;
+Status := Status;]]></ST>
         </Implementation>
       </Get>
     </Property>
