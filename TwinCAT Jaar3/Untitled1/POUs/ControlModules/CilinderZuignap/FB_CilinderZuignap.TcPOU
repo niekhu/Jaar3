@@ -29,14 +29,14 @@ PROPERTY ActueelIngetrokken : BOOL]]></Declaration>
       <Declaration><![CDATA[METHOD Ingetrokken]]></Declaration>
       <Implementation>
         <ST><![CDATA[_VerwachtIngetrokken := TRUE;
-Status := 1;]]></ST>
+Status := 0;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Verlengt" Id="{3752f419-eac5-47a8-91f7-942479033298}" FolderPath="Method\">
       <Declaration><![CDATA[METHOD Verlengt]]></Declaration>
       <Implementation>
         <ST><![CDATA[_VerwachtIngetrokken := FALSE;
-Status := 2;]]></ST>
+Status := 1;]]></ST>
       </Implementation>
     </Method>
     <Property Name="VerwachtIngetrokken" Id="{e1f56956-3415-4c46-94ec-2afa228025ce}" FolderPath="Properties\">

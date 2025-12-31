@@ -7,7 +7,7 @@
 TYPE E_CilinderZuignap :
 (
 	Ingetrokken,
-	Uitgeschoven,
+	Verlengt,
 	Error
 );
 END_TYPE

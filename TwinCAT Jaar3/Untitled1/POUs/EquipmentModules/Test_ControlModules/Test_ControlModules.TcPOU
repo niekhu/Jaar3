@@ -4,23 +4,32 @@
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ControlModules
 VAR_INPUT	
 END_VAR
-END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
 	FB_CilinderZuignap : FB_CilinderZuignap;
 	CilinderZuignap: ITF_CilinderZuignap;
+	status : E_CilinderZuignap;
+	step : int := 0;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CilinderZuignap := FB_CilinderZuignap;
-CilinderZuignap.Verlengt(); 
+CASE Step OF
+0: // start
+    CilinderZuignap.Verlengt(); // opdracht
+    Step := 1;
 
-IF cilinderZuignap.ActueelIngetrokken = FALSE AND cilinderZuignap.VerwachtIngetrokken = TRUE THEN
-	cilinderzuignap.Ingetrokken(); 
-	
-ELSIF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN
-	CilinderZuignap.Verlengt(); 
-END_IF
+1: // wacht totdat verlengd is
+    IF Status = 1 THEN
+        Step := 2;
+    END_IF
+
+2: // trek in
+    CilinderZuignap.Ingetrokken();
+END_CASE
+
+
+
 
 ]]></ST>
     </Implementation>
