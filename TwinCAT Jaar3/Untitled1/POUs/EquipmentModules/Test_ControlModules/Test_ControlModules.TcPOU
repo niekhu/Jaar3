@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ControlModules
 VAR_INPUT
 	CilinderZuignap : ITF_CilinderZuignap;
+	FB_CilinderZuignap : FB_CilinderZuignap;
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -11,12 +12,13 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = TRUE THEN
+      <ST><![CDATA[CilinderZuignap := FB_CilinderZuignap;
+IF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = TRUE THEN
 	cilinderzuignap.VerwachtIngetrokken := FALSE; 
 END_IF
 
 IF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN
-	cilinderzuignap.Verlengt(); 
+	CilinderZuignap.Verlengt(); 
 END_IF
 
 IF cilinderZuignap.ActueelIngetrokken = FALSE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN

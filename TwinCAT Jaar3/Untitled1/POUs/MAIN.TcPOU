@@ -30,7 +30,8 @@ LichtSensor2();
 LichtSensor3();
 LichtSensor4();
 
-CilinderZuignap();]]></ST>
+CilinderZuignap();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
