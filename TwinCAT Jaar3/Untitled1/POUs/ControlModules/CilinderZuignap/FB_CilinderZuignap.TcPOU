@@ -3,10 +3,11 @@
   <POU Name="FB_CilinderZuignap" Id="{e181b065-4cd3-400b-aaf5-87ebb79f5d25}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CilinderZuignap IMPLEMENTS ITF_CilinderZuignap
 VAR_INPUT
-	I_ActueelIngetrokken : BOOL := FALSE; // INGETROKKEN = TRUE, VERLENGT = FALSE
+	I_ActueelIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
 END_VAR
 VAR
-	_VerwachtIngetrokken : BOOL := FALSE; // INGETROKKEN = TRUE, VERLENGT = FALSE
+	Status : E_CilinderZuignap;
+	_VerwachtIngetrokken : BOOL; // INGETROKKEN = TRUE, VERLENGT = FALSE
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -27,13 +28,15 @@ PROPERTY ActueelIngetrokken : BOOL]]></Declaration>
     <Method Name="Ingetrokken" Id="{03bce597-b519-4612-b638-c4a5dc09e3b7}" FolderPath="Method\">
       <Declaration><![CDATA[METHOD Ingetrokken]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_VerwachtIngetrokken := TRUE;]]></ST>
+        <ST><![CDATA[_VerwachtIngetrokken := TRUE;
+Status := 1;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Verlengt" Id="{3752f419-eac5-47a8-91f7-942479033298}" FolderPath="Method\">
       <Declaration><![CDATA[METHOD Verlengt]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_VerwachtIngetrokken := FALSE;]]></ST>
+        <ST><![CDATA[_VerwachtIngetrokken := FALSE;
+Status := 2;]]></ST>
       </Implementation>
     </Method>
     <Property Name="VerwachtIngetrokken" Id="{e1f56956-3415-4c46-94ec-2afa228025ce}" FolderPath="Properties\">
@@ -44,12 +47,6 @@ PROPERTY ActueelIngetrokken : BOOL]]></Declaration>
           <ST><![CDATA[VerwachtIngetrokken := _VerwachtIngetrokken;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{14a41cbd-9fb0-461f-b3ee-d515a0f1ce1b}">
-        <Declaration><![CDATA[]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_VerwachtIngetrokken := VerwachtIngetrokken;]]></ST>
-        </Implementation>
-      </Set>
     </Property>
   </POU>
 </TcPlcObject>

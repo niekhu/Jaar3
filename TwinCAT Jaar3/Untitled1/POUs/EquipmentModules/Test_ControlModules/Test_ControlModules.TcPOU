@@ -2,32 +2,27 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="Test_ControlModules" Id="{e7acd0b3-bf42-42e2-a558-d357017bcf7b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ControlModules
-VAR_INPUT
-	CilinderZuignap : ITF_CilinderZuignap;
-	FB_CilinderZuignap : FB_CilinderZuignap;
+VAR_INPUT	
+END_VAR
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-END_VAR
-]]></Declaration>
+	FB_CilinderZuignap : FB_CilinderZuignap;
+	CilinderZuignap: ITF_CilinderZuignap;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CilinderZuignap := FB_CilinderZuignap;
-IF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = TRUE THEN
-	cilinderzuignap.VerwachtIngetrokken := FALSE; 
-END_IF
-
-IF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN
-	CilinderZuignap.Verlengt(); 
-END_IF
-
-IF cilinderZuignap.ActueelIngetrokken = FALSE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN
-	cilinderzuignap.VerwachtIngetrokken := TRUE; 
-END_IF
+CilinderZuignap.Verlengt(); 
 
 IF cilinderZuignap.ActueelIngetrokken = FALSE AND cilinderZuignap.VerwachtIngetrokken = TRUE THEN
 	cilinderzuignap.Ingetrokken(); 
-END_IF]]></ST>
+	
+ELSIF cilinderZuignap.ActueelIngetrokken = TRUE AND cilinderZuignap.VerwachtIngetrokken = FALSE THEN
+	CilinderZuignap.Verlengt(); 
+END_IF
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

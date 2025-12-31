@@ -28,9 +28,6 @@ END_VAR
       <Get Name="Get" Id="{366a6daa-5dfd-4f55-8a5e-ddce5437d2db}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
-      <Set Name="Set" Id="{5cd6443f-bb41-4628-995c-3972ce9dcb9f}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
     </Property>
   </Itf>
 </TcPlcObject>
