@@ -50,7 +50,7 @@ StatusTekstBufferA2 : STRING(50);
 
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Depalletizer HMI
+      <ST><![CDATA[//Depalletizer HMI															HIER HOREN NOG SENSOREN BIJ, DEADLINE VOOR MAANDAG NA VAKANTIE
 
 DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;
 KlaarVoorInvoer := HMIWaarden.HMIKlaarVoorInvoer;

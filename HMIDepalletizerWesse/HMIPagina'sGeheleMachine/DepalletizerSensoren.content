@@ -1,0 +1,252 @@
+<div id="DepalletizerSensoren" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="800" data-tchmi-height="640">
+
+<div id="Palletizer_6" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="800" data-tchmi-height="640">
+<script data-tchmi-target-attribute="data-tchmi-background-color" type="application/json">
+{
+  "color": "rgba(195, 195, 195, 1)"
+}
+</script>
+</div>
+<div id="TcHmiTextblock_111" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="34" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Depalletizer hoofdpagina" data-tchmi-top="450" data-tchmi-top-unit="px" data-tchmi-width="220" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="20" data-tchmi-zindex="2">
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseEnter",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctx%owner::TextColor%/ctx%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/SolidColor",
+          "value": {
+            "color": "rgba(44, 66, 184, 1)"
+          }
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onMouseLeave",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctx%owner::TextColor%/ctx%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/SolidColor",
+          "value": {
+            "color": "rgba(0, 0, 0, 1)"
+          }
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmiRegion_1::TargetContent%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/ContentPath",
+          "value": "HMIPagina'sGeheleMachine/Depalletizer.content"
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%s%ADS.PLC1.MAIN.Depalletizer.StartingSensorOk%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.Depalletizer.StartingSensorOk%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::BorderColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(228, 39, 39, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::BorderColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(11, 225, 51, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 2,
+  "right": 2,
+  "top": 2,
+  "bottom": 2,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-style" type="application/json">
+{
+  "left": "Solid",
+  "right": "Solid",
+  "top": "Solid",
+  "bottom": "Solid"
+}
+</script>
+</div>
+<div id="TcHmiTextblock_112" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="392" data-tchmi-left-unit="px" data-tchmi-text="Aantal lagen blikjes resterend" data-tchmi-top="301" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="3">
+</div>
+<div id="TcHmiTextblock_113" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="255" data-tchmi-left-unit="px" data-tchmi-text="Druk bij zuignappen" data-tchmi-top="70" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="4">
+</div>
+<div id="TcHmiTextblock_114" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="178" data-tchmi-left-unit="px" data-tchmi-text="Lichtsensor ingang" data-tchmi-top="385" data-tchmi-top-unit="px" data-tchmi-width="97" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="5">
+</div>
+<div id="TcHmiTextblock_115" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="677" data-tchmi-left-unit="px" data-tchmi-text="Sensor lift omhoog" data-tchmi-top="172" data-tchmi-top-unit="px" data-tchmi-width="104" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="6">
+</div>
+<div id="TcHmiTextblock_116" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="379" data-tchmi-left-unit="px" data-tchmi-text="linieare actuator zuignappen" data-tchmi-top="100" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="7">
+</div>
+<div id="TcHmiTextblock_117" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="677" data-tchmi-left-unit="px" data-tchmi-text="Sensor lift omlaag" data-tchmi-top="349" data-tchmi-top-unit="px" data-tchmi-width="104" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="8">
+</div>
+<div id="TcHmiTextblock_118" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="609" data-tchmi-left-unit="px" data-tchmi-text="Sensor blikjes op band" data-tchmi-top="100" data-tchmi-top-unit="px" data-tchmi-width="127" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="9">
+</div>
+<div id="TcHmiRectangle_40" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="376" data-tchmi-left-unit="px" data-tchmi-top="100" data-tchmi-top-unit="px" data-tchmi-width="147" data-tchmi-width-unit="px" data-tchmi-zindex="10">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_41" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="174" data-tchmi-left-unit="px" data-tchmi-top="385" data-tchmi-top-unit="px" data-tchmi-width="101" data-tchmi-width-unit="px" data-tchmi-zindex="11">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_42" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="250" data-tchmi-left-unit="px" data-tchmi-top="70" data-tchmi-top-unit="px" data-tchmi-width="111" data-tchmi-width-unit="px" data-tchmi-zindex="12">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_43" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="386" data-tchmi-left-unit="px" data-tchmi-top="301" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-zindex="13">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_44" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="674" data-tchmi-left-unit="px" data-tchmi-top="349" data-tchmi-top-unit="px" data-tchmi-width="101" data-tchmi-width-unit="px" data-tchmi-zindex="14">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_45" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="674" data-tchmi-left-unit="px" data-tchmi-top="172" data-tchmi-top-unit="px" data-tchmi-width="101" data-tchmi-width-unit="px" data-tchmi-zindex="15">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiRectangle_46" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="38" data-tchmi-height-unit="px" data-tchmi-left="607" data-tchmi-left-unit="px" data-tchmi-top="100" data-tchmi-top-unit="px" data-tchmi-width="115" data-tchmi-width-unit="px" data-tchmi-zindex="16">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+</div>
+<div id="TcHmiTextblock_119" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Depalletizer sensoren" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="273" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-zindex="17">
+</div>
+<div id="TcHmiRectangle_47" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="269" data-tchmi-width-unit="px" data-tchmi-stroke-thickness="3" data-tchmi-zindex="18">
+<script data-tchmi-target-attribute="data-tchmi-stroke-color" type="application/json">
+{
+  "color": "rgba(36, 30, 137, 1)"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-width" type="application/json">
+{
+  "left": 0,
+  "right": 0,
+  "top": 0,
+  "bottom": 0,
+  "leftUnit": "px",
+  "rightUnit": "px",
+  "topUnit": "px",
+  "bottomUnit": "px"
+}
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-border-radius" type="application/json">
+{
+  "topLeft": 0.0,
+  "topRight": 0.0,
+  "bottomLeft": 0.0,
+  "bottomRight": 0.0,
+  "topLeftUnit": "px",
+  "topRightUnit": "px",
+  "bottomLeftUnit": "px",
+  "bottomRightUnit": "px"
+}
+</script>
+</div>
+<div id="TcHmiImage_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="473" data-tchmi-height-unit="px" data-tchmi-left="274" data-tchmi-left-unit="px" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="412" data-tchmi-width-unit="px" data-tchmi-src="Images/Manifest/Depalletizer2.0.png" data-tchmi-zindex="1">
+</div>
+</div>
