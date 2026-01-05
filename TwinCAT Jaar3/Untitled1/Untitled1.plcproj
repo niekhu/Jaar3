@@ -54,6 +54,12 @@
     <Compile Include="POUs\EquipmentModules\FB_Depalletizer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\Invoerband\FB_Invoerband.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Invoerband\ITF_Invoerband.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -112,6 +118,7 @@
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\ControlModules" />
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
+    <Folder Include="POUs\EquipmentModules\Invoerband" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Invoerband" Id="{44a1883a-c7ba-4796-8488-ed62390af859}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Invoerband IMPLEMENTS ITF_Invoerband
+VAR
+	// Gebruikte units voor invoerband
+	Veiligheidsmat : FB_Veiligheidsmat;
+	Signaallamp : FB_Signaallamp; 
+	Startknop : FB_Startknop; // Unit moet nog toegevoegd worden
+	Stopknop : FB_Stopknop; // Unit moet nog toegevoegd worden
+	Resetknop : FB_Resetknop; // Unit moet nog toegevoegd worden
+	Asynchroonmotor : FB_Asynchroonmotor; // Unit moet nog toegevoegd worden
+	Klep : FB_Klep;
+	Lichtsensor : FB_Lichtsensor; // Unit moet nog toegevoegd worden
+	
+	// PackML States
+	Status_Intern : PackMLStates;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{58469123-665d-44df-93c3-f2ee2bc5c7f7}" />
+    <Folder Name="Properties" Id="{30e3f1f3-fe00-4ac9-a669-4c849b2e8105}" />
+    <Property Name="Status" Id="{42030706-d589-4ce4-be61-9b0b75038bc0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : PackMLStates
+]]></Declaration>
+      <Get Name="Get" Id="{44c3ef77-ec83-48dd-a48a-5656940258fb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := Status_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{6bd04c6d-544b-460c-bf80-0e8e00a29a05}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR
+	Veiligheidsmat_Actief : BOOL;
+	Startknop_Ingedrukt : BOOL;
+	Stopknop_Ingedrukt : BOOL;
+	Resetknop_Ingedrukt : BOOL;
+	Palletwacht : BOOL;
+	Bufferisvol : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Veiligheidsmat.Update();
+Startknop.Update(); // Unit moet nog toegevoegd worden
+Stopknop.Update(); // Unit moet nog toegevoegd worden
+Resetknop.Update(); // Unit moet nog toegevoegd worden
+Lichtsensor.Update(); // Unit moet nog toegevoegd worden
+Asynchroonmotor.Update(); // Unit moet nog toegevoegd worden
+Klep.SturingOpen := 1;
+
+Veiligheidsmat_Actief := Veiligheidsmat.Actief;
+Startknop_Ingedrukt := Startknop.Ingedrukt; // Unit moet nog toegevoegd worden
+Stopknop_Ingedrukt := Stopknop.Ingedrukt; // Unit moet nog toegevoegd worden
+Resetknop_Ingedrukt := Resetknop.Ingedrukt; // Unit moet nog toegevoegd worden
+
+Palletwacht := LichtSensor.Detecteert; // Unit moet nog toegevoegd worden
+Bufferisvol := LichtSensor.Bufferisvol; // Unit moet nog toegevoegd worden
+
+CASE Status_Intern OF
+	
+	PackMLStates.Idle:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+
+        IF Startknop_Ingedrukt AND NOT Veiligheidsmat_Actief THEN
+            Status_Intern := PackMLStates.Starting;
+        END_IF
+		
+	PackMLStates.Starting:
+        Motor.Command := E_MotorCommand.Start; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+        Status_Intern := PackMLStates.Execute;
+	
+	PackMLStates.Execute:
+        Motor.Command := E_MotorCommand.Start; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+
+        IF Veiligheidsmat_Actief THEN
+            Status_Intern := PackMLStates.Holding;
+
+        ELSIF Stopknop_Ingedrukt THEN
+            Status_Intern := PackMLStates.Stopping;
+        END_IF
+	
+	PackMLStates.Holding:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+        Status_Intern := PackMLStates.Held;
+	
+	PackMLStates.Held:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+
+        IF NOT Veiligheidsmat_Actief THEN
+            Status_Intern := PackMLStates.Unholding;
+        END_IF
+
+	PackMLStates.Unholding:
+        Status_Intern := PackMLStates.Execute;
+	
+	PackMLStates.Stopping:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+        Status_Intern := PackMLStates.Stopped;
+
+	PackMLStates.Stopped:
+        IF Startknop_Ingedrukt AND NOT Veiligheidsmat_Actief THEN
+            Status_Intern := PackMLStates.Starting;
+        END_IF
+
+	PackMLStates.Resetting:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+        Klep.Command := E_KlepCommand.Close; // Moet nog aangepast worden op basis van de aangepaste Unit die moet worden toegevoegd
+        Status_Intern := PackMLStates.Idle;
+
+	PackMLStates.Aborted:
+        Motor.Command := E_MotorCommand.Stop; // Moet nog aangepast worden aan de hand van Unit die moet worden toegevoegd
+END_CASE
+
+IF Resetknop_Ingedrukt THEN
+    Status_Intern := PackMLStates.Resetting;
+END_IF
+
+IF Bufferisvol THEN
+    Klep.Command := E_KlepCommand.Open; // Moet nog aangepast worden op basis van de aangepaste Unit die moet worden toegevoegd
+
+ELSIF Palletwacht AND NOT Bufferisvol THEN
+    Klep.Command := E_KlepCommand.Close; // Moet nog aangepast worden op basis van de aangepaste Unit die moet worden toegevoegd
+END_IF
+
+CASE Status_Intern OF
+
+    PackMLStates.Execute:
+        Signaallamp.MachineStatus := E_MachineStatusSignaallamp.Running;
+
+    PackMLStates.Holding,
+    PackMLStates.Held,
+    PackMLStates.Aborted:
+        Signaallamp.MachineStatus := E_MachineStatusSignaallamp.Error;
+
+    PackMLStates.Resetting:
+        Signaallamp.MachineStatus := E_MachineStatusSignaallamp.Resetting;
+
+    ELSE
+        Signaallamp.MachineStatus := E_MachineStatusSignaallamp.Idle;
+
+END_CASE
+
+Signaallamp.Update();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

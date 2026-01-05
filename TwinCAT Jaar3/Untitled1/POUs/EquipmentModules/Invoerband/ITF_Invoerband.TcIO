@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Invoerband" Id="{208c2622-9311-49c8-a388-bf23b5f5485c}">
+    <Declaration><![CDATA[INTERFACE ITF_Invoerband
+]]></Declaration>
+    <Property Name="Status" Id="{cc9c15ef-cfd9-4747-b758-1a77f85a9f4b}">
+      <Declaration><![CDATA[PROPERTY Status : PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{0a476c26-0988-4832-897b-a16c89844ce0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{58b6eaaa-993c-4b51-b9af-3f8615c521ee}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
