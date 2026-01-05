@@ -60,6 +60,12 @@
     <Compile Include="POUs\EquipmentModules\Invoerband\ITF_Invoerband.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EquipmentModules\Safety\FB_Machineveiligheid.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\EquipmentModules\Safety\ITF_Machineveiligheid.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -119,6 +125,7 @@
     <Folder Include="POUs\ControlModules" />
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\EquipmentModules\Invoerband" />
+    <Folder Include="POUs\EquipmentModules\Safety" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />

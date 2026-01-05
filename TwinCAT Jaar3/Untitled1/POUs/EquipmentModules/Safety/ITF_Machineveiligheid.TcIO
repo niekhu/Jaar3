@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="ITF_Machineveiligheid" Id="{1b32847b-17b2-4a00-bd04-6bea6f338535}">
+    <Declaration><![CDATA[INTERFACE ITF_Machineveiligheid
+]]></Declaration>
+    <Property Name="Machineveilig" Id="{9e2b0f85-6eff-4357-b93f-8e0d79dda3cd}">
+      <Declaration><![CDATA[PROPERTY Machineveilig : BOOL]]></Declaration>
+      <Get Name="Get" Id="{015c212a-fc58-411f-a2bb-0992cbdb261e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{1b187708-0abe-4afd-b932-7473feea2789}">
+      <Declaration><![CDATA[PROPERTY Status : PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{0059a85d-053f-4a30-9028-d60d5e41e057}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{a8523fa8-96f7-4435-b70d-4ef99269a49c}">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

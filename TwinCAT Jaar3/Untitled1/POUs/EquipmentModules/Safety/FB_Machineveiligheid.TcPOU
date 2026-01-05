@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Machineveiligheid" Id="{29381d7d-6bde-4cff-ad5e-550afc8cdc5e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Machineveiligheid IMPLEMENTS ITF_Machineveiligheid
+VAR
+	// Gebruikte units 
+	DeurSensor : FB_DeurSensor; // Moet nog worden aangepast wanneer juiste unit bij programma wordt ingevoegd
+	
+	// PackMLStates
+	Status_Intern : PackMLStates;
+	Machineveiligheid_Intern : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{9f7da387-30c8-4d22-8130-8630b7e867b1}" />
+    <Folder Name="Properties" Id="{fb311f59-464a-4657-b4fd-dbd2ca90ea6b}" />
+    <Property Name="Machineveilig" Id="{95ef11f5-f0e1-4b4c-98c2-2f4a66ed0619}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Machineveilig : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{8ce37699-350d-4ad4-b4a4-41840cea8f6c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Machineveilig := Machineveiligheid_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Status" Id="{61f64c5a-1a69-43aa-8757-2bafdc9c2baf}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Status : PackMLStates
+]]></Declaration>
+      <Get Name="Get" Id="{f0ab92a4-cb6c-40bb-a603-4496ecf0d188}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status := Status_Intern;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Update" Id="{94791968-050d-4bf4-88c1-e2f7913b76d8}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR
+	DeurOpen : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[DeurSensor.Update(); // Moet nog worden aangepast wanneer de unit van de deursensor wordt toegevoegd in de code
+
+DeurOpen := DeurSensor.Open; // Moet nog worden aangepast wanneer de unit van de deursensor wordt toegevoegd in de code
+
+CASE Status_Intern OF
+	
+	PackMLStates.Idle:
+        Machineveiligheid_Intern := TRUE;
+
+        IF DeurOpen THEN
+            Status_Intern := PackMLStates.Aborted;
+        END_IF
+	
+	PackMLStates.Execute:
+        Machineveiligheid_Intern := TRUE;
+
+        IF DeurOpen THEN
+            Status_Intern := PackMLStates.Aborting;
+        END_IF
+
+	PackMLStates.Aborting:
+        Machineveiligheid_Intern := FALSE;
+        Status_Intern := PackMLStates.Aborted;
+	
+	PackMLStates.Aborted:
+        Machineveiligheid_Intern := FALSE;
+
+        IF NOT DeurOpen THEN
+            Status_Intern := PackMLStates.Clearing;
+        END_IF
+	
+	PackMLStates.Clearing:
+        Machineveiligheid_Intern := TRUE;
+        Status_Intern := PackMLStates.Idle;
+	
+	ELSE
+        Machineveiligheid_Intern := FALSE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
