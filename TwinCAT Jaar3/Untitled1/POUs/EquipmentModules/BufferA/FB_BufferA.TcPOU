@@ -51,6 +51,13 @@ VAR
     GelezenOutputPalletNaarDepal: BOOL;
     GelezenPalletDetected       : BOOL;
     GelezenDepalletizerReady    : BOOL;
+	
+	// alarm
+	_AlarmActive : BOOL;
+	_AlarmCode : UDINT;
+
+	// unit status lezen
+	_GelezenKlepUnitStatus : E_UnitStatus;
 END_VAR
 
 
@@ -138,6 +145,14 @@ ELSE
 	TriggerState := E_PackMLStates.Idle;
 END_CASE
 
+_GelezenKlepUnitStatus := Klep.UnitStatus;
+
+IF _GelezenKlepUnitStatus = E_UnitStatus.Error THEN
+	_AlarmActive := TRUE;
+	_AlarmCode := 1; 
+	TriggerState := E_PackMLStates.Held; 
+END_IF
+
 // =========================================================
 // 4) Debug “gelezen” variabelen
 // =========================================================
@@ -149,6 +164,44 @@ GelezenDepalletizerReady     := DepalletizerReadyW;]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{0ebe38f1-04b8-4439-9d6e-d2c4e985b1f4}" />
     <Folder Name="Properties" Id="{a8e3dc76-af7a-439b-a9e5-02b228da3813}" />
+    <Property Name="AlarmActive" Id="{3d77159c-ad85-4596-b8a1-f256844ffdf7}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1846c1dc-6727-41fa-834b-0c65ddcaff7a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AlarmActive := _AlarmActive;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7dd349e5-4083-472e-bbec-3f6df5cd5167}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_AlarmActive := AlarmActive;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="AlarmCode" Id="{b66bbccf-92db-4e8d-84cf-e9cd7143b6c6}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{7aa79c1d-8abd-497f-97ae-6f75e6216e82}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AlarmCode := _AlarmCode;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9980fe45-fb97-464c-835f-936ec8f0aeb7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_AlarmCode := AlarmCode;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="CurrentState" Id="{22976e27-03bd-461c-a25e-c44c78050df1}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PUBLIC CurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{1f57e63b-f978-4713-91b4-e10e152828f8}">
@@ -334,6 +387,11 @@ _outOutputPalletNaarDepal := FALSE;
 RolbandAanUit := FALSE;
 Klep.SturingOpen(TRUE);
 
+Klep.ResetFault();
+_AlarmActive := FALSE;
+_AlarmCode := 0;
+
+
 // Klaar? -> Idle
 IF Klep.Status = TRUE THEN
     TriggerState := E_PackMLStates.Idle;
@@ -446,6 +504,10 @@ Unholding := TRUE;
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Unsuspending;
 _outOutputPalletNaarDepal := FALSE;
+
+Klep.ResetFault();
+_AlarmActive := FALSE;
+_AlarmCode := 0;
 
 Klep.SturingOpen(FALSE);
 IF Klep.Status = FALSE THEN

@@ -1,103 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <RecentColors>[
-  {
-    "counter": 0,
-    "color": "#FF241E89"
-  },
-  {
-    "counter": 0,
-    "color": "#FFC3C3C3"
-  },
-  {
-    "counter": 0,
-    "color": "#FFFFFFFF"
-  },
-  {
-    "counter": 0,
-    "color": "#FFAEAEAE"
-  },
-  {
-    "counter": 0,
-    "color": "#FF8A7272"
-  },
-  {
-    "counter": 0,
-    "color": "#FF000000"
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  },
-  {
-    "counter": 0,
-    "color": ""
-  }
-]</RecentColors>
-    <TcHmiEditor_SplitAreaStates>{
-  "EditorSettings": [
-    {
-      "Path": "HMIPagina'sGeheleMachine\\Depalletizer.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    }
-  ]
-}</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
-  300.0,
+  200.0,
   50.0,
   180.0,
   80.0,
@@ -169,12 +74,25 @@
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ControlTypeAttributesTree>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_ThemedResourceTree>[
-  214.4,
+  212.66666666666666,
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ThemedResourceTree>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_ContextTree>[
   300.0,
   300.0
 ]</TcHmiEditor_SelectBindingWindowColumnWidths_m_ContextTree>
+    <TcHmiEditor_SplitAreaStates>{
+  "EditorSettings": [
+    {
+      "Path": "Desktop.view",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
+    }
+  ]
+}</TcHmiEditor_SplitAreaStates>
   </PropertyGroup>
 </Project>

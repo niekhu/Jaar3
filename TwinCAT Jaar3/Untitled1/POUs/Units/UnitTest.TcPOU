@@ -127,6 +127,7 @@ END_IF
 END_IF]]></ST>
     </Implementation>
     <Folder Name="Properties" Id="{9389d657-1ea7-407f-9ac5-73fb6e4ece44}">
+      <Folder Name="HMIBufferA" Id="{94245e34-be1b-44f5-a4be-f4cdf75289fb}" />
       <Folder Name="HMIDepalletizer" Id="{2eafec69-78b7-4062-833a-7c1d9eb97673}" />
       <Folder Name="HMIPalletizer" Id="{6de38cc3-41d4-4218-b1db-40bbd282586d}" />
     </Folder>
@@ -156,10 +157,86 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[HMIAlarmCodePal := Palletizer.AlarmCode;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{2e7cd193-5dc0-47f8-a383-ec437a8ce1c6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA1AlarmActive" Id="{d59b3377-1fef-403f-9c6f-f23165856ecb}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d0ad10b1-8be6-460a-ba0b-594e3bc8569d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA1AlarmActive := BufferA1.AlarmActive;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a9d81e16-e36d-4320-82bf-f4deaf8900c1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA1AlarmCode" Id="{0a2b19ef-55c3-47ff-82ee-4b61a56b2baf}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{71f90615-b415-492d-b5b7-4c60a432a5a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA1AlarmCode := BufferA1.AlarmCode;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{4e12bcb7-ed5a-4e2c-8319-79ea7e863a2f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmActive" Id="{67428be5-b9ac-4514-b6e3-af1f6b7dda75}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a34d7c26-eb67-4e62-807d-589c8df882a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2AlarmActive := BufferA2.AlarmActive;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3853ef90-9230-40f9-b05e-fa1380db1d05}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmCode" Id="{16719968-dc2c-4619-b032-e0a187537dcb}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{07912491-0838-4d91-8949-852cf1e93037}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2AlarmCode := BufferA2.AlarmCode;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{0b7c3b04-7f74-48da-ae6d-8a9dab733313}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -194,7 +271,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[HMIDoorsOpenPal := Palletizer.DoorIsOpen;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{8d3d2216-458a-4f2f-9bd9-c38c1d3d701e}">
@@ -213,7 +290,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[]]></ST>
+          <ST><![CDATA[HMIEStopOkPal := Palletizer.EStopOk;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{08acc542-d9fe-4dac-9e01-0af69bd0f1e0}">
@@ -502,25 +579,6 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{72c3f18c-2f14-4d05-848c-b545606e881a}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Property Name="HMIStepPal" Id="{81fa29f4-ff12-473f-963f-9c4cbfbda8d1}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIStepPal : INT]]></Declaration>
-      <Get Name="Get" Id="{231c714a-a54c-420b-b3eb-0cbe22a381de}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{1b2eb2b7-ece4-45d5-a439-20b7275aa2b3}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

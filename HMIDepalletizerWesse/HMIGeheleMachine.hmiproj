@@ -147,7 +147,22 @@
     <Content Include=".eslintrc.json">
       <Visible>false</Visible>
     </Content>
+    <Content Include="HMIPagina'sGeheleMachine\Depalletizer.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\BufA2.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\DepalletizerSensoren.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\extrabackupDepalletizer.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="HMIPagina'sGeheleMachine\Palletizer.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Manifest\BufA.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Manifest\Depalletizer.png">

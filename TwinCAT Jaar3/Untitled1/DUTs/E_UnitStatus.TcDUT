@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_UnitStatus" Id="{7300a613-bf84-4ecd-853a-38c28abb5007}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_UnitStatus :
+(
+	Ok := 0,
+	Error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
