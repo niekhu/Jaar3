@@ -104,13 +104,22 @@
       "SplitPercentage": 0.5
     },
     {
-      "Path": "HMIPagina'sGeheleMachine\\Palletizer.view",
+      "Path": "Desktop.view",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
       "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\BufA2.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Vertical",
+      "DesignAreaPosition": "Top",
+      "CodeAreaPosition": "Bottom",
+      "SplitPercentage": 1.1795195954487991
     }
   ]
 }</TcHmiEditor_SplitAreaStates>
