@@ -4,6 +4,10 @@
     <RecentColors>[
   {
     "counter": 0,
+    "color": "#FF241E89"
+  },
+  {
+    "counter": 0,
     "color": "#FFC3C3C3"
   },
   {
@@ -17,10 +21,6 @@
   {
     "counter": 0,
     "color": "#FF8A7272"
-  },
-  {
-    "counter": 0,
-    "color": "#FF241E89"
   },
   {
     "counter": 0,
@@ -86,15 +86,6 @@
     <TcHmiEditor_SplitAreaStates>{
   "EditorSettings": [
     {
-      "Path": "HMIPagina'sGeheleMachine\\Palletizer.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
       "Path": "HMIPagina'sGeheleMachine\\Depalletizer.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
@@ -102,29 +93,11 @@
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
       "SplitPercentage": 0.5
-    },
-    {
-      "Path": "Desktop.view",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
-      "Path": "HMIPagina'sGeheleMachine\\BufA2.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Vertical",
-      "DesignAreaPosition": "Top",
-      "CodeAreaPosition": "Bottom",
-      "SplitPercentage": 1.1795195954487991
     }
   ]
 }</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
-  200.0,
+  300.0,
   50.0,
   180.0,
   80.0,

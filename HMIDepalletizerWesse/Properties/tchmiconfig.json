@@ -74,6 +74,20 @@
       "preloadBindings": false
     },
     {
+      "url": "HMIPagina'sGeheleMachine/DepalletizerSensoren.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
+      "url": "HMIPagina'sGeheleMachine/extrabackupDepalletizer.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
       "url": "HMIPagina'sGeheleMachine/Palletizer.content",
       "preload": false,
       "keepAlive": false,
