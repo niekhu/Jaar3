@@ -21,6 +21,12 @@
     <Compile Include="DUTs\E_AfstandssensorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_Alarmcode.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_Alarmtypes.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_LineaireactuatoruitschuifpinnenStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -45,6 +51,9 @@
     <Compile Include="DUTs\PackMLStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_Alarm.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +76,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ManagementModules\Alarmmanager\FB_AlarmManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Units\Afstandssensor\FB_Afstandssensor.TcPOU">
@@ -126,6 +138,8 @@
     <Folder Include="POUs\EquipmentModules\FB_BufferA" />
     <Folder Include="POUs\EquipmentModules\Invoerband" />
     <Folder Include="POUs\EquipmentModules\Safety" />
+    <Folder Include="POUs\ManagementModules" />
+    <Folder Include="POUs\ManagementModules\Alarmmanager" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\Units\FB_Klep" />
     <Folder Include="POUs\Units\MotorSchuif" />

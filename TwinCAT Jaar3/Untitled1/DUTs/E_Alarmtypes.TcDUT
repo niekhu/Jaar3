@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_Alarmtypes" Id="{47b7b5ac-bd85-4657-9755-e7ae3e1ce5c0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_Alarmtypes :
+(
+	Geen_alarm := 0, // Er is geen alarm aanwezig
+	Machineveilig, // Er is een alarm aanwezig op de veiligheidspagina van de machine
+	Invoerband, // Er is een alarm aanwezig op de invoerbandpagina van de machine
+	BufferA, // Er is een alarm aanwezig op de bufferA pagina van de machine
+	Depalletizer, // Er is een alarm aanwezig op de depalletizer pagina van de machine
+	Palletizer // Er is een alarm aanwezig op de palletizer pagina van de machine
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

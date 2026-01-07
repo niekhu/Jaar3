@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_AlarmManager" Id="{b3e0e724-b547-4bb7-9bce-054112eea50f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AlarmManager
+VAR_INPUT
+// Inputs van de equipment models
+
+   	// Equipment model 'Machineveiligheid'
+    DeurOpen : BOOL;
+
+    // Equipment model 'Invoerband'
+    InvoerbandVeiligheidsmat_Actief : BOOL;
+    InvoerbandMotor_Error : BOOL;
+
+    // Equipment model 'BufferA'
+    Klepbuffer_Error : BOOL;
+
+    // Equipment model 'Depalletizer'
+    Druksensor_Error : BOOL;
+    MotorZuiger_Error : BOOL;
+    MotorSchuif_Error : BOOL;
+
+    // Equipment model 'Palletizer'
+    Palletizer_Algemenefout : BOOL;
+
+    // HMI model
+    AckAll : BOOL;
+END_VAR
+
+VAR
+    Alarmen : ARRAY[1..20] OF ST_Alarm;
+    i       : INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{1bfcd174-ce9e-4652-b38a-ee0f76144f65}" />
+    <Method Name="Update" Id="{687f1c4c-8115-4878-aba7-5f78b257f7dd}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF DeurOpen THEN
+    Voeg_Alarm(
+        Soort_Alarm := E_Alarmtypes.Machineveilig,
+        Code_Alarm  := E_AlarmCode.DeurOpen,
+        Tekst   := 'Machine deur open',
+        Prioriteit := 1
+    );
+ELSE
+    Vewijder_Alarm(E_AlarmCode.DeurOpen);
+END_IF
+
+IF InvoerbandVeiligheidsmat_Actief THEN
+    Voeg_Alarm(E_Alarmtypes.Invoerband, E_AlarmCode.Veiligheidsmat_Actief, 'Veiligheidsmat actief', 1);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.Veiligheidsmat_Actief);
+END_IF
+
+IF InvoerbandMotor_Error THEN
+    Voeg_Alarm(E_Alarmtypes.Invoerband, E_AlarmCode.InvoerbandMotor_Error, 'Invoerband motor fout', 2);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.InvoerbandMotor_Error);
+END_IF
+
+IF Klepbuffer_Error THEN
+    Voeg_Alarm(E_Alarmtypes.BufferA, E_AlarmCode.Klepbuffer_Error, 'Buffer klep fout', 2);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.Klepbuffer_Error);
+END_IF
+
+IF Druksensor_Error THEN
+    Voeg_Alarm(E_Alarmtypes.Depalletizer, E_AlarmCode.Druksensor_Error, 'Druksensor buiten bereik', 1);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.Druksensor_Error);
+END_IF
+
+IF MotorZuiger_Error THEN
+    Voeg_Alarm(E_Alarmtypes.Depalletizer, E_AlarmCode.MotorZuiger_Error, 'Motor zuiger fout', 1);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.MotorZuiger_Error);
+END_IF
+
+IF MotorSchuif_Error THEN
+    Voeg_Alarm(E_Alarmtypes.Depalletizer, E_AlarmCode.MotorSchuif_Error, 'Motor schuif fout', 1);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.MotorSchuif_Error);
+END_IF
+
+IF Palletizer_Algemenefout THEN
+    Voeg_Alarm(E_Alarmtypes.Palletizer, E_AlarmCode.Palletizer_Algemenefout, 'Palletizer fout', 1);
+ELSE
+    Vewijder_Alarm(E_AlarmCode.Palletizer_Algemenefout);
+END_IF
+
+IF AckAll THEN
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Actief THEN
+            Alarmen[i].Acked := TRUE;
+        END_IF
+    END_FOR
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Vewijder_Alarm" Id="{abc35508-0b50-49c4-909e-b4253af525d1}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Vewijder_Alarm : BOOL
+VAR_INPUT
+	Code_Alarm : E_Alarmcode;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 1 TO 20 DO
+    IF Alarmen[i].Actief AND Alarmen[i].Code = Code_Alarm THEN
+        Alarmen[i].Actief := FALSE;
+        Alarmen[i].Acked  := FALSE;
+        EXIT;
+    END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Voeg_Alarm" Id="{dc241a95-7920-4e45-9a77-ffe48c3c3770}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Voeg_Alarm : BOOL
+VAR_INPUT
+	Soort_Alarm   : E_Alarmtypes;
+    Code_Alarm    : E_AlarmCode;
+    Tekst         : STRING;
+    Prioriteit    : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 1 TO 20 DO
+    IF NOT Alarmen[i].Actief THEN
+        Alarmen[i].Actief     := TRUE;
+        Alarmen[i].Acked      := FALSE;
+        Alarmen[i].Types      := Soort_Alarm;
+        Alarmen[i].Code       := Code_Alarm;
+        Alarmen[i].Tekst      := Tekst;
+        Alarmen[i].Prioriteit := Prioriteit;
+        EXIT;
+    END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

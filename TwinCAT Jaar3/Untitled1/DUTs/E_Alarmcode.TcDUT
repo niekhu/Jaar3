@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_Alarmcode" Id="{affec5b9-21f6-40c1-a7ca-397fbcfe7765}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+{attribute 'to_string'}
+TYPE E_Alarmcode :
+(
+	Geen_alarm := 0,
+	
+	// Veiligheidspagina van de machine
+	DeurOpen, 
+	
+	// Invoerbandpagina van de machine
+	Veiligheidsmat_Actief,
+	InvoerbandMotor_Error,
+	
+	// BufferA pagina van de machine
+	Klepbuffer_Error,
+	
+	// Depalletizer pagina van de machine
+	Druksensor_Error, 
+	Motorzuiger_Error,
+	Motorschuif_Error, 
+	
+	// Palletizer pagina van de machine
+	Palletizer_Algemenefout
+	
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
