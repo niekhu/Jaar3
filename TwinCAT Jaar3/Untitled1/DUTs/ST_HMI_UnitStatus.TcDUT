@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_HMI_UnitStatus" Id="{8e51e553-6971-412e-9a71-d550d860fc46}">
+    <Declaration><![CDATA[TYPE ST_HMI_UnitStatus :
+STRUCT
+	Actief : BOOL;
+	Error : BOOL;
+	Naam : STRING(30);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

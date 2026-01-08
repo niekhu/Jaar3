@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_HMI" Id="{c6802f7e-60ee-41e7-a661-03447080f0bc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HMI
+VAR_INPUT
+	// Management model
+	AlarmManager : FB_AlarmManager;
+
+	// Equipment models
+    Invoerband    : FB_Invoerband;
+    Safety        : FB_Machineveiligheid;
+    BufferA       : FB_BufferA;
+    Depalletizer  : FB_Depalletizer;
+    Palletizer    : FB_Palletizer; // Moet nog worden toegevoegd wanneer programma gemergd wordt aan hoofdprogramma
+END_VAR
+VAR_OUTPUT
+	// HMI Hoofdpagina
+	MachineStatus : PackMLStates;
+    Equipments : ARRAY[1..6] OF ST_HMI_EquipmentStatus;
+    ActiveAlarmCount : INT;
+	
+	// HMI Invoerband
+	InvoerbandStatus : PackMLStates;
+    InvoerbandMotor : ST_HMI_UnitStatus;
+    Veiligheidsmat : ST_HMI_UnitStatus;
+    Lichtsensor : ST_HMI_UnitStatus;
+    Klep        : ST_HMI_UnitStatus;
+	
+	// HMI Veiligheidspagina
+	DeurOpen : BOOL;
+    MachineVeilig : BOOL;
+	
+	// HMI AlarmManager
+	 Alarmen : ARRAY[1..20] OF ST_Alarm;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{91ebe2f6-b476-4577-a708-b2369c408e08}" />
+    <Method Name="Update" Id="{da0091ea-bdf8-497a-8ff5-44c11298cc17}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update : BOOL
+VAR
+	i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// HMI Hoofdpagina
+MachineStatus := Invoerband.Status;
+
+Equipments[1].Naam := 'Invoerband';
+Equipments[1].Status := Invoerband.Status;
+Equipments[1].Error := Invoerband.Update;
+
+Equipments[2].Naam := 'BufferA';
+Equipments[2].Status := BufferA.Status; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+Equipments[2].Error := BufferA.bError; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+
+Equipments[3].Naam := 'Depalletizer';
+Equipments[3].Status := Depalletizer.Status; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+Equipments[3].Error := Depalletizer.Error; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+
+Equipments[4].Naam := 'Palletizer';
+Equipments[4].Status := Palletizer.Status; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+Equipments[4].Error := Palletizer.Error; // Equipment model moet nog toegevoegd worden, maar gebeurt in hoofdprogramma tijdens mergen, dan klopt het wel
+
+Equipments[5].Naam := 'Safety';
+Equipments[5].Status := Safety.Status;
+Equipments[5].Error := NOT Safety.Machineveilig;
+
+// HMI AlarmManager
+ActiveAlarmCount := 0;
+
+FOR i := 1 TO 20 DO
+    Alarmen[i] := AlarmManager.Alarmen[i];
+    IF Alarmen[i].Actief THEN
+        ActiveAlarmCount := ActiveAlarmCount + 1;
+    END_IF
+END_FOR
+
+// HMI Invoerband
+InvoerbandStatus := Invoerband.Status;
+
+InvoerbandMotor.Naam := 'AC Motor Rolband';
+InvoerbandMotor.Actief := Invoerband.Update;
+InvoerbandMotor.Error  := Invoerband.Update;
+
+Veiligheidsmat.Naam := 'Veiligheidsmat';
+Veiligheidsmat.Actief := Invoerband.Update;
+Veiligheidsmat.Error  := FALSE;
+
+Lichtsensor.Naam := 'Lichtsensor';
+Lichtsensor.Actief := Invoerband.Update;
+Lichtsensor.Error  := FALSE;
+
+Klep.Naam := 'Klep';
+Klep.Actief := Invoerband.Update;
+Klep.Error  := Invoerband.Update;
+
+// HMI Veiligheidspagina
+DeurOpen := Safety.Update;
+MachineVeilig := Safety.Machineveilig;
+
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
