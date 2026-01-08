@@ -3,31 +3,88 @@
   <POU Name="MAIN" Id="{69f3564d-4b0f-48c8-af69-b703e93ec4b9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	Depalletizer : FB_Depalletizer;
-	
-	Vacuumzuignap : FB_Vacuumzuignap;
-	
-	MotorSchuif : FB_Motorschuif;
-	
-	TestClk : BOOL;      // testbool
-    Klep1   : FB_Klep;   // unit
-    BufferA : FB_BufferA; // equipment
-	 
+	// Units
+	MotorSchuif     : FB_MotorSchuif;
+    VacuumZuignap   : FB_VacuumZuignap;
+    Klep            : FB_Klep;
+    Lichtsensor     : FB_Lichtsensor; // Unit moet nog toegevoegd worden aan programma
+    Veiligheidsmat  : FB_Veiligheidsmat;
+    Deursensor      : FB_DeurSensor; // Unit moet nog toegevoegd worden aan programma
+    AsynchroonMotor : FB_ACMotor; // // Unit moet nog toegevoegd worden aan programma
+    Signaallamp     : FB_Signaallamp;
+
+	// Equipment models
+    Invoerband     : FB_Invoerband;
+    BufferA        : FB_BufferA;
+    Depalletizer   : FB_Depalletizer;
+    Palletizer     : FB_Palletizer; // Equipment model moet nog toegevoegd worden aan programma
+    Safety         : FB_Machineveiligheid;
+
+	// Management model
+    AlarmManager   : FB_AlarmManager;
+
+	// HMI
+    HMI            : FB_HMI;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Depalletizer.schuif1 := MotorSchuif;
-Depalletizer.zuignap1 := Vacuumzuignap;
+      <ST><![CDATA[// Units > Equipments
 
+// Invoerband
+Invoerband.AsynchroonMotor := AsynchroonMotor;
+Invoerband.Klep            := Klep;
+Invoerband.Lichtsensor     := Lichtsensor;
+Invoerband.Veiligheidsmat  := Veiligheidsmat;
+Invoerband.Signaallamp     := Signaallamp;
 
-Depalletizer();
+// Depalletizer
+Depalletizer.schuif1   := MotorSchuif;
+Depalletizer.zuignap1  := VacuumZuignap;
+
+// Veiligheid
+Safety.Deursensor := Deursensor;
+
 MotorSchuif();
-Vacuumzuignap();
+VacuumZuignap();
+Klep();
+Lichtsensor();
+Veiligheidsmat();
+Deursensor();
+AsynchroonMotor();
+Signaallamp();
 
-BufferA(
-    klep   := Klep1,   // interface van de unit doorgeven
-    i_bClk := TestClk  // command van boven (bijv. via HMI)
-);
+Invoerband();
+BufferA();
+Depalletizer();
+Palletizer();
+Safety();
+
+AlarmManager.DeurOpen := Safety.Update;
+
+AlarmManager.InvoerbandVeiligheidsmat_Actief := Invoerband.Update;
+AlarmManager.InvoerbandMotor_Error           := Invoerband.Update;
+
+AlarmManager.Klepbuffer_Error := BufferA.Error; // Equipment model moet nog toegevoegd worden aan programma
+
+AlarmManager.Druksensor_Error    := Depalletizer.DruksensorError; // Equipment model moet nog toegevoegd worden aan programma
+AlarmManager.MotorZuiger_Error   := Depalletizer.MotorZuigerError; // Equipment model moet nog toegevoegd worden aan programma
+AlarmManager.MotorSchuif_Error   := Depalletizer.MotorSchuifError; // Equipment model moet nog toegevoegd worden aan programma
+
+AlarmManager.Palletizer_Algemenefout := Palletizer.Error; // Equipment model moet nog toegevoegd worden aan programma
+
+AlarmManager();
+
+HMI.AlarmManager := AlarmManager;
+HMI.Invoerband   := Invoerband;
+HMI.Safety       := Safety;
+HMI.BufferA      := BufferA;
+HMI.Depalletizer := Depalletizer;
+HMI.Palletizer   := Palletizer;
+
+HMI();
+
+
+
 ]]></ST>
     </Implementation>
   </POU>
