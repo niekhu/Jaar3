@@ -28,6 +28,9 @@
     <Compile Include="DUTs\E_MotorZuigSchuifStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\E_UnitStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\E_VacuumzuignapStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>

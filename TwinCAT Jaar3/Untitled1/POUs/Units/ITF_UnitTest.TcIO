@@ -3,6 +3,7 @@
   <Itf Name="ITF_UnitTest" Id="{649c8754-d58c-4c47-a718-f4ea8576dd07}">
     <Declaration><![CDATA[INTERFACE ITF_UnitTest
 ]]></Declaration>
+    <Folder Name="HMIBufferA" Id="{b48c6485-dc5c-45c8-85a0-26a914fdc189}" />
     <Folder Name="HMIDepalletizer" Id="{997b8582-d383-4605-97f3-6c83282cb7ee}" />
     <Folder Name="HMIPalletizer" Id="{dafef6e5-5a6c-4d6d-9cd2-6e8aff06602e}" />
     <Property Name="HMIAlarmActivePal" Id="{f0101de8-d7be-4fcc-aa5a-c6459f29ff5c}" FolderPath="HMIPalletizer\">
@@ -20,6 +21,42 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{5219c307-256f-4d48-87c9-aeb37b3bf0a8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA1AlarmActive" Id="{beec3193-b243-4f21-8f07-2d3a6c7d2499}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6850b273-143e-4192-9fa4-1d6f29ef1844}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{99b4bc77-e60e-449c-a58b-8050094f6bbe}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA1AlarmCode" Id="{4788b0ab-1259-4a4d-9315-426d8ac77743}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{70a3360b-6b37-4c3c-a456-663b8a9312ed}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{99940523-4dc9-45a3-96c5-bea9d3895da1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmActive" Id="{0392c006-6c82-4a41-9c8d-8f19857202a2}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmActive : BOOL]]></Declaration>
+      <Get Name="Get" Id="{379d7835-e349-4db1-90d3-2156677fba25}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d09ae559-1971-4033-ac18-db406d98e737}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2AlarmCode" Id="{26f3b686-e584-4075-862e-d5b30543811b}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmCode : UDINT]]></Declaration>
+      <Get Name="Get" Id="{79ea2436-bc72-4439-a32b-546a69ad78a1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{fd6f9d88-21fc-4feb-9d45-fe57854e2643}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
@@ -182,15 +219,6 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{2181057f-2073-4afa-892d-8591fed4b9c2}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
-    </Property>
-    <Property Name="HMIStepPal" Id="{127453b9-b2f2-44e2-881e-022d2a9bbe20}" FolderPath="HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIStepPal : INT]]></Declaration>
-      <Get Name="Get" Id="{8ce0e993-c823-436e-b713-46c6a4ed2063}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{626e196c-c8cd-4614-9bcc-2300d748c2a7}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
