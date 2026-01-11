@@ -10,6 +10,8 @@ VAR
 
 	_prevCmdOpen : BOOL;
 	tonPositionTimeout : TON;
+	
+	_timeoutActive : BOOL;   // interne latch: timer loopt omdat cmd veranderd is
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -22,9 +24,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_UnitStatus := E_UnitStatus.Ok;
-tonPositionTimeout(IN := FALSE);
+_timeoutActive := FALSE;
+tonPositionTimeout(IN := FALSE, PT := T#30S);
 
-ResetFault := TRUE;]]></ST>
+ResetFault := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Status" Id="{fac60b85-9052-4a73-9fa5-0cc4b71f46f0}" FolderPath="Properties\">
@@ -53,31 +57,43 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_cmdOpen := i_bOpen;
+        <ST><![CDATA[// 1) nieuw commando opslaan
+_cmdOpen := i_bOpen;
 
-// als commando verandert: start timer om te checken of status volgt
+// 2) detecteer commando-wissel -> start timeout-check
 IF _cmdOpen <> _prevCmdOpen THEN
-	tonPositionTimeout(IN := TRUE, PT := T#2S);
+    _timeoutActive := TRUE;
 END_IF
 
-// als status overeenkomt met commando: klaar -> timer uit, status OK (maar alleen als nog geen error latched is)
+// 3) Timer iedere cyclus laten lopen zolang timeout actief is en nog geen status match is bereikt
+//    (als je al in Error zit, blijft error gelatched; timer mag dan uit)
+IF (_UnitStatus <> E_UnitStatus.Error) AND _timeoutActive THEN
+    tonPositionTimeout(IN := TRUE, PT := T#30S);
+ELSE
+    tonPositionTimeout(IN := FALSE, PT := T#30S);
+END_IF
+
+// 4) Als status overeenkomt met commando: klaar -> timer uit, status OK (als nog geen error gelatched)
 IF _status = _cmdOpen THEN
-	tonPositionTimeout(IN := FALSE);
-	IF _UnitStatus <> E_UnitStatus.Error THEN
-		_UnitStatus := E_UnitStatus.Ok;
-	END_IF
+    _timeoutActive := FALSE;
+    tonPositionTimeout(IN := FALSE, PT := T#30S);
+
+    IF _UnitStatus <> E_UnitStatus.Error THEN
+        _UnitStatus := E_UnitStatus.Ok;
+    END_IF
 END_IF
 
-// als timer afloopt en status volgt nog niet: error latched
+// 5) Als timer afloopt en status volgt nog niet: error gelatched
 IF tonPositionTimeout.Q THEN
-	_UnitStatus := E_UnitStatus.Error;
-	tonPositionTimeout(IN := FALSE);
+    _UnitStatus := E_UnitStatus.Error;
+    _timeoutActive := FALSE;
+    tonPositionTimeout(IN := FALSE, PT := T#30S);
 END_IF
 
+// 6) vorige commando updaten
 _prevCmdOpen := _cmdOpen;
 
-SturingOpen := TRUE;
-]]></ST>
+SturingOpen := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="UnitStatus" Id="{ea2a5305-b813-4fa3-8406-0429b7a3d583}" FolderPath="Properties\">
