@@ -17,7 +17,7 @@ VAR
 	ResetKnop : FB_DrukKnop;
 	HMIWaarden : FB_HMI;
 	
-	Klep : FB_Klep;
+	Klepdepallet : FB_Klep;
 	KlepBufA1 : FB_Klep;
 	KlepBufA2 : FB_Klep;
 	MotorZuig : FB_MotorZuigSchuif;
@@ -65,9 +65,9 @@ Depalletizer.Zuignap2 := Zuignap2;
 Depalletizer.Zuignap3 := Zuignap3;
 Depalletizer.Zuignap4 := Zuignap4;
 Depalletizer.Druksensor1 := Druksensor;
-Depalletizer.KlepDepalletEind := Klep;
-BufferA1.Klep := Klep;
-BufferA2.Klep := Klep;
+Depalletizer.KlepDepalletEind := Klepdepallet;
+BufferA1.Klep := KlepBufA1;
+BufferA2.Klep := KlepBufA2;
 HMIWaarden.HMIWaarden := _UnitTest;
 
 
@@ -99,7 +99,7 @@ Zuignap1();
 Zuignap2();
 Zuignap3();
 Zuignap4();
-Klep();
+Klepdepallet();
 KlepBufA1();
 KlepBufA2();
 
