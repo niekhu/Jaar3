@@ -48,7 +48,8 @@ StatusTekstBufferA1 : STRING(50);
 StatusTekstBufferA2 : STRING(50);
 //Eind BufferA HMI
 
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Depalletizer HMI															HIER HOREN NOG SENSOREN BIJ, DEADLINE VOOR MAANDAG NA VAKANTIE
 

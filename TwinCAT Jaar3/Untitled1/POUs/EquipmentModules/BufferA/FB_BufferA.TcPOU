@@ -80,7 +80,8 @@ VAR
     _DepalletizerReady  : BOOL;  // // depalletizer kan pallet ontvangen
     _OutputPalletNaarDepallet : BOOL;
 END_VAR
-*)]]></Declaration>
+*)
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[// =========================================================
 // 1) Werkwaarden bepalen + test overrides
