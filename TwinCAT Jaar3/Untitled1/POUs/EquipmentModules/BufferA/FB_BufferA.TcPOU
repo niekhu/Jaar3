@@ -146,13 +146,8 @@ ELSE
 	TriggerState := E_PackMLStates.Idle;
 END_CASE
 
-_GelezenKlepUnitStatus := Klep.UnitStatus;
 
-IF _GelezenKlepUnitStatus = E_UnitStatus.Error THEN
-	_AlarmActive := TRUE;
-	_AlarmCode := 1; 
-	TriggerState := E_PackMLStates.Held; 
-END_IF
+
 
 // =========================================================
 // 4) Debug “gelezen” variabelen
@@ -388,7 +383,6 @@ _outOutputPalletNaarDepal := FALSE;
 RolbandAanUit := FALSE;
 Klep.SturingOpen(TRUE);
 
-Klep.ResetFault();
 _AlarmActive := FALSE;
 _AlarmCode := 0;
 
@@ -506,7 +500,6 @@ Unholding := TRUE;
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Unsuspending;
 _outOutputPalletNaarDepal := FALSE;
 
-Klep.ResetFault();
 _AlarmActive := FALSE;
 _AlarmCode := 0;
 

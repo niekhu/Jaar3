@@ -5,12 +5,6 @@
 ]]></Declaration>
     <Folder Name="Methods" Id="{d55896f5-b8fb-49ce-bca2-f94bee59d8e1}" />
     <Folder Name="Properties" Id="{7b49854b-aff0-48f4-9a7c-ea326ed83179}" />
-    <Method Name="ResetFault" Id="{7490a62b-b414-4c26-aa3d-82d6a49e6ef8}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD ResetFault : BOOL
-VAR_INPUT
-END_VAR
-]]></Declaration>
-    </Method>
     <Property Name="Status" Id="{768541d2-34f0-426d-a14b-133f9a89d851}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Status : BOOL]]></Declaration>
       <Get Name="Get" Id="{815902c2-5572-4422-a0bd-4d9b74c1c111}">
@@ -27,14 +21,5 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="UnitStatus" Id="{9cb4506e-35d4-4d4a-bfd2-e03010a7f78b}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY UnitStatus : E_UnitStatus]]></Declaration>
-      <Get Name="Get" Id="{d667094f-d3a1-437c-976f-f86393bba697}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{324a8c3b-b9df-4a22-a5e7-cf1a084dadea}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
-    </Property>
   </Itf>
 </TcPlcObject>
