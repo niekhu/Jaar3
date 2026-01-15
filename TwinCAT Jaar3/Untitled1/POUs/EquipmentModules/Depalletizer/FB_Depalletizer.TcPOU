@@ -745,7 +745,7 @@ CurrentStateDep := E_PackMLStates.Starting;
 IF  MotorSchuif.Status = E_MotorZuigSchuifStatus.Kort AND MotorZuig.Status = E_MotorZuigSchuifStatus.Kort AND		//check van startposities en sensoren op normale input
 	Zuignap1.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND						
 	Zuignap2.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND Zuignap3.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND
-	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten AND KlepDepalletEind.Status = TRUE	
+	Zuignap4.Status = E_VacuumzuignapStatus.SturingVacuumLoslaten 
 	// (1) check of lift beneden is (servo) (2) check of pinnen ingetrokken zijn (3) check rolband stil
 	THEN
 	StartingPositiesOk := TRUE;

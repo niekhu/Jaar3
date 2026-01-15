@@ -43,6 +43,12 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\ControlModules\Druksensor\DrukKnop\FB_DrukKnop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlModules\Druksensor\DrukKnop\ITF_DrukKnop.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\ManagementFunctions\HMI\FB_HMI.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -85,12 +91,6 @@
     <Compile Include="POUs\ControlModules\Druksensor\ITF_Druksensor.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ControlModules\DrukKnop\FB_DrukKnop.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\ControlModules\DrukKnop\ITF_DrukKnop.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\ControlModules\Klep\FB_Klep.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -119,6 +119,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\ControlModules\Druksensor\DrukKnop" />
     <Folder Include="POUs\EquipmentModules" />
     <Folder Include="POUs\Units" />
     <Folder Include="POUs\EquipmentModules\BufferA" />
@@ -131,7 +132,6 @@
     <Folder Include="POUs\ControlModules\Druksensor" />
     <Folder Include="POUs\ControlModules\Klep" />
     <Folder Include="POUs\ControlModules\MotorZuigSchuif" />
-    <Folder Include="POUs\ControlModules\DrukKnop" />
     <Folder Include="POUs\ControlModules\LimitSwitch" />
     <Folder Include="POUs\ControlModules\Vacuumzuignap" />
     <Folder Include="VISUs" />
