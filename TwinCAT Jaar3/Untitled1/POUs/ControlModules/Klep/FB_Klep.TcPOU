@@ -3,23 +3,8 @@
   <POU Name="FB_Klep" Id="{a42b2b1d-3d0d-4ad8-8a49-e659df0386f5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Klep IMPLEMENTS ITF_Klep
 VAR
- (*   _cmdOpen : BOOL;   // laatst aangevraagde command
+    _cmdOpen : BOOL;   // laatst aangevraagde command
     _status  : BOOL;   // huidige status van de klep
-	
-	_UnitStatus : E_UnitStatus := E_UnitStatus.Ok;
-
-	_prevCmdOpen : BOOL;
-	tonPositionTimeout : TON;
-	
-	_timeoutActive : BOOL;   // interne latch: timer loopt omdat cmd veranderd is
-*)
-
-
-_cmdOpen : BOOL; // laatst aangevraagde command 
-_status : BOOL; // huidige status van de klep 
-_UnitStatus : E_UnitStatus := E_UnitStatus.Ok; 
-_prevCmdOpen : BOOL; 
-tonPositionTimeout : TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -27,15 +12,6 @@ END_VAR
     </Implementation>
     <Folder Name="Methods" Id="{215c97dc-4785-4f3f-80d3-672f5b9c53d7}" />
     <Folder Name="Properties" Id="{8948e215-6589-49b0-8016-a5dec4d22119}" />
-    <Method Name="ResetFault" Id="{4d351831-0df5-4419-82cc-7a21b8bbdd9c}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD ResetFault : BOOL
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_UnitStatus := E_UnitStatus.Ok; 
-tonPositionTimeout(IN := FALSE); 
-ResetFault := TRUE;]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Status" Id="{fac60b85-9052-4a73-9fa5-0cc4b71f46f0}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PUBLIC Status : BOOL]]></Declaration>
       <Get Name="Get" Id="{126ac777-00b4-45e9-900d-48260272a880}">
@@ -62,80 +38,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*// 1) nieuw commando opslaan
-_cmdOpen := i_bOpen;
-
-// 2) detecteer commando-wissel -> start timeout-check
-IF _cmdOpen <> _prevCmdOpen THEN
-    _timeoutActive := TRUE;
-END_IF
-
-// 3) Timer iedere cyclus laten lopen zolang timeout actief is en nog geen status match is bereikt
-//    (als je al in Error zit, blijft error gelatched; timer mag dan uit)
-IF (_UnitStatus <> E_UnitStatus.Error) AND _timeoutActive THEN
-    tonPositionTimeout(IN := TRUE, PT := T#30S);
-ELSE
-    tonPositionTimeout(IN := FALSE, PT := T#30S);
-END_IF
-
-// 4) Als status overeenkomt met commando: klaar -> timer uit, status OK (als nog geen error gelatched)
-IF _status = _cmdOpen THEN
-    _timeoutActive := FALSE;
-    tonPositionTimeout(IN := FALSE, PT := T#30S);
-
-    IF _UnitStatus <> E_UnitStatus.Error THEN
-        _UnitStatus := E_UnitStatus.Ok;
-    END_IF
-END_IF
-
-// 5) Als timer afloopt en status volgt nog niet: error gelatched
-IF tonPositionTimeout.Q THEN
-    _UnitStatus := E_UnitStatus.Error;
-    _timeoutActive := FALSE;
-    tonPositionTimeout(IN := FALSE, PT := T#30S);
-END_IF
-
-// 6) vorige commando updaten
-_prevCmdOpen := _cmdOpen;
-
-SturingOpen := TRUE;*)
-
-_cmdOpen := i_bOpen; // als commando verandert: start timer om te checken of status volgt 
-IF _cmdOpen <> _prevCmdOpen THEN 
-tonPositionTimeout(IN := TRUE, PT := T#2S); 
-END_IF // als status overeenkomt met commando: klaar -> timer uit, status OK (maar alleen als nog geen error latched is) 
-IF _status = _cmdOpen THEN 
-tonPositionTimeout(IN := FALSE); 
-IF _UnitStatus <> E_UnitStatus.Error THEN 
-_UnitStatus := E_UnitStatus.Ok; 
-END_IF 
-END_IF // als timer afloopt en status volgt nog niet: error latched 
-IF tonPositionTimeout.Q THEN 
-_UnitStatus := E_UnitStatus.Error; 
-tonPositionTimeout(IN := FALSE); 
-END_IF 
-_prevCmdOpen := _cmdOpen; 
-SturingOpen := TRUE;]]></ST>
+        <ST><![CDATA[_cmdOpen := i_bOpen;
+_status  := _cmdOpen;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="UnitStatus" Id="{ea2a5305-b813-4fa3-8406-0429b7a3d583}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY UnitStatus : E_UnitStatus]]></Declaration>
-      <Get Name="Get" Id="{16bdf221-79b6-451b-9242-4cf56e2054de}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[UnitStatus := _UnitStatus;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{8401844a-397f-46ac-961b-ea0dc10d9123}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_UnitStatus := UnitStatus;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
   </POU>
 </TcPlcObject>
