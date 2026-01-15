@@ -4,10 +4,6 @@
     <RecentColors>[
   {
     "counter": 0,
-    "color": "#FFFF0000"
-  },
-  {
-    "counter": 0,
     "color": "#FF241E89"
   },
   {
@@ -81,21 +77,16 @@
   {
     "counter": 0,
     "color": ""
+  },
+  {
+    "counter": 0,
+    "color": ""
   }
 ]</RecentColors>
     <TcHmiEditor_SplitAreaStates>{
   "EditorSettings": [
     {
       "Path": "HMIPagina'sGeheleMachine\\Depalletizer.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
-      "Path": "HMIPagina'sGeheleMachine\\Palletizer.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",
@@ -113,16 +104,7 @@
       "SplitPercentage": 0.5
     },
     {
-      "Path": "HMIPagina'sGeheleMachine\\DepalletizerSensoren.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
-      "Path": "HMIPagina'sGeheleMachine\\extrabackupDepalletizer.content",
+      "Path": "HMIPagina'sGeheleMachine\\Palletizer.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",
@@ -138,11 +120,20 @@
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
       "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\DepalletizerSensoren.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
     }
   ]
 }</TcHmiEditor_SplitAreaStates>
     <TcHmiEditor_SelectBindingWindowColumnWidths_m_SymbolMappedTree>[
-  395.99999999999903,
+  300.0,
   50.0,
   180.0,
   80.0,
