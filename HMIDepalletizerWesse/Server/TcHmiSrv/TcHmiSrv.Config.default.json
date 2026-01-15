@@ -1157,6 +1157,23 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.DoorsOpenPal": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::DoorsOpenPal",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 25
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4383,6 +4400,7 @@
                 "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.DoorsOpenPal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": 3,
