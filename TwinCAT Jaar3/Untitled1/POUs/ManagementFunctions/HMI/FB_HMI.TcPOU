@@ -19,6 +19,19 @@ UpdateHMI : BOOL;
 StatusTekst : STRING(50);
 StatusTekstZuig : STRING(50);
 StatusTekstSchuif : STRING(50);
+AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer;
+AlarmDruksensor1: BOOL;
+AlarmMotorZuig: BOOL;
+AlarmMotorSchuif: BOOL;
+AlarmZuignap1: BOOL;
+AlarmZuignap2: BOOL;
+AlarmZuignap3: BOOL;
+AlarmZuignap4: BOOL;
+i : INT;
+AlarmDepalletGeheel: BOOL;
+AlarmDepalletHoofdpagina: BOOL;
+AlarmDepalletSensorpagina: BOOL;
+
 //Eind Depalletizer HMI	
 
 //Palletizer HMI
@@ -48,12 +61,14 @@ StatusTekstBufferA1 : STRING(50);
 StatusTekstBufferA2 : STRING(50);
 //Eind BufferA HMI
 
+
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Depalletizer HMI															HIER HOREN NOG SENSOREN BIJ, DEADLINE VOOR MAANDAG NA VAKANTIE
 
-DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;
+DepalletizerCurrentStateDep := HMIWaarden.HMIDepalletizerCurrentState;		//koppelen vanuit unit blok
 KlaarVoorInvoer := HMIWaarden.HMIKlaarVoorInvoer;
 KlaarVoorUitvoer := HMIWaarden.HMIKlaarVoorUitvoer;
 LiftAanUit := HMIWaarden.HMILiftAanUit;
@@ -61,8 +76,9 @@ MotorSchuifStatus := HMIWaarden.HMIMotorSchuifStatus;
 MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
 PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
 RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
+AlarmenDepallet := HMIWaarden.HMIAlarmenDepallet;
 
-CASE DepalletizerCurrentStateDep OF
+CASE DepalletizerCurrentStateDep OF											// omzetten van enum status naar tekst voor in hmi
     0:          	StatusTekst := 'Idle';
     1:       		StatusTekst := 'Starting';
     2:        		StatusTekst := 'Execute';
@@ -103,6 +119,73 @@ CASE MotorSchuifStatus OF
 ELSE
     				StatusTekstZuig := 'Onbekende status';
 END_CASE
+
+
+AlarmDruksensor1:= FALSE;													//vanaf hier structs in array alarmen uitpakken om bruikbare booleans te hebben voor actieve alarmen op HMI
+AlarmMotorZuig := FALSE;
+AlarmMotorSchuif := FALSE;
+AlarmZuignap1 := FALSE;
+AlarmZuignap2 := FALSE;
+AlarmZuignap3 := FALSE;
+AlarmZuignap4 := FALSE;
+
+FOR i := 1 TO 20 DO
+    IF AlarmenDepallet[i].Active THEN
+
+        IF AlarmenDepallet[i].Source = 'Druksensor1Error' AND
+           AlarmenDepallet[i].Text   = 'InputBuitenRange' THEN
+            AlarmDruksensor1:= TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'MotorZuigError' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmMotorZuig := TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'MotorSchuifError' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmMotorSchuif:= TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'Zuignap1Error' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmZuignap1 := TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'Zuignap2Error' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmZuignap2:= TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'Zuignap3Error' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmZuignap3 := TRUE;
+        END_IF
+
+        IF AlarmenDepallet[i].Source = 'Zuignap4Error' AND
+           AlarmenDepallet[i].Text   = 'InterneFout' THEN
+            AlarmZuignap4 := TRUE;
+        END_IF
+
+    END_IF
+END_FOR
+
+IF AlarmDruksensor1 = TRUE OR	AlarmMotorZuig = TRUE OR AlarmMotorSchuif = TRUE				//vanaf hier verzamelalarm voor gehele pagina's maken om aandacht te wekken op HMI
+OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
+OR AlarmZuignap4 = TRUE THEN
+AlarmDepalletGeheel := TRUE;
+END_IF
+
+IF AlarmMotorZuig = TRUE OR AlarmMotorSchuif = TRUE
+OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
+OR AlarmZuignap4 = TRUE THEN
+AlarmDepalletHoofdpagina := TRUE;
+END_IF
+
+IF AlarmDruksensor1 = TRUE THEN
+AlarmDepalletSensorpagina := TRUE;
+END_IF
+
 //Einde Depalletizer HMI
 
 //Palletizer HMI

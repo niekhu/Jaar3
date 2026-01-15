@@ -11,13 +11,21 @@ VAR
 	StatusMotorZuigSchuif : E_MotorZuigSchuifStatus := E_MotorZuigSchuifStatus.Kort;	//drie variabelen die worden gebruikt in de methods
 	timerKort : TON;
 	ErrorTrigger : BOOL; 
+	ErrorTriggerVorige : BOOL;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF ErrorTrigger THEN																//Controle error, ivm prioriteit bovenaan
     StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.Error;
-	END_IF]]></ST>
+	END_IF
+	
+IF ErrorTriggerVorige = TRUE AND ErrorTrigger = FALSE THEN
+	StatusMotorZuigSchuif := E_MotorZuigSchuifStatus.StatusOk;
+END_IF
+
+ErrorTriggerVorige := ErrorTrigger;
+]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{cffb7d77-b82a-4ba3-8693-3a66c9404830}" />
     <Folder Name="Properties" Id="{2bd36a5f-fa8f-4d44-809c-ed24ca09c9a3}" />

@@ -169,6 +169,25 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMIAlarmenDepallet" Id="{86b1b711-307d-4ef2-a7b1-e5e980a71e0f}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
+      <Get Name="Get" Id="{61f784a7-555c-41b4-95a8-a4b3c335ab3b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIAlarmenDepallet := GelezenAlarmenDepalletizer;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8611fcde-8ae2-42bb-8181-083f43d1581a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIBufferA1AlarmActive" Id="{d59b3377-1fef-403f-9c6f-f23165856ecb}" FolderPath="Properties\HMIBufferA\">
       <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmActive : BOOL]]></Declaration>
       <Get Name="Get" Id="{d0ad10b1-8be6-460a-ba0b-594e3bc8569d}">

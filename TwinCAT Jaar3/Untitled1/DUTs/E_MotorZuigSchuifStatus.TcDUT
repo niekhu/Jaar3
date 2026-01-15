@@ -10,7 +10,8 @@ TYPE E_MotorZuigSchuifStatus :
 	Lang,
 	GoToKort,
 	GoToLang,
-	Error
+	Error,
+	StatusOk
 );
 END_TYPE
 ]]></Declaration>

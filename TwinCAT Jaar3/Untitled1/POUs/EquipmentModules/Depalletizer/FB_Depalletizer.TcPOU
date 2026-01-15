@@ -30,7 +30,11 @@ VAR
 	i : INT;
 	AlarmDruksensor1Bestaat : BOOL;
 	AlarmMotorSchuifBestaat : BOOL;
-	AlarmMotorZuigBestaat : BOOL;				// Let op, hier toevoegen toevoegen als er een unit met alarm onder depalletizer valt
+	AlarmMotorZuigBestaat : BOOL;	
+	AlarmZuignap1Bestaat : BOOL;
+	AlarmZuignap2Bestaat : BOOL;
+	AlarmZuignap3Bestaat : BOOL;
+	AlarmZuignap4Bestaat : BOOL;			// Let op, hier toevoegen toevoegen als er een unit met alarm onder depalletizer valt
 	fbLocalTime : FB_LocalSystemTime;
 	//eind var
 	
@@ -165,7 +169,7 @@ IF MotorZuig.Status = E_MotorZuigSchuifStatus.Error THEN
     FOR i := 1 TO 20 DO
         IF NOT Alarmen[i].Active THEN
             Alarmen[i].Source := 'MotorZuigError';
-            Alarmen[i].Text := 'InternetFout';
+            Alarmen[i].Text := 'InterneFout';
             Alarmen[i].Timestamp := fbLocalTime.systemTime;
             Alarmen[i].Active := TRUE;
 			AlarmMotorZuigBestaat := TRUE;
@@ -217,6 +221,119 @@ ELSE
     END_FOR
 END_IF
 
+
+IF Zuignap1.Status = E_VacuumzuignapStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmZuignap1Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Zuignap1Error';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmZuignap1Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Zuignap1Error' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmZuignap1Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+IF Zuignap2.Status = E_VacuumzuignapStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmZuignap2Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Zuignap2Error';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmZuignap2Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Zuignap2Error' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmZuignap2Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+IF Zuignap3.Status = E_VacuumzuignapStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmZuignap3Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Zuignap3Error';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmZuignap3Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Zuignap3Error' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmZuignap3Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
+
+
+IF Zuignap4.Status = E_VacuumzuignapStatus.Error THEN
+    // Alarm voor het eerst
+	IF NOT AlarmZuignap4Bestaat THEN
+    FOR i := 1 TO 20 DO
+        IF NOT Alarmen[i].Active THEN
+            Alarmen[i].Source := 'Zuignap4Error';
+            Alarmen[i].Text := 'InterneFout';
+            Alarmen[i].Timestamp := fbLocalTime.systemTime;
+            Alarmen[i].Active := TRUE;
+			AlarmZuignap4Bestaat := TRUE;
+            EXIT;
+        END_IF
+    END_FOR
+	END_IF
+
+ELSE
+    // Alarm weg dus Active op FALSE zetten
+    FOR i := 1 TO 20 DO
+        IF Alarmen[i].Active AND
+           Alarmen[i].Source = 'Zuignap4Error' AND
+           Alarmen[i].Text = 'InterneFout' THEN
+            Alarmen[i].Active := FALSE;
+			AlarmZuignap4Bestaat := FALSE;
+            EXIT; 
+        END_IF
+    END_FOR
+END_IF
 
 
 

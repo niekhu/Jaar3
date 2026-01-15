@@ -11,10 +11,24 @@ VAR
 	
 	OutputVacuumzuignap : BOOL := FALSE;				// False is geen vacuum in zuignap, True is wel vacuum in zuignap
 	
+	ErrorTrigger : BOOL := FALSE;
+	ErrorTriggerVorige : BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF ErrorTrigger = TRUE THEN
+	VacuumzuignapStatus := E_VacuumzuignapStatus.Error;
+	
+END_IF
+
+IF ErrorTriggerVorige = TRUE AND ErrorTrigger = FALSE THEN
+	VacuumzuignapStatus := E_VacuumzuignapStatus.StatusOk;
+END_IF
+
+ErrorTriggerVorige := ErrorTrigger;
+
+
+]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{563b1a63-f02f-4e7f-acbb-a0e88a345193}" />
     <Folder Name="Properties" Id="{6ea9c91d-81d6-42fd-a367-c1727ba6e8c4}" />

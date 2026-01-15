@@ -24,6 +24,15 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="HMIAlarmenDepallet" Id="{2cc0d13b-d8f3-4bb5-81a3-cfefe15c8e58}" FolderPath="HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIAlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer]]></Declaration>
+      <Get Name="Get" Id="{4a9071de-3b7f-4e31-8490-73fc8957e52c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{03a5d1e9-58fc-44e1-8029-f9db97f1145e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIBufferA1AlarmActive" Id="{beec3193-b243-4f21-8f07-2d3a6c7d2499}" FolderPath="HMIBufferA\">
       <Declaration><![CDATA[PROPERTY HMIBufferA1AlarmActive : BOOL]]></Declaration>
       <Get Name="Get" Id="{6850b273-143e-4192-9fa4-1d6f29ef1844}">
