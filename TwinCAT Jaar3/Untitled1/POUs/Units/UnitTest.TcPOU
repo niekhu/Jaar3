@@ -15,6 +15,11 @@ VAR
 	setstarting : BOOL;
 	setexecute : BOOL;
 	setstopping : BOOL;
+	setholding : BOOL;
+	setresetting : BOOL;
+	setsuspending : BOOL;
+	setunholding : BOOL;
+	setunsuspending : BOOL;
 	GelezenCurrentStateDepalletizer : E_PackMLStates;
 	GelezenAlarmenDepalletizer : ARRAY[1..20] OF ST_AlarmenDepalletizer;
 	GelezenStatusBesturing : E_DrukknoppenStatus;
@@ -83,6 +88,40 @@ IF setstopping = TRUE THEN										//triggeren
 	BufferA2.InputState := E_PackMLStates.Stopping;
 END_IF
 
+IF setholding = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Holding;
+	Palletizer.InputState := E_PackMLStates.Holding;
+	BufferA1.InputState := E_PackMLStates.Holding;
+	BufferA2.InputState := E_PackMLStates.Holding;
+END_IF
+
+IF setresetting = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Resetting;
+	Palletizer.InputState := E_PackMLStates.Resetting;
+	BufferA1.InputState := E_PackMLStates.Resetting;
+	BufferA2.InputState := E_PackMLStates.Resetting;
+END_IF
+
+IF setsuspending = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Suspending;
+	Palletizer.InputState := E_PackMLStates.Suspending;
+	BufferA1.InputState := E_PackMLStates.Suspending;
+	BufferA2.InputState := E_PackMLStates.Suspending;
+END_IF
+
+IF setunholding = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Unholding;
+	Palletizer.InputState := E_PackMLStates.Unholding;
+	BufferA1.InputState := E_PackMLStates.Unholding;
+	BufferA2.InputState := E_PackMLStates.Unholding;
+END_IF
+
+IF setunsuspending = TRUE THEN										//triggeren
+	Depalletizer.InputState := E_PackMLStates.Unsuspending;
+	Palletizer.InputState := E_PackMLStates.Unsuspending;
+	BufferA1.InputState := E_PackMLStates.Unsuspending;
+	BufferA2.InputState := E_PackMLStates.Unsuspending;
+END_IF
 
 GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
 GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
