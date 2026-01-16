@@ -359,6 +359,44 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMILagenBlik" Id="{f0c90420-59b0-45d8-a20a-ddb2950a53f8}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILagenBlik : INT]]></Declaration>
+      <Get Name="Get" Id="{46015a11-e044-431f-9f6f-9dac7d07d9b1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILagenBlik := Depalletizer.HMILagenBlik;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{16799a2b-e8bc-42d3-9b1a-fb16e0fa787e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILichtsensorIngang" Id="{7543a351-88d3-4775-b859-e8e70e79e689}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILichtsensorIngang : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e64f57de-e344-4af9-a3e3-5cd4e19a3a05}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILichtsensorIngang := Depalletizer.HMILichtsensorIngang;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{af77db91-fa4d-4916-8b29-3517c1002ee6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMILiftAanUit" Id="{8a2ba6b5-99b2-4174-8250-948ecba56410}" FolderPath="Properties\HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
       <Get Name="Get" Id="{e840f05f-b0fd-4bf2-bb4e-fa4bee2308cc}">
@@ -408,6 +446,25 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{cb7931d6-9c21-409e-93eb-7921e25dd132}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILinActuator" Id="{b067f2c0-c77d-476f-86ca-fd8ac6da1dfc}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMILinActuator : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bf998348-da8e-4000-85ab-e92061e0a9c5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILinActuator := Depalletizer.HMILinActuator;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5ddc62a9-3717-4f24-ad51-bb115754873b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -606,6 +663,63 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMISensorBlikBand" Id="{0700dede-0cbf-4e9b-8df6-a917cbdb52b2}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMISensorBlikBand : BOOL]]></Declaration>
+      <Get Name="Get" Id="{61868166-988f-44fe-9ae7-fb3a116f2099}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorBlikBand := Depalletizer.HMISensorBlikBand;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c39fe2ab-2d16-4693-923f-348482a6606a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMISensorLiftHoog" Id="{af189009-4d0f-4392-ae39-74ef56f68c62}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMISensorLiftHoog : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d625c5a3-fc01-45e6-89c2-8cc35e0c70b5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorLiftHoog := Depalletizer.HMISensorLiftHoog;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7b2a3e69-83dd-44bd-844f-ad3260505b7c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMISensorLiftLaag" Id="{38d9acde-d367-4032-ac50-1aa9b7369f44}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMISensorLiftLaag : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7ddb34ee-c6ef-4b3e-8640-498951c53dc7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorLiftLaag := Depalletizer.HMISensorLiftLaag;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{76350787-2cdc-450e-804c-4de1e9d82cb8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIStorageFull" Id="{4950a4b4-5ed0-4a58-8fda-6592966562a7}" FolderPath="Properties\HMIPalletizer\">
       <Declaration><![CDATA[PROPERTY HMIStorageFull : BOOL]]></Declaration>
       <Get Name="Get" Id="{136a98a3-3860-48ad-8574-4d6876afa8b4}">
@@ -617,6 +731,44 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{b3ce7ece-663c-4744-94d3-b7fc01b350c7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIZuignappenDruk" Id="{2f0d801d-ea30-4fbe-81da-b9cc368d8489}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIZuignappenDruk : REAL]]></Declaration>
+      <Get Name="Get" Id="{72d7b2d7-16b2-439b-9e07-33d5ebd9c3d6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIZuignappenDruk := Depalletizer.HMIGemetenDrukZuignappen;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{22674295-c792-4344-a44d-47f1d193560b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIZuignapStatus" Id="{92e67048-4e48-4db7-99f8-f79b2a7b72c0}" FolderPath="Properties\HMIDepalletizer\">
+      <Declaration><![CDATA[PROPERTY HMIZuignapStatus : E_VacuumzuignapStatus]]></Declaration>
+      <Get Name="Get" Id="{61d19f3a-fd1e-4682-8fb9-b41e9cf0d3dc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIZuignapStatus := Depalletizer.HMIZuignapStatus;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2bde6901-cd8c-44ce-aeda-21cc342b7ba9}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

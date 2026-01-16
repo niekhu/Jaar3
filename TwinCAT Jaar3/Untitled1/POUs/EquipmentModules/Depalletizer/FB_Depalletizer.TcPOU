@@ -53,6 +53,7 @@ VAR
 	MinimaleDrukZuignappen : LREAL := 1.875;
 	AantalLagenBlikjesTotaal : INT := 3;
 	AantalLagenVerwijderd : INT;
+	AantalLagenResterend : INT;
 	Step : INT;
 	//vanaf hier tijdelijke var door missende units. 	LET OP ik wist niet welke units terugmeldingen hebben dus evt moet je checks toevoegen
 	RolbandAanUit : BOOL;
@@ -67,6 +68,10 @@ VAR
 	EindLiftBeneden : BOOL;
 	SensorUitgang : BOOL;
 	//eind var tijdelijk en method execute
+	
+	//voor HMI
+	DrukZuignappen : REAL;
+	//eind var
 
 	//voor het uitvoeren van testplannen
 	testbool : BOOL;
@@ -337,7 +342,10 @@ END_IF
 
 
 
+// tbv HMI
 
+DrukZuignappen := Druksensor1.Druk;
+AantalLagenResterend := AantalLagenBlikjesTotaal - AantalLagenVerwijderd;
 
 
 // hieronder om controls te testen
@@ -607,6 +615,63 @@ END_VAR
         <ST><![CDATA[CurrentStateDep := E_PackMLStates.Held;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="HMIGemetenDrukZuignappen" Id="{0bb03f0a-64a6-4eeb-886a-cff8057f3241}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIGemetenDrukZuignappen : REAL]]></Declaration>
+      <Get Name="Get" Id="{84a7b4f3-520a-48cd-9cf9-4451aa2e2a31}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIGemetenDrukZuignappen := DrukZuignappen;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{09c4ed8b-36b1-4cc4-bb93-3a03d83007f2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILagenBlik" Id="{37105217-0f74-4c11-b286-b8a500f2f5e8}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMILagenBlik : INT]]></Declaration>
+      <Get Name="Get" Id="{5fb2149e-f706-4bb3-a118-a4391727daf3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILagenBlik := AantalLagenResterend;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{ebd8cbcb-2ac3-4c31-a125-a6655dc44112}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILichtsensorIngang" Id="{244732de-5dbc-42c7-9f2e-d7c6124c1fb2}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMILichtsensorIngang : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fa321b19-f811-459d-9993-c7f38caea2ee}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILichtsensorIngang := LichtsensorDetectYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8f015fac-a3eb-4a23-8894-811c217ad5de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMILiftAanUit" Id="{05444e37-8315-4f1e-8199-c0f4af030b8f}" FolderPath="Properties\HMI\">
       <Declaration><![CDATA[PROPERTY HMILiftAanUit : BOOL]]></Declaration>
       <Get Name="Get" Id="{87a8742c-8dfb-4145-8b7e-2cb22369489f}">
@@ -618,6 +683,25 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{245fef96-8de1-408c-b82f-eeb66c5930b8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMILinActuator" Id="{c07d3466-f3fd-40ec-b393-b067d16ec672}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMILinActuator : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7893a979-64df-40b7-838b-3de13a81ec4b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMILinActuator := ZuigBenedenBoven;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2bbfe05d-116f-4089-a9e0-81a8a263dd4c}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -694,6 +778,82 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{178da827-396d-4fc8-8380-60ae04edf7cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMISensorBlikBand" Id="{3a7ea049-bdf9-4fc1-9302-b4a8094e817b}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMISensorBlikBand : BOOL]]></Declaration>
+      <Get Name="Get" Id="{186d836c-2b53-4fca-bb59-e89ca018536f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorBlikBand := SensorBlikjesOpBandYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{44dc7d8b-fc01-4634-94dc-7f47e47f49de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMISensorLiftHoog" Id="{140214df-88c7-4c0b-be9a-e8098156590f}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMISensorLiftHoog : BOOL]]></Declaration>
+      <Get Name="Get" Id="{5b32ab20-ef30-48d8-bc8b-80a9eeadb6bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorLiftHoog := AfstandssensorDetectYesNo;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a6798454-7ba4-403b-9689-b1818d484e60}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMISensorLiftLaag" Id="{7ba2181f-b75f-4eeb-a969-2dc1020629a7}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMISensorLiftLaag : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1beb265c-e9ca-4cb3-bf7f-cae8f6165723}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMISensorLiftLaag := EindLiftBeneden;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5b71e694-59c5-484e-8a36-1dc310ac9173}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIZuignapStatus" Id="{34927228-7260-4393-be2c-76e6dd010a4c}" FolderPath="Properties\HMI\">
+      <Declaration><![CDATA[PROPERTY HMIZuignapStatus : E_VacuumzuignapStatus]]></Declaration>
+      <Get Name="Get" Id="{237bc8f7-16d4-4123-aea4-b3edb9d817a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIZuignapStatus := zuignap1.Status;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5c5a7f4d-e071-4f49-947e-04bbf4fe5d59}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

@@ -13,12 +13,25 @@ KlaarVoorUitvoer : BOOL;
 LiftAanUit : BOOL;
 MotorSchuifStatus : E_MotorZuigSchuifStatus;
 MotorZuigStatus : E_MotorZuigSchuifStatus;
+ZuignapStatus : E_VacuumzuignapStatus;
+LinActuator : BOOL;
+LichtsensorIngang : BOOL;
+SensorLiftLaag : BOOL;
+SensorLiftHoog : BOOL;
+SensorBlikBand : BOOL;
+LagenBlik : INT;
+
+
+
+
 PinnenUitYesNo : BOOL;
 RolbandAanUit : BOOL;
+DrukZuignappen : REAL;
 UpdateHMI : BOOL;
 StatusTekst : STRING(50);
 StatusTekstZuig : STRING(50);
 StatusTekstSchuif : STRING(50);
+StatusTekstZuignappen : STRING(50);
 AlarmenDepallet : ARRAY[1..20] OF ST_AlarmenDepalletizer;
 AlarmDruksensor1: BOOL;
 AlarmMotorZuig: BOOL;
@@ -77,6 +90,14 @@ MotorZuigStatus := HMIWaarden.HMIMotorZuigStatus;
 PinnenUitYesNo := HMIWaarden.HMIPinnenUitYesNo;
 RolbandAanUit := HMIWaarden.HMIRolbandAanUit;
 AlarmenDepallet := HMIWaarden.HMIAlarmenDepallet;
+DrukZuignappen := HMIWaarden.HMIZuignappenDruk;
+ZuignapStatus := HMIWaarden.HMIZuignapStatus;
+LinActuator := HMIWaarden.HMILinActuator;
+LichtsensorIngang := HMIWaarden.HMILichtsensorIngang;
+SensorLiftLaag := HMIWaarden.HMISensorLiftLaag;
+SensorLiftHoog := HMIWaarden.HMISensorLiftHoog;
+SensorBlikBand := HMIWaarden.HMISensorBlikBand;
+LagenBlik := HMIWaarden.HMILagenBlik;
 
 CASE DepalletizerCurrentStateDep OF											// omzetten van enum status naar tekst voor in hmi
     0:          	StatusTekst := 'Idle';
@@ -104,6 +125,7 @@ CASE MotorZuigStatus OF
     2:        		StatusTekstZuig := 'GoToKort';
    	3:     			StatusTekstZuig := 'GoToLang';
     4:        		StatusTekstZuig := 'Error';
+	5:        		StatusTekstZuig := 'Status Ok';
    
 ELSE
     				StatusTekstZuig := 'Onbekende status';
@@ -115,9 +137,19 @@ CASE MotorSchuifStatus OF
     2:        		StatusTekstSchuif := 'GoToKort';
    	3:     			StatusTekstSchuif := 'GoToLang';
     4:        		StatusTekstSchuif := 'Error';
+	5:        		StatusTekstSchuif := 'Status Ok';
    
 ELSE
     				StatusTekstZuig := 'Onbekende status';
+END_CASE
+
+CASE ZuignapStatus OF
+	0:				StatusTekstZuignappen := 'Vacuüm loslaten';
+	1:				StatusTekstZuignappen := 'Vacuüm oppakken';
+	2:				StatusTekstZuignappen := 'Error';
+	3:				StatusTekstZuignappen := 'Status Ok';
+	ELSE
+		StatusTekstZuignappen := 'Onbekende status';
 END_CASE
 
 
@@ -174,16 +206,19 @@ IF AlarmDruksensor1 = TRUE OR	AlarmMotorZuig = TRUE OR AlarmMotorSchuif = TRUE		
 OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
 OR AlarmZuignap4 = TRUE THEN
 AlarmDepalletGeheel := TRUE;
+ELSE AlarmDepalletGeheel := FALSE;
 END_IF
 
 IF AlarmMotorZuig = TRUE OR AlarmMotorSchuif = TRUE
 OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
 OR AlarmZuignap4 = TRUE THEN
 AlarmDepalletHoofdpagina := TRUE;
+ELSE AlarmDepalletHoofdpagina := FALSE;
 END_IF
 
 IF AlarmDruksensor1 = TRUE THEN
 AlarmDepalletSensorpagina := TRUE;
+ELSE AlarmDepalletSensorpagina := FALSE;
 END_IF
 
 //Einde Depalletizer HMI
