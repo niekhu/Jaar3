@@ -75,6 +75,24 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="LiftBenedenAangekomen_FB" Id="{72cd6018-6b33-4c95-9755-e62003c7c0f3}">
+      <Declaration><![CDATA[PROPERTY LiftBenedenAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f658ecea-bffc-481e-acb4-cd0f7901096f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{cf07ea2c-3880-4fd0-87d2-9ff9e6261ec4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="LiftBovenAangekomen_FB" Id="{95f2ed85-635c-4a46-90ca-776d997a6f06}">
+      <Declaration><![CDATA[PROPERTY LiftBovenAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2db7e945-2d00-46f4-a29a-f066ecefb322}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{7c31cb87-2132-4875-99c8-687ba507fa70}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="PalletAtInFeed" Id="{796f197a-a27c-4e55-85ec-33526ab8cafa}">
       <Declaration><![CDATA[PROPERTY PalletAtInFeed : BOOL]]></Declaration>
       <Get Name="Get" Id="{3a09c132-3dcf-4986-887b-232f8a7b86bc}">
@@ -90,6 +108,42 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
       <Set Name="Set" Id="{e5227b06-6cc0-4654-801f-63119c2b0e3c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Pin1UitAangekomen_FB" Id="{bf31032b-7c3e-40b1-a050-c67473ce1590}">
+      <Declaration><![CDATA[PROPERTY Pin1UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{9686a5f1-0e09-413c-9c30-c356ac4cbbc7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{6c598b86-dc6b-4504-83d4-e0730dc380b2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Pin2UitAangekomen_FB" Id="{92cd5368-40aa-4f9f-b15b-7a00e1407253}">
+      <Declaration><![CDATA[PROPERTY Pin2UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0bf99cad-66e5-4c01-9547-c021b0a9d49e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{8034b115-44dc-4a9b-8cb9-9ea7f66367cb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Pin3UitAangekomen_FB" Id="{921bb1a2-1742-4e44-8f85-395465d8f382}">
+      <Declaration><![CDATA[PROPERTY Pin3UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ad7ac79e-8910-4a97-91af-238204e34f45}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{ea239b56-01a7-47c5-8b7f-6cf0f20d1606}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Pin4UitAangekomen_FB" Id="{26472663-d55e-45d1-8186-405207922e01}">
+      <Declaration><![CDATA[PROPERTY Pin4UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{71a7b5a3-57a1-43a6-9c97-85fb90bab2f6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1192ad51-2881-406c-87d7-4fa5884c8111}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>

@@ -76,9 +76,10 @@ VAR
 	Pin2InAangekomen : BOOL;
 	Pin3InAangekomen : BOOL;
 	Pin4InAangekomen : BOOL;
-
+	
 	LiftBovenAangekomen : BOOL;
 	LiftBenedenAangekomen : BOOL;
+
 	//eind var
 END_VAR
 ]]></Declaration>
@@ -312,7 +313,7 @@ CASE Step OF
 	LiftOmhoogYesNo := TRUE;
 	LiftOmlaagYesNo := FALSE;
 
-	IF LiftBovenAangekomen THEN
+	IF LiftBovenAangekomen_FB THEN
 		LiftOmhoogYesNo := FALSE;
 		Step := 30;
 	END_IF
@@ -333,7 +334,7 @@ CASE Step OF
 	LiftOmlaagYesNo := TRUE;
 	LiftOmhoogYesNo := FALSE;
 
-	IF LiftBenedenAangekomen THEN
+	IF LiftBenedenAangekomen_FB THEN
 		LiftOmlaagYesNo := FALSE;
 
 		_PalletAtInFeed := FALSE;
@@ -422,6 +423,47 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="LiftBenedenAangekomen_FB" Id="{6469964d-9ff4-45b9-8b98-e090e5124a2c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY LiftBenedenAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{245c7e7f-cbbf-4df9-aa8e-c7575f071711}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LiftBenedenAangekomen_FB := LiftBenedenAangekomen;
+
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{762ba14e-8aab-4cee-9e3a-1d65353a9510}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="LiftBovenAangekomen_FB" Id="{3a4c5f0a-7572-4d02-8d32-0a0e948cce53}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY LiftBovenAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1529e55c-0238-4067-8367-77df737dbc03}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[LiftBovenAangekomen_FB := LiftBovenAangekomen;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{07a726fc-f28a-4c3b-8f4c-1ef54f4149fa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="PalletAtInFeed" Id="{ba000df6-d778-49ce-bd26-d658733b31e3}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PalletAtInFeed : BOOL]]></Declaration>
       <Get Name="Get" Id="{8f14f7c4-34d5-4fc7-b4e1-a198e824f166}">
@@ -460,6 +502,86 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="Pin1UitAangekomen_FB" Id="{1d60183d-d9e9-4ecd-a6e2-17214eb2c6b5}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Pin1UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4d6c9a06-b9d9-4aba-848b-16b3badc6439}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Pin1UitAangekomen_FB := Pin1UitAangekomen;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7e3601d4-89c7-4347-98d6-2f49370f61bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Pin2UitAangekomen_FB" Id="{b9c9600a-6984-4002-a543-2495a54ec373}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Pin2UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d5ddc2a7-ab28-4a06-a120-2c06dea9ee6e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Pin2UitAangekomen_FB := Pin2UitAangekomen;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{0652085c-b10b-4c73-bfb5-a7fdb70debc5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Pin3UitAangekomen_FB" Id="{3e577d52-4bbc-4bc7-ae1d-4635ca2e727c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Pin3UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d963b5f8-b9bd-4df8-bd1d-5c429d130f18}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Pin3UitAangekomen_FB := Pin3UitAangekomen;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1ce0054a-1b74-458f-a9f0-04d143776239}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Pin4UitAangekomen_FB" Id="{9a1c0f1b-4023-4ca2-bc70-9fdea4e33621}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Pin4UitAangekomen_FB : BOOL]]></Declaration>
+      <Get Name="Get" Id="{a2a86b05-774b-4d47-95e7-6c1fbf1161af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Pin4UitAangekomen_FB := Pin4UitAangekomen;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d8ed916b-5951-4cfb-8b05-69ac164f8082}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="Resetting" Id="{db63cd78-6dfc-4b29-9463-c18ba5eaec19}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD PUBLIC Resetting : BOOL
 ]]></Declaration>
@@ -493,7 +615,7 @@ Pin3UitYesNo := FALSE;
 Pin4UitYesNo := FALSE;
 
 IF  _EStopOk AND NOT _DoorIsOpen AND
-	LiftBenedenAangekomen AND
+	LiftBenedenAangekomen_FB AND
 	Pin1InAangekomen AND Pin2InAangekomen AND Pin3InAangekomen AND Pin4InAangekomen
 THEN
 	TriggerState := E_PackMLStates.Execute;

@@ -16,13 +16,13 @@
 
 
 </div>
-<div id="TcHmiImage_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="514" data-tchmi-height-unit="px" data-tchmi-left="268" data-tchmi-left-unit="px" data-tchmi-top="70" data-tchmi-top-unit="px" data-tchmi-width="494" data-tchmi-width-unit="px" data-tchmi-src="Images/Manifest/Palletizer.png" data-tchmi-zindex="0">
+<div id="TcHmiImage_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="514" data-tchmi-height-unit="px" data-tchmi-left="258" data-tchmi-left-unit="px" data-tchmi-top="19" data-tchmi-top-unit="px" data-tchmi-width="494" data-tchmi-width-unit="px" data-tchmi-src="Images/Manifest/Palletizer.png" data-tchmi-zindex="0">
 </div>
-<div id="TcHmiTextblock_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="220" data-tchmi-left-unit="px" data-tchmi-text="Pallet staat klaar" data-tchmi-top="397" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="183" data-tchmi-left-unit="px" data-tchmi-text="(PV) = " data-tchmi-top="382" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
 </div>
-<div id="TcHmiTextblock_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="220" data-tchmi-left-unit="px" data-tchmi-top="423" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-word-wrap="&quot;Tru" data-tchmi-text="%s%ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed%/s%" data-tchmi-zindex="1">
-</div>
-<div id="TcHmiTextblock_11" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="361" data-tchmi-left-unit="px" data-tchmi-text="Textblock" data-tchmi-top="21" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="220" data-tchmi-left-unit="px" data-tchmi-top="382" data-tchmi-top-unit="px" data-tchmi-width="80" data-tchmi-width-unit="px" data-tchmi-word-wrap="&quot;Tru" data-tchmi-zindex="1" data-tchmi-text="%s%ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed%/s%">
+
+
 </div>
 <div id="TcHmiTextblock_29" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="50" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="palletizer" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="173" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size="30" data-tchmi-zindex="1">
 </div>
@@ -32,13 +32,9 @@
 </div>
 <div id="TcHmiTextblock_31" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-text="soort alarm" data-tchmi-top="176" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
 </div>
-<div id="TcHmiTextblock_32" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-text="Noodstop" data-tchmi-top="222" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_33" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="33" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-text="Deur status (S801)" data-tchmi-top="218" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%" data-tchmi-zindex="1">
 </div>
-<div id="TcHmiRectangle_11" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-top="212" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px" data-tchmi-zindex="1">
-</div>
-<div id="TcHmiTextblock_33" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="15" data-tchmi-left-unit="px" data-tchmi-text="Deur status" data-tchmi-top="277" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%" data-tchmi-zindex="1">
-</div>
-<div id="TcHmiRectangle_13" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-top="266" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px" data-tchmi-zindex="1">
+<div id="TcHmiRectangle_13" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="5" data-tchmi-left-unit="px" data-tchmi-top="212" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px" data-tchmi-zindex="1">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
@@ -75,7 +71,7 @@
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/SolidColor",
                   "value": {
-                    "color": "rgba(255, 0, 0, 1)"
+                    "color": "rgba(0, 0, 0, 1)"
                   }
                 },
                 "asyncWait": true
@@ -92,7 +88,7 @@
                   "objectType": "StaticValue",
                   "valueType": "tchmi:framework#/definitions/SolidColor",
                   "value": {
-                    "color": "rgba(0, 0, 0, 1)"
+                    "color": "rgba(255, 0, 0, 1)"
                   }
                 },
                 "asyncWait": true
@@ -107,26 +103,438 @@
 ]
 </script>
 </div>
-<div id="TcHmiTextblock_34" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="511" data-tchmi-left-unit="px" data-tchmi-text="Opslag status" data-tchmi-top="57" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_34" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="501" data-tchmi-left-unit="px" data-tchmi-text="Opslag status (SU801)" data-tchmi-top="6" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
 </div>
-<div id="TcHmiTextblock_35" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="511" data-tchmi-left-unit="px" data-tchmi-text="Vol/leeg" data-tchmi-top="78" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_35" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="501" data-tchmi-left-unit="px" data-tchmi-top="27" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1" data-tchmi-text="%s%ADS.PLC1.MAIN.HMIWaarden.StatusTekstStorage%/s%">
 </div>
-<div id="TcHmiTextblock_36" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="51" data-tchmi-left-unit="&quot;p" data-tchmi-text="&quot;Deur statu" data-tchmi-top="&quot;20" data-tchmi-top-unit="&quot;p" data-tchmi-width="&quot;7" data-tchmi-width-unit="&quot;p" data-tchmi-word-wrap="&quot;Tru" data-tchmi-border-color="&quot;%f%%/f" data-tchmi-zindex="1">
+<div id="TcHmiTextblock_37" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="31" data-tchmi-height-unit="px" data-tchmi-left="721" data-tchmi-left-unit="px" data-tchmi-text="Lift hoog (M802)" data-tchmi-top="91" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%">
 </div>
-<div id="TcHmiTextblock_37" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="731" data-tchmi-left-unit="px" data-tchmi-text="Lift hoog" data-tchmi-top="143" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%">
+<div id="TcHmiRectangle_15" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="711" data-tchmi-left-unit="px" data-tchmi-top="81" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px">
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.LiftHoog%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.LiftHoog%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_15" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="721" data-tchmi-left-unit="px" data-tchmi-top="132" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px">
+<div id="TcHmiTextblock_38" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="33" data-tchmi-height-unit="px" data-tchmi-left="721" data-tchmi-left-unit="px" data-tchmi-text="Lift laag (M802)" data-tchmi-top="446" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%">
 </div>
-<div id="TcHmiTextblock_38" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="731" data-tchmi-left-unit="px" data-tchmi-text="Lift laag" data-tchmi-top="497" data-tchmi-top-unit="px" data-tchmi-width="74" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-border-color="%f%%/f%">
+<div id="TcHmiRectangle_16" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="711" data-tchmi-left-unit="px" data-tchmi-top="435" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.LiftLaag%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.LiftLaag%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_16" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="44" data-tchmi-height-unit="px" data-tchmi-left="721" data-tchmi-left-unit="px" data-tchmi-top="486" data-tchmi-top-unit="px" data-tchmi-width="69" data-tchmi-width-unit="px">
+<div id="TcHmiRectangle_17" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="438" data-tchmi-left-unit="px" data-tchmi-top="424" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin1UitAangekomen%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin1UitAangekomen%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_17" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="448" data-tchmi-left-unit="px" data-tchmi-top="478" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+<div id="TcHmiRectangle_18" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="438" data-tchmi-left-unit="px" data-tchmi-top="446" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin3UitAangekomen%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin3UitAangekomen%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_18" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="448" data-tchmi-left-unit="px" data-tchmi-top="497" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+<div id="TcHmiRectangle_28" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="646" data-tchmi-left-unit="px" data-tchmi-top="424" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin2UitAangekomen%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin2UitAangekomen%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_28" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="656" data-tchmi-left-unit="px" data-tchmi-top="475" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+<div id="TcHmiRectangle_29" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="647" data-tchmi-left-unit="px" data-tchmi-top="442" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin4UitAangekomen%/s%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "symbolExpression": "%s%ADS.PLC1.MAIN.HMIWaarden.Pin4UitAangekomen%/s%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/BOOL",
+                  "value": false
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(0, 0, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctx%owner::StrokeColor%/ctx%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/SolidColor",
+                  "value": {
+                    "color": "rgba(6, 255, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>
-<div id="TcHmiRectangle_29" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="19" data-tchmi-height-unit="px" data-tchmi-left="657" data-tchmi-left-unit="px" data-tchmi-top="493" data-tchmi-top-unit="px" data-tchmi-width="25" data-tchmi-width-unit="px">
+<div id="TcHmiTextblock_132" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="183" data-tchmi-left-unit="px" data-tchmi-text="Pallet staat klaar" data-tchmi-top="356" data-tchmi-top-unit="px" data-tchmi-width="83" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+</div>
+<div id="TcHmiTextblock_133" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="66&quot;" data-tchmi-left-unit="x&quot;" data-tchmi-text="(S801) = " data-tchmi-top="37&quot;" data-tchmi-top-unit="x&quot;" data-tchmi-width="3&quot;" data-tchmi-width-unit="x&quot;" data-tchmi-word-wrap="rue&quot;" data-tchmi-zindex="&quot;">
 </div>
 </div>

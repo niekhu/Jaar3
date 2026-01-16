@@ -51,25 +51,33 @@ AlarmDepalletSensorpagina: BOOL;
 PalletizerCurrentStatePal : E_PackMLStates;
 StorageFull : BOOL;
 PalletAtInFeed : BOOL;
-LiftOmhoogYesNo : BOOL;
-LiftOmlaagYesNo : BOOL;
-Pin1UitYesNo : BOOL;
-Pin2UitYesNo : BOOL;
-Pin3UitYesNo : BOOL;
-Pin4UitYesNo : BOOL;
+LiftHoog : BOOL;
+LiftLaag : BOOL;
+Pin1UitAangekomen : BOOL;
+Pin2UitAangekomen : BOOL;
+Pin3UitAangekomen : BOOL;
+Pin4UitAangekomen : BOOL;
 AlarmActivePal : BOOL;
 AlarmCodePal : UDINT;
 DoorsOpenPal : BOOL;
 EStopOkPal : BOOL;
 StepPal : INT;
 StatusTekstPal : STRING(50);
+StatusTekstStorage : STRING(20);
 //Eind Palletizer HMI
 
 //BufferA HMI
+BufferA1CurrentState : E_PackMLStates;
+BufferA2CurrentState : E_PackMLStates;
+
+StatusTekstBufferA1State : STRING(50);
+StatusTekstBufferA2State : STRING(50);
+
 BufferA1AlarmActive : BOOL;
-BufferA1AlarmCode : UDINT;
+BufferA1AlarmCode   : UDINT;
 BufferA2AlarmActive : BOOL;
-BufferA2AlarmCode : UDINT;
+BufferA2AlarmCode   : UDINT;
+
 StatusTekstBufferA1 : STRING(50);
 StatusTekstBufferA2 : STRING(50);
 //Eind BufferA HMI
@@ -227,16 +235,22 @@ END_IF
 PalletizerCurrentStatePal := HMIWaarden.HMIPalletizerCurrentState;
 StorageFull := HMIWaarden.HMIStorageFull;
 PalletAtInFeed := HMIWaarden.HMIPalletAtInFeed;
-LiftOmhoogYesNo := HMIWaarden.HMILiftOmhoogYesNo;
-LiftOmlaagYesNo := HMIWaarden.HMILiftOmlaagYesNo;
-Pin1UitYesNo := HMIWaarden.HMIPin1UitYesNo;
-Pin2UitYesNo := HMIWaarden.HMIPin2UitYesNo;
-Pin3UitYesNo := HMIWaarden.HMIPin3UitYesNo;
-Pin4UitYesNo := HMIWaarden.HMIPin4UitYesNo;
+LiftHoog := HMIWaarden.HMILiftHoog;
+LiftLaag := HMIWaarden.HMILiftLaag;
+Pin1UitAangekomen := HMIWaarden.HMIPin1UitAangekomen;
+Pin2UitAangekomen := HMIWaarden.HMIPin2UitAangekomen;
+Pin3UitAangekomen := HMIWaarden.HMIPin3UitAangekomen;
+Pin4UitAangekomen := HMIWaarden.HMIPin4UitAangekomen;
 AlarmActivePal := HMIWaarden.HMIAlarmActivePal;
 AlarmCodePal := HMIWaarden.HMIAlarmCodePal;
 DoorsOpenPal := HMIWaarden.HMIDoorsOpenPal;
 EStopOkPal := HMIWaarden.HMIEStopOkPal;
+
+IF StorageFull THEN
+    StatusTekstStorage := 'Vol';
+ELSE
+    StatusTekstStorage := 'Niet vol';
+END_IF
 
 CASE PalletizerCurrentStatePal OF
     0:          	StatusTekstPal := 'Idle';
@@ -261,23 +275,67 @@ END_CASE
 
 //BufferA HMI
 BufferA1AlarmActive := HMIWaarden.HMIBufferA1AlarmActive;
-BufferA1AlarmCode := HMIWaarden.HMIBufferA1AlarmCode;
+BufferA1AlarmCode   := HMIWaarden.HMIBufferA1AlarmCode;
 
 BufferA2AlarmActive := HMIWaarden.HMIBufferA2AlarmActive;
-BufferA2AlarmCode := HMIWaarden.HMIBufferA2AlarmCode;
+BufferA2AlarmCode   := HMIWaarden.HMIBufferA2AlarmCode;
 
-IF BufferA1AlarmActive = TRUE THEN
-	StatusTekstBufferA1 := CONCAT('Alarm code: ', UDINT_TO_STRING(BufferA1AlarmCode));
-	StatusTekstBufferA1 := 'Alarm actief';
+// D: states ophalen (DIT IS CODE, NIET VAR)
+BufferA1CurrentState := HMIWaarden.HMIBufferA1CurrentState;
+BufferA2CurrentState := HMIWaarden.HMIBufferA2CurrentState;
+
+// enum -> tekst (zoals je andere 2 equipments)
+CASE BufferA1CurrentState OF
+    0:  StatusTekstBufferA1State := 'Idle';
+    1:  StatusTekstBufferA1State := 'Starting';
+    2:  StatusTekstBufferA1State := 'Execute';
+    3:  StatusTekstBufferA1State := 'Resetting';
+    4:  StatusTekstBufferA1State := 'Holding';
+    5:  StatusTekstBufferA1State := 'Held';
+    6:  StatusTekstBufferA1State := 'Unholding';
+    7:  StatusTekstBufferA1State := 'Suspending';
+    8:  StatusTekstBufferA1State := 'Suspended';
+    9:  StatusTekstBufferA1State := 'Unsuspending';
+    10: StatusTekstBufferA1State := 'Stopping';
+    11: StatusTekstBufferA1State := 'Stopped';
+    12: StatusTekstBufferA1State := 'Aborting';
+    13: StatusTekstBufferA1State := 'Aborted';
+    14: StatusTekstBufferA1State := 'Clearing';
 ELSE
-	StatusTekstBufferA1 := 'OK';
+    StatusTekstBufferA1State := 'Onbekende status';
+END_CASE
+
+CASE BufferA2CurrentState OF
+    0:  StatusTekstBufferA2State := 'Idle';
+    1:  StatusTekstBufferA2State := 'Starting';
+    2:  StatusTekstBufferA2State := 'Execute';
+    3:  StatusTekstBufferA2State := 'Resetting';
+    4:  StatusTekstBufferA2State := 'Holding';
+    5:  StatusTekstBufferA2State := 'Held';
+    6:  StatusTekstBufferA2State := 'Unholding';
+    7:  StatusTekstBufferA2State := 'Suspending';
+    8:  StatusTekstBufferA2State := 'Suspended';
+    9:  StatusTekstBufferA2State := 'Unsuspending';
+    10: StatusTekstBufferA2State := 'Stopping';
+    11: StatusTekstBufferA2State := 'Stopped';
+    12: StatusTekstBufferA2State := 'Aborting';
+    13: StatusTekstBufferA2State := 'Aborted';
+    14: StatusTekstBufferA2State := 'Clearing';
+ELSE
+    StatusTekstBufferA2State := 'Onbekende status';
+END_CASE
+
+// alarmtekst (overschrijft zichzelf niet)
+IF BufferA1AlarmActive THEN
+    StatusTekstBufferA1 := CONCAT('Alarm ', UDINT_TO_STRING(BufferA1AlarmCode));
+ELSE
+    StatusTekstBufferA1 := 'OK';
 END_IF
 
-IF BufferA2AlarmActive = TRUE THEN
-	StatusTekstBufferA2 := CONCAT('Alarm code: ', UDINT_TO_STRING(BufferA2AlarmCode));
-	StatusTekstBufferA2 := 'Alarm actief';
+IF BufferA2AlarmActive THEN
+    StatusTekstBufferA2 := CONCAT('Alarm ', UDINT_TO_STRING(BufferA2AlarmCode));
 ELSE
-	StatusTekstBufferA2 := 'OK';
+    StatusTekstBufferA2 := 'OK';
 END_IF
 //Einde BufferA HMI
 ]]></ST>

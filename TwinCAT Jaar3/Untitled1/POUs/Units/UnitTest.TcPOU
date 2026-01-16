@@ -25,6 +25,8 @@ VAR
 	GelezenStatusBesturing : E_DrukknoppenStatus;
 	
 	GelezenCurrentStatePalletizer : E_PackMLStates;
+	GelezenCurrentStateBufferA1 : E_PackMLStates;
+	GelezenCurrentStateBufferA2 : E_PackMLStates;
 	
 	testInjectPalletBufA1 : BOOL;
 	testDepalletizerReadyBufA1 : BOOL;
@@ -126,6 +128,9 @@ END_IF
 GelezenCurrentStateDepalletizer := Depalletizer.CurrentState;
 GelezenAlarmenDepalletizer := Depalletizer.AlarmenDepallet;
 GelezenCurrentStatePalletizer := Palletizer.CurrentState;
+GelezenCurrentStateBufferA1 := BufferA1.CurrentState;
+GelezenCurrentStateBufferA2 := BufferA2.CurrentState;
+
 
 IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
 	Joehoe := TRUE;
@@ -265,6 +270,26 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="HMIBufferA1CurrentState" Id="{22218944-7154-4aab-88dd-f575d4589240}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA1CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{21b2e1f6-30ba-44f1-84a5-2d74f30691f3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA1CurrentState := GelezenCurrentStateBufferA1;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a0147ff4-2f5e-4761-80a7-a30637108628}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="HMIBufferA2AlarmActive" Id="{67428be5-b9ac-4514-b6e3-af1f6b7dda75}" FolderPath="Properties\HMIBufferA\">
       <Declaration><![CDATA[PROPERTY HMIBufferA2AlarmActive : BOOL]]></Declaration>
       <Get Name="Get" Id="{a34d7c26-eb67-4e62-807d-589c8df882a3}">
@@ -295,6 +320,26 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{0b7c3b04-7f74-48da-ae6d-8a9dab733313}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2CurrentState" Id="{4147e8d1-2127-4a05-9e5d-67d92ecae47b}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY HMIBufferA2CurrentState : E_PackMLStates]]></Declaration>
+      <Get Name="Get" Id="{b04b03f5-febe-45ba-9512-46271621e0e8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2CurrentState := GelezenCurrentStateBufferA2;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a6315abe-b0a9-45d8-a592-888a06cbf2af}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -455,17 +500,17 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMILiftOmhoogYesNo" Id="{a986de66-ea40-487d-b229-12d1a804006d}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMILiftOmhoogYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{9dfd7d47-2845-41c1-872e-625e61782227}">
+    <Property Name="HMILiftHoog" Id="{f70ea2da-78c8-4a08-9960-2852546ae911}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMILiftHoog : BOOL]]></Declaration>
+      <Get Name="Get" Id="{82ff61f7-2d28-44a4-be5f-3281517f90a5}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMILiftOmhoogYesNo := Palletizer.LiftOmhoogYesNo;]]></ST>
+          <ST><![CDATA[HMILiftHoog := Palletizer.LiftBovenAangekomen_FB;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{c50add60-cc37-4764-a8f3-7a3af3fb18fe}">
+      <Set Name="Set" Id="{b473a44f-a42d-4205-abcd-c080b27b40ba}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -474,17 +519,17 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMILiftOmlaagYesNo" Id="{1fa16bf8-79a9-4680-8bde-5f05055efcdb}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMILiftOmlaagYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{4bdd57bb-e0a3-41f4-8d1f-5bb32b93f5b2}">
+    <Property Name="HMILiftLaag" Id="{e62142fe-e456-4e35-93ea-e401fec0e848}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMILiftLaag : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c83e6b85-94ad-447b-89e0-7156acd99dd2}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMILiftOmlaagYesNo := Palletizer.LiftOmlaagYesNo;]]></ST>
+          <ST><![CDATA[HMILiftLaag := Palletizer.LiftBenedenAangekomen_FB;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{cb7931d6-9c21-409e-93eb-7921e25dd132}">
+      <Set Name="Set" Id="{5719cdf8-2693-4db2-b944-2b07588cdd85}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -588,17 +633,18 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMIPin1UitYesNo" Id="{683272eb-4916-4979-b8d4-94290b5a04d9}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIPin1UitYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{03b0e95a-0b3b-4b02-b5f8-0d06acd653e7}">
+    <Property Name="HMIPin1UitAangekomen" Id="{64092e25-3d2a-49c8-8075-230c28ca7f65}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIPin1UitAangekomen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6643caa3-bf4a-467e-93a1-5c5c907b4645}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMIPin1UitYesNo := Palletizer.Pin1UitYesNo;]]></ST>
+          <ST><![CDATA[HMIPin1UitAangekomen := Palletizer.Pin1UitAangekomen_FB;
+]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{20fc47a0-d132-4f36-8979-1aafa8db4ccb}">
+      <Set Name="Set" Id="{7bb802e7-404d-4876-840c-624123681d7d}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -607,17 +653,18 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMIPin2UitYesNo" Id="{2e2907a4-2154-4256-a864-1cf1c291c39d}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIPin2UitYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{8fff7766-7263-4394-a116-c1d69f9bfd26}">
+    <Property Name="HMIPin2UitAangekomen" Id="{082c6446-90ae-4221-a03e-76464e492074}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIPin2UitAangekomen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{be79539b-49a4-4907-b8bf-f2e97853a710}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMIPin2UitYesNo := Palletizer.Pin2UitYesNo;]]></ST>
+          <ST><![CDATA[HMIPin2UitAangekomen := Palletizer.Pin2UitAangekomen_FB;
+]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{9d03a3e9-2f13-4227-935e-288b21bb3a3c}">
+      <Set Name="Set" Id="{231dbdd5-655a-456e-a52e-c9ecf3e9575f}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -626,17 +673,18 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMIPin3UitYesNo" Id="{34c6482b-7708-4854-8034-0c543fe2ad4f}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIPin3UitYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{9a2159e7-c026-415c-9659-70b8402ddcc7}">
+    <Property Name="HMIPin3UitAangekomen" Id="{78ca053c-6fbc-4001-9782-23d25e2e17cb}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIPin3UitAangekomen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{eded36d0-6156-432b-904c-20cb944ff21b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMIPin3UitYesNo := Palletizer.Pin3UitYesNo;]]></ST>
+          <ST><![CDATA[HMIPin3UitAangekomen := Palletizer.Pin3UitAangekomen_FB;
+]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{f082b95c-6914-4147-a474-27c6b2cfbd17}">
+      <Set Name="Set" Id="{0a5774c8-fea1-49a0-a294-e0d3b6350b06}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -645,17 +693,18 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="HMIPin4UitYesNo" Id="{0b75316e-ac2b-40fc-9291-687c631946d1}" FolderPath="Properties\HMIPalletizer\">
-      <Declaration><![CDATA[PROPERTY HMIPin4UitYesNo : BOOL]]></Declaration>
-      <Get Name="Get" Id="{54cb80f7-d0d4-46ff-b808-8294a9282b6c}">
+    <Property Name="HMIPin4UitAangekomen" Id="{5e6a3146-f06b-424e-bfed-baefe527ebef}" FolderPath="Properties\HMIPalletizer\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIPin4UitAangekomen : BOOL]]></Declaration>
+      <Get Name="Get" Id="{357da272-b53b-41ba-a915-e022324af270}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[// HMIPin4UitYesNo := Palletizer.Pin4UitYesNo;]]></ST>
+          <ST><![CDATA[HMIPin4UitAangekomen := Palletizer.Pin4UitAangekomen_FB;
+]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{71de8041-4ac0-45ec-befe-680e38b0c304}">
+      <Set Name="Set" Id="{d7bde457-5fec-4f49-8638-ce6393074a0a}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

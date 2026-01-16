@@ -179,38 +179,15 @@
                 ],
                 "type": "integer"
             },
-            "ADS-PLC1.E_VacuumzuignapStatus": {
-                "attributes": {
-                    "generate_implicit_init_function": "",
-                    "qualified_only": "",
-                    "strict": "",
-                    "to_string": ""
-                },
-                "enum": [
-                    0,
-                    1,
-                    2,
-                    3
-                ],
-                "options": [
+            "ADS-PLC1.STRING-20": {
+                "allOf": [
                     {
-                        "label": "SturingVacuumLoslaten",
-                        "value": 0
+                        "maxLength": 20
                     },
                     {
-                        "label": "SturingVacuumOpppakken",
-                        "value": 1
-                    },
-                    {
-                        "label": "Error",
-                        "value": 2
-                    },
-                    {
-                        "label": "StatusOk",
-                        "value": 3
+                        "$ref": "tchmi:general#/definitions/String"
                     }
-                ],
-                "type": "integer"
+                ]
             },
             "ADS-PLC1.STRING-50": {
                 "allOf": [
@@ -1172,57 +1149,6 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletGeheel": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmDepalletGeheel",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 23
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletHoofdpagina": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmDepalletHoofdpagina",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 24
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletSensorpagina": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmDepalletSensorpagina",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 25
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
         "ADS.PLC1.MAIN.HMIWaarden.AlarmDruksensor1": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1240,52 +1166,18 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmMotorSchuif": {
+        "ADS.PLC1.MAIN.HMIWaarden.BufferA2CurrentState": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmMotorSchuif",
+            "MAPPING": "PLC1::MAIN::HMIWaarden::BufferA2CurrentState",
             "SCHEMA": {
                 "allOf": [
                     {
-                        "$ref": "tchmi:general#/definitions/BOOL"
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_PackMLStates"
                     },
                     {
-                        "propertyOrder": 17
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmMotorZuig": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmMotorZuig",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 16
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.AlarmZuignap1": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::AlarmZuignap1",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 18
+                        "propertyOrder": 52
                     }
                 ]
             },
@@ -1326,23 +1218,6 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.DrukZuignappen": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::DrukZuignappen",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/REAL"
-                    },
-                    {
-                        "propertyOrder": 17
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
         "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1377,40 +1252,6 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.LagenBlik": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::LagenBlik",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/INT"
-                    },
-                    {
-                        "propertyOrder": 14
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.LichtsensorIngang": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::LichtsensorIngang",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 10
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
         "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1428,18 +1269,35 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.LinActuator": {
+        "ADS.PLC1.MAIN.HMIWaarden.LiftHoog": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
             "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::LinActuator",
+            "MAPPING": "PLC1::MAIN::HMIWaarden::LiftHoog",
             "SCHEMA": {
                 "allOf": [
                     {
                         "$ref": "tchmi:general#/definitions/BOOL"
                     },
                     {
-                        "propertyOrder": 9
+                        "propertyOrder": 38
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.LiftLaag": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::LiftLaag",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 39
                     }
                 ]
             },
@@ -1497,6 +1355,74 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.Pin1UitAangekomen": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::Pin1UitAangekomen",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 40
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.Pin2UitAangekomen": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::Pin2UitAangekomen",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 41
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.Pin3UitAangekomen": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::Pin3UitAangekomen",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 42
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.Pin4UitAangekomen": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::Pin4UitAangekomen",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 43
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1531,23 +1457,6 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.SensorBlikBand": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::SensorBlikBand",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 13
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
         "ADS.PLC1.MAIN.HMIWaarden.SensorLiftHoog": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1565,23 +1474,6 @@
             },
             "USEMAPPING": true
         },
-        "ADS.PLC1.MAIN.HMIWaarden.SensorLiftLaag": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::SensorLiftLaag",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:general#/definitions/BOOL"
-                    },
-                    {
-                        "propertyOrder": 11
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
         "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1594,6 +1486,23 @@
                     },
                     {
                         "propertyOrder": 11
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstBufferA2State": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstBufferA2State",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
+                    },
+                    {
+                        "propertyOrder": 54
                     }
                 ]
             },
@@ -1633,6 +1542,23 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstStorage": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstStorage",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-20"
+                    },
+                    {
+                        "propertyOrder": 50
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuig": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -1645,40 +1571,6 @@
                     },
                     {
                         "propertyOrder": 12
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuignappen": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::StatusTekstZuignappen",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.STRING-50"
-                    },
-                    {
-                        "propertyOrder": 22
-                    }
-                ]
-            },
-            "USEMAPPING": true
-        },
-        "ADS.PLC1.MAIN.HMIWaarden.ZuignapStatus": {
-            "ACCESS": 3,
-            "DOMAIN": "ADS",
-            "DYNAMIC": true,
-            "MAPPING": "PLC1::MAIN::HMIWaarden::ZuignapStatus",
-            "SCHEMA": {
-                "allOf": [
-                    {
-                        "$ref": "tchmi:server#/definitions/ADS-PLC1.E_VacuumzuignapStatus"
-                    },
-                    {
-                        "propertyOrder": 8
                     }
                 ]
             },
@@ -4704,36 +4596,31 @@
                 "ADS.PLC1.MAIN.Druksensor.BarPerMa": 3,
                 "ADS.PLC1.MAIN.Druksensor.StatusDruksensor": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletGeheel": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletHoofdpagina": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmDepalletSensorpagina": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.AlarmDruksensor1": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmMotorSchuif": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmMotorZuig": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.AlarmZuignap1": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.BufferA2CurrentState": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DoorsOpenPal": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.DrukZuignappen": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.LagenBlik": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.LichtsensorIngang": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.LinActuator": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.LiftHoog": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.LiftLaag": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.MotorSchuifStatus": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PalletAtInFeed": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PalletizerCurrentStatePal": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.Pin1UitAangekomen": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.Pin2UitAangekomen": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.Pin3UitAangekomen": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.Pin4UitAangekomen": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.PinnenUitYesNo": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.RolbandAanUit": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.SensorBlikBand": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.SensorLiftHoog": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.SensorLiftLaag": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekst": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstBufferA2State": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekstPal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekstSchuif": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstStorage": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuig": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.StatusTekstZuignappen": 3,
-                "ADS.PLC1.MAIN.HMIWaarden.ZuignapStatus": 3,
                 "ChangeUserSettings": 3,
                 "ConfirmAlarm": 3,
                 "CreateEvent": 3,
