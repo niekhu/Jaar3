@@ -73,6 +73,10 @@ BufferA2CurrentState : E_PackMLStates;
 StatusTekstBufferA1State : STRING(50);
 StatusTekstBufferA2State : STRING(50);
 
+BufferA2PalletDetected : BOOL;
+BufferA2OutputNaarPalletizer : BOOL;
+BufferA2KlepStatus : BOOL;
+
 BufferA1AlarmActive : BOOL;
 BufferA1AlarmCode   : UDINT;
 BufferA2AlarmActive : BOOL;
@@ -279,6 +283,10 @@ BufferA1AlarmCode   := HMIWaarden.HMIBufferA1AlarmCode;
 
 BufferA2AlarmActive := HMIWaarden.HMIBufferA2AlarmActive;
 BufferA2AlarmCode   := HMIWaarden.HMIBufferA2AlarmCode;
+
+BufferA2PalletDetected := HMIWaarden.HMIBufferA2PalletDetected;
+BufferA2OutputNaarPalletizer := HMIWaarden.HMIBufferA2OutputNaarPalletizer;
+BufferA2KlepStatus := HMIWaarden.HMIBufferA2KlepStatus;
 
 // D: states ophalen (DIT IS CODE, NIET VAR)
 BufferA1CurrentState := HMIWaarden.HMIBufferA1CurrentState;

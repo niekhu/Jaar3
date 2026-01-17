@@ -155,20 +155,35 @@ IF Depalletizer.KlaarVoorInvoer = TRUE OR testDepalletizerReadyBufA1 = TRUE  THE
 END_IF
 END_IF
 
+(*
 // communicatie depalletizer bufferA2
 
 IF BufferA2.OutputPalletNaarDepallet = FALSE THEN
 	Depalletizer.InputPalletBijUitgang := FALSE;
 	ELSE 
 		Depalletizer.InputPalletBijUitgang := TRUE;
-	
 
 	IF Depalletizer.KlaarVoorUitvoer = TRUE  OR testPalletizerReadyBufA2 = TRUE THEN
 		BufferA2.DepalletizerReady := TRUE;
 		ELSE
 		BufferA2.DepalletizerReady := FALSE;	
 END_IF
-END_IF]]></ST>
+END_IF *)
+
+// communicatie depalletizer -> bufferA2 (ready signaal altijd zetten)
+IF Depalletizer.KlaarVoorUitvoer OR testPalletizerReadyBufA2 THEN
+    BufferA2.DepalletizerReady := TRUE;
+ELSE
+    BufferA2.DepalletizerReady := FALSE;
+END_IF
+
+// bufferA2 -> depalletizer (pallet bij uitgang zien)
+IF BufferA2.OutputPalletNaarDepallet THEN
+    Depalletizer.InputPalletBijUitgang := TRUE;
+ELSE
+    Depalletizer.InputPalletBijUitgang := FALSE;
+END_IF
+]]></ST>
     </Implementation>
     <Folder Name="Properties" Id="{9389d657-1ea7-407f-9ac5-73fb6e4ece44}">
       <Folder Name="HMIBufferA" Id="{94245e34-be1b-44f5-a4be-f4cdf75289fb}" />
@@ -340,6 +355,66 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{a6315abe-b0a9-45d8-a592-888a06cbf2af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2KlepStatus" Id="{f2fafb90-9ec6-496d-b518-a1cfe5a52571}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2KlepStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8c4927d7-22d3-42fb-a816-67e48b898f18}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2KlepStatus := BufferA2.KlepStatus;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8e46618f-8c4b-43ae-a9db-275b8344c237}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2OutputNaarPalletizer" Id="{311f24f0-0e37-4e45-a367-ca143aa8cf7b}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2OutputNaarPalletizer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{65a4080e-cbd3-47ce-b529-1aff165ef331}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2OutputNaarPalletizer := BufferA2.OutputPalletNaarDepallet;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{92fcc5df-a2b6-49b2-926c-ec38783f6314}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2PalletDetected" Id="{1414d42b-c103-4be1-b947-10141bebc628}" FolderPath="Properties\HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2PalletDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{88a44c16-624f-497a-857e-91728b0072f3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[HMIBufferA2PalletDetected := BufferA2.PalletDetected;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{d1a1d104-ad7b-486c-b9c4-f55ac6307147}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

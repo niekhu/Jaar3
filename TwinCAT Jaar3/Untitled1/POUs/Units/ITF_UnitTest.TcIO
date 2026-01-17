@@ -87,6 +87,33 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="HMIBufferA2KlepStatus" Id="{345f269a-0698-43e7-901d-31f3bb1dbeb3}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2KlepStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{53a6b4de-25c7-4647-8650-10101478564b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{6a707c25-05b9-46b6-a3c4-17135c7f1fbe}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2OutputNaarPalletizer" Id="{75de5dc5-d0ba-4376-b892-6446abb7845f}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2OutputNaarPalletizer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{386f496c-b4db-45c4-b18b-955a45ea68ac}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{07321116-a047-4bfa-a741-4c8c58d1737f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="HMIBufferA2PalletDetected" Id="{819e2448-1837-4a52-b27e-4e2d93167c03}" FolderPath="HMIBufferA\">
+      <Declaration><![CDATA[PROPERTY PUBLIC HMIBufferA2PalletDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{caf7627a-ac2d-4feb-8154-0344a236bf3b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2a63374a-d5a9-4046-a327-8fd9ed6c3724}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="HMIDepalletizerCurrentState" Id="{0ef3e29f-48aa-47b7-a5ce-7e52534533a3}" FolderPath="HMIDepalletizer\">
       <Declaration><![CDATA[PROPERTY HMIDepalletizerCurrentState : E_PackMLStates]]></Declaration>
       <Get Name="Get" Id="{44c9355d-12cd-4dd0-a2c3-140a0ca4ecb0}">

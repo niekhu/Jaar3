@@ -74,6 +74,15 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="KlepStatus" Id="{78571044-ec34-48a2-bc4f-60af8f34bc84}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY KlepStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0b6064f6-9a13-456e-b8ac-9cf6e3c57e48}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{29738172-a715-46eb-ade8-fd07d361cea9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="OutputPalletNaarDepallet" Id="{d40be545-126c-4235-91ec-30d23b16a3fc}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY OutputPalletNaarDepallet : BOOL]]></Declaration>
       <Get Name="Get" Id="{930357f3-2b5e-4b8a-b9a3-755b7a58d3a8}">

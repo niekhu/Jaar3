@@ -283,6 +283,22 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Execute;
 
+// Safety: deur open tijdens Execute -> naar Stopping
+IF _DoorIsOpen OR NOT _EStopOk THEN
+    RolbandAanUit := FALSE;
+    LiftOmhoogYesNo := FALSE;
+    LiftOmlaagYesNo := FALSE;
+
+    Pin1UitYesNo := FALSE;
+    Pin2UitYesNo := FALSE;
+    Pin3UitYesNo := FALSE;
+    Pin4UitYesNo := FALSE;
+
+    TriggerState := E_PackMLStates.Stopping;
+    Execute := TRUE;
+    RETURN;
+END_IF
+
 CASE Step OF
 
 0:

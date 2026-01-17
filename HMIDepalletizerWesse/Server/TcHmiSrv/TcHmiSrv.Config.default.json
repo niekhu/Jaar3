@@ -1183,6 +1183,57 @@
             },
             "USEMAPPING": true
         },
+        "ADS.PLC1.MAIN.HMIWaarden.BufferA2KlepStatus": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::BufferA2KlepStatus",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 57
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.BufferA2OutputNaarPalletizer": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::BufferA2OutputNaarPalletizer",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 56
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "ADS.PLC1.MAIN.HMIWaarden.BufferA2PalletDetected": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HMIWaarden::BufferA2PalletDetected",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "propertyOrder": 55
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -4598,6 +4649,9 @@
                 "ADS.PLC1.MAIN.HMIWaarden.AlarmActivePal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.AlarmDruksensor1": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.BufferA2CurrentState": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.BufferA2KlepStatus": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.BufferA2OutputNaarPalletizer": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.BufferA2PalletDetected": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DepalletizerCurrentStateDep": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.DoorsOpenPal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,

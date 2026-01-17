@@ -334,6 +334,26 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="KlepStatus" Id="{a7b43b56-3eb1-49af-aa51-2ca67a3ec7d6}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY KlepStatus : BOOL]]></Declaration>
+      <Get Name="Get" Id="{34946bbd-94e9-4848-946e-0ab87ee24cad}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[KlepStatus := Klep.Status;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2bdef398-74f7-4785-bd8d-b59eab7981c3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="OutputPalletNaarDepallet" Id="{ca8180fe-c9d3-4c36-bdb1-65b69f03b991}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PUBLIC OutputPalletNaarDepallet : BOOL]]></Declaration>
       <Get Name="Get" Id="{b5ff1d19-95ee-4c33-b1cc-9f9a69b048f8}">
