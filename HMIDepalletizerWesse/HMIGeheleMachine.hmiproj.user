@@ -4,18 +4,6 @@
     <RecentColors>[
   {
     "counter": 0,
-    "color": "#FF241E89"
-  },
-  {
-    "counter": 0,
-    "color": "#FFAEAEAE"
-  },
-  {
-    "counter": 0,
-    "color": "#FF000000"
-  },
-  {
-    "counter": 0,
     "color": "#FF06FF00"
   },
   {
@@ -24,7 +12,15 @@
   },
   {
     "counter": 0,
+    "color": "#FF000000"
+  },
+  {
+    "counter": 0,
     "color": "#FFEC0C0C"
+  },
+  {
+    "counter": 0,
+    "color": "#FF241E89"
   },
   {
     "counter": 0,
@@ -33,6 +29,10 @@
   {
     "counter": 0,
     "color": "#FFFFFFFF"
+  },
+  {
+    "counter": 0,
+    "color": "#FFAEAEAE"
   },
   {
     "counter": 0,
@@ -105,12 +105,12 @@
     },
     {
       "Path": "HMIPagina'sGeheleMachine\\Palletizer.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
+      "DesignAreaSplitSize": "Splitted",
+      "CodeAreaSplitSize": "Splitted",
       "Orientation": "Horizontal",
       "DesignAreaPosition": "Left",
       "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
+      "SplitPercentage": 0.99669239250275632
     },
     {
       "Path": "Desktop.view",
@@ -123,24 +123,6 @@
     },
     {
       "Path": "HMIPagina'sGeheleMachine\\DepalletizerSensoren.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
-      "Path": "HMIPagina'sGeheleMachine\\extrabackupDepalletizer.content",
-      "DesignAreaSplitSize": "Full",
-      "CodeAreaSplitSize": "Minimized",
-      "Orientation": "Horizontal",
-      "DesignAreaPosition": "Left",
-      "CodeAreaPosition": "Right",
-      "SplitPercentage": 0.5
-    },
-    {
-      "Path": "HMIPagina'sGeheleMachine\\druksensor.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",

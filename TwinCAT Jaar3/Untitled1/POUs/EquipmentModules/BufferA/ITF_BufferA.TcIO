@@ -101,6 +101,15 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="PalletizerReady" Id="{f24b6674-3779-4a46-8683-214a681f6492}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PalletizerReady : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ed24c002-1e1a-4f4d-aea0-19ae6196fc0d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{b5b9d9dc-0802-4324-8b6c-ef0f8eb28098}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Method Name="Resetting" Id="{4afb74bd-360c-4ce7-bc14-339c98560f6e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Resetting : BOOL
 VAR_INPUT

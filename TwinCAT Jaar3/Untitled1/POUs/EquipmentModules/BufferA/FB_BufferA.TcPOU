@@ -21,6 +21,8 @@ VAR
     _inPalletDetected          : BOOL;                                  // <- property PalletDetected (SET of unit)
     _outCurrentState           : E_PackMLStates := E_PackMLStates.Idle; // <- property CurrentState (GET)
     _outOutputPalletNaarDepal  : BOOL;                                  // <- property OutputPalletNaarDepallet (GET)
+	_inPalletizerReady         : BOOL;   // property PalletizerReady (SET)
+
 
     // =========================================================
     // Werk-variabelen (met test overrides)
@@ -58,6 +60,8 @@ VAR
 
 	// unit status lezen
 	_GelezenKlepUnitStatus : E_UnitStatus;
+	
+	_outOutputPalletNaarPal : BOOL;
 END_VAR
 
 
@@ -264,6 +268,15 @@ ELSE
     _outOutputPalletNaarDepal := FALSE;
 END_IF
 
+// Alleen aanbieden als er pallet ligt én palletizer ready is (niet vol)
+IF PalletDetectedW AND _inPalletizerReady THEN
+    _outOutputPalletNaarPal := TRUE;
+	Klep.SturingOpen(FALSE);               // doorlaten
+    RolbandAanUit := TRUE;
+ELSE
+    _outOutputPalletNaarPal := FALSE;
+END_IF
+
 Execute := TRUE;
 ]]></ST>
       </Implementation>
@@ -374,6 +387,26 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="OutputPalletNaarPalletizer" Id="{e2d591c9-f0ff-4d77-bdd4-6f7d5c54dc55}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PUBLIC OutputPalletNaarPalletizer : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e09ff620-9b54-4704-a2b9-667e744d7f87}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[    OutputPalletNaarPalletizer := _outOutputPalletNaarPal;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{22893e40-3675-4992-99aa-f640ba656498}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="PalletDetected" Id="{b9d51e40-b0e9-4e1a-acd3-999774bd0383}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PUBLIC PalletDetected : BOOL]]></Declaration>
       <Get Name="Get" Id="{57ba0723-fd7b-493a-8c9f-31a38a532f74}">
@@ -390,6 +423,25 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[_inPalletDetected := PalletDetected;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PalletizerReady" Id="{845b1dd9-8860-4ba4-88e2-d2d3e8e40ce7}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY PalletizerReady : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8e2b7539-9187-4276-9f84-b1d960585ea4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{9dcd0945-e6c6-4741-9b0e-c9eaf811e53c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_inPalletizerReady := PalletizerReady;]]></ST>
         </Implementation>
       </Set>
     </Property>

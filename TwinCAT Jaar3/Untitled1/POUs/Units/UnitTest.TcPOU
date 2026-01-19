@@ -131,7 +131,6 @@ GelezenCurrentStatePalletizer := Palletizer.CurrentState;
 GelezenCurrentStateBufferA1 := BufferA1.CurrentState;
 GelezenCurrentStateBufferA2 := BufferA2.CurrentState;
 
-
 IF Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN
 	Joehoe := TRUE;
 	Besturing.StatusLampRood();
@@ -170,19 +169,21 @@ IF BufferA2.OutputPalletNaarDepallet = FALSE THEN
 END_IF
 END_IF *)
 
-// communicatie depalletizer -> bufferA2 (ready signaal altijd zetten)
-IF Depalletizer.KlaarVoorUitvoer OR testPalletizerReadyBufA2 THEN
-    BufferA2.DepalletizerReady := TRUE;
-ELSE
-    BufferA2.DepalletizerReady := FALSE;
-END_IF
+// Palletizer -> BufferA2: “mag BufferA2 doorsturen?”
+BufferA2.DepalletizerReady := Palletizer.ReadyForInfeed;
+
 
 // bufferA2 -> depalletizer (pallet bij uitgang zien)
+
+Depalletizer.InputPalletBijUitgang := BufferA2.PalletDetected;
+BufferA2.PalletizerReady := Palletizer.ReadyForInfeed;
+
+(*
 IF BufferA2.OutputPalletNaarDepallet THEN
     Depalletizer.InputPalletBijUitgang := TRUE;
 ELSE
     Depalletizer.InputPalletBijUitgang := FALSE;
-END_IF
+END_IF *)
 ]]></ST>
     </Implementation>
     <Folder Name="Properties" Id="{9389d657-1ea7-407f-9ac5-73fb6e4ece44}">

@@ -79,6 +79,9 @@ VAR
 	
 	LiftBovenAangekomen : BOOL;
 	LiftBenedenAangekomen : BOOL;
+	
+	//handshake bufa2 --> palletizer
+	_ReadyForInfeed : BOOL;
 
 	//eind var
 END_VAR
@@ -94,10 +97,11 @@ VorigeInputState := _CmdStatePal;
 // 2) Feedback state (wat ik NU aan het doen ben)
 CurrentStatePal := TriggerState;
 
-// 3) (optioneel) bereken deur-toestemming (nu nog simpel; later met echte voorwaarden)
+// 3) bereken deur-toestemming
 _DoorOpenAllowed := _EStopOk AND (CurrentStatePal = E_PackMLStates.Idle OR CurrentStatePal = E_PackMLStates.Stopped OR CurrentStatePal = E_PackMLStates.Held OR CurrentStatePal = E_PackMLStates.Suspended);
-// later (voorbeeld):
-// _DoorOpenAllowed := _EStopOk AND (CurrentStatePal = E_PackMLStates.Idle OR CurrentStatePal = E_PackMLStates.Stopped OR CurrentStatePal = E_PackMLStates.Held OR CurrentStatePal = E_PackMLStates.Suspended);
+
+// Palletizer kan pallet accepteren als hij niet vol is en geen deur open en estop ok
+_ReadyForInfeed := (_EStopOk AND NOT _DoorIsOpen AND NOT _StorageFull);
 
 // 4) PackML state machine (methods maak jij hierna aan)
 CASE TriggerState OF
@@ -590,6 +594,26 @@ END_VAR
         </Implementation>
       </Get>
       <Set Name="Set" Id="{d8ed916b-5951-4cfb-8b05-69ac164f8082}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ReadyForInfeed" Id="{2da8535c-7beb-4411-81a9-235a0b4bf8d0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ReadyForInfeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4b28e70c-279a-4646-a4e9-86a58e75faaa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ReadyForInfeed := _ReadyForInfeed;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{57f48c2c-3606-49dc-a29e-a16fb5a48881}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>

@@ -147,6 +147,15 @@
         <Declaration><![CDATA[]]></Declaration>
       </Set>
     </Property>
+    <Property Name="ReadyForInfeed" Id="{1dd8a366-8eda-445b-b302-bf7c25c2c78d}">
+      <Declaration><![CDATA[PROPERTY ReadyForInfeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1d6edc31-ffdf-40f0-a0bd-f01e344c9206}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{e5aabba0-1e6d-459f-81a2-de27ef6b6f23}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
     <Property Name="StorageFull" Id="{67d30657-2614-4439-9bf0-71c6b32aac23}">
       <Declaration><![CDATA[PROPERTY StorageFull : BOOL]]></Declaration>
       <Get Name="Get" Id="{fab52877-de97-4558-b99c-fc8c4d2a6ee2}">
