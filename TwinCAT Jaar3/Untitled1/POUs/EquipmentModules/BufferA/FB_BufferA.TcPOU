@@ -247,6 +247,27 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Execute;
 
+// === Auto-suspend als er niets te doen is ===
+// 1) Geen pallet: buffer kan chillen
+IF NOT PalletDetectedW THEN
+    RolbandAanUit := FALSE;
+    Klep.SturingOpen(TRUE);              // klep omhoog / blokkeren
+    _outOutputPalletNaarDepal := FALSE;
+    TriggerState := E_PackMLStates.Suspending;
+    Execute := TRUE;
+    RETURN;
+END_IF
+
+// 2) Wel pallet, maar downstream niet ready: ook chillen
+IF PalletDetectedW AND NOT DepalletizerReadyW THEN
+    RolbandAanUit := FALSE;
+    Klep.SturingOpen(TRUE);              // vasthouden
+    _outOutputPalletNaarDepal := FALSE;
+    TriggerState := E_PackMLStates.Suspending;
+    Execute := TRUE;
+    RETURN;
+END_IF
+
 // Simpelste test-logica zolang units ontbreken:
 // - pallet gedetecteerd + depallet ready => doorlaten + output TRUE
 // - pallet gedetecteerd + NIET ready   => tegenhouden + output FALSE
@@ -524,10 +545,18 @@ Stopping := TRUE;
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspended;
-_outOutputPalletNaarDepal := FALSE;
 
+// veilig blijven
 RolbandAanUit := FALSE;
 Klep.SturingOpen(TRUE);
+_outOutputPalletNaarDepal := FALSE;
+
+// wakker worden zodra er "iets" verandert:
+// - pallet komt binnen
+// - of downstream wordt ready
+IF PalletDetectedW OR DepalletizerReadyW THEN
+    TriggerState := E_PackMLStates.Unsuspending;
+END_IF
 
 Suspended := TRUE;
 ]]></ST>
@@ -538,15 +567,13 @@ Suspended := TRUE;
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Suspending;
-_outOutputPalletNaarDepal := FALSE;
 
+// veilige uitgang
 RolbandAanUit := FALSE;
 Klep.SturingOpen(TRUE);
+_outOutputPalletNaarDepal := FALSE;
 
-IF Klep.Status = TRUE THEN
-    TriggerState := E_PackMLStates.Suspended;
-END_IF
-
+TriggerState := E_PackMLStates.Suspended;
 Suspending := TRUE;
 ]]></ST>
       </Implementation>
@@ -570,16 +597,7 @@ Unholding := TRUE;
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Unsuspending;
-_outOutputPalletNaarDepal := FALSE;
-
-_AlarmActive := FALSE;
-_AlarmCode := 0;
-
-Klep.SturingOpen(FALSE);
-IF Klep.Status = FALSE THEN
-    TriggerState := E_PackMLStates.Execute;
-END_IF
-
+TriggerState := E_PackMLStates.Execute;
 Unsuspending := TRUE;
 ]]></ST>
       </Implementation>

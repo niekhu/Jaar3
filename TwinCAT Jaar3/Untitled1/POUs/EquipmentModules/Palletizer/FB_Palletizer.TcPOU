@@ -287,6 +287,27 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Execute;
 
+// === Auto-suspend als er niets te doen is ===
+// Niks te doen als:
+// - geen pallet bij infeed
+// - of storage is vol
+// - of deur open / estop niet ok (veiligheid)
+IF (NOT _PalletAtInFeed) OR _StorageFull OR _DoorIsOpen OR (NOT _EStopOk) THEN
+    RolbandAanUit := FALSE;
+    LiftOmhoogYesNo := FALSE;
+    LiftOmlaagYesNo := FALSE;
+
+    // pins niet bewegen
+    Pin1UitYesNo := FALSE;
+    Pin2UitYesNo := FALSE;
+    Pin3UitYesNo := FALSE;
+    Pin4UitYesNo := FALSE;
+
+    TriggerState := E_PackMLStates.Suspending;
+    Execute := TRUE;
+    RETURN;
+END_IF
+
 // Safety: deur open tijdens Execute -> naar Stopping
 IF _DoorIsOpen OR NOT _EStopOk THEN
     RolbandAanUit := FALSE;
@@ -721,12 +742,17 @@ END_VAR
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspended;
 
+// veilig blijven
 RolbandAanUit := FALSE;
 LiftOmhoogYesNo := FALSE;
 LiftOmlaagYesNo := FALSE;
 
-Suspended := TRUE;
-]]></ST>
+// wakker worden zodra er wél werk is en het mag:
+IF _EStopOk AND NOT _DoorIsOpen AND NOT _StorageFull AND _PalletAtInFeed THEN
+    TriggerState := E_PackMLStates.Unsuspending;
+END_IF
+
+Suspended := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspending" Id="{0dd5f12e-8033-42e3-9131-1e90a5f8e595}" FolderPath="Methods\">
@@ -735,14 +761,13 @@ Suspended := TRUE;
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Suspending;
 
+// alles veilig uit
 RolbandAanUit := FALSE;
 LiftOmhoogYesNo := FALSE;
 LiftOmlaagYesNo := FALSE;
 
 TriggerState := E_PackMLStates.Suspended;
-
-Suspending := TRUE;
-]]></ST>
+Suspending := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unholding" Id="{2351bdac-eb65-45f6-a51b-6a7044f90e63}" FolderPath="Methods\">
@@ -763,10 +788,9 @@ Unholding := TRUE;
       <Implementation>
         <ST><![CDATA[CurrentStatePal := E_PackMLStates.Unsuspending;
 
+// terug naar execute en sequence opnieuw oppakken
 TriggerState := E_PackMLStates.Execute;
-
-Unsuspending := TRUE;
-]]></ST>
+Unsuspending := TRUE;]]></ST>
       </Implementation>
     </Method>
   </POU>
