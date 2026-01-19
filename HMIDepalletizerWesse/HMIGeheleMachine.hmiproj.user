@@ -4,7 +4,7 @@
     <RecentColors>[
   {
     "counter": 0,
-    "color": "#FF06FF00"
+    "color": "#FF000000"
   },
   {
     "counter": 0,
@@ -12,11 +12,11 @@
   },
   {
     "counter": 0,
-    "color": "#FF000000"
+    "color": "#FFEC0C0C"
   },
   {
     "counter": 0,
-    "color": "#FFEC0C0C"
+    "color": "#FF06FF00"
   },
   {
     "counter": 0,
@@ -123,6 +123,15 @@
     },
     {
       "Path": "HMIPagina'sGeheleMachine\\DepalletizerSensoren.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\extrabackupDepalletizer.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",
