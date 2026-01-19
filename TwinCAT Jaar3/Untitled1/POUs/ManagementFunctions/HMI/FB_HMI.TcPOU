@@ -222,13 +222,13 @@ ELSE AlarmDepalletGeheel := FALSE;
 END_IF
 
 IF AlarmMotorZuig = TRUE OR AlarmMotorSchuif = TRUE
-OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
-OR AlarmZuignap4 = TRUE THEN
+ THEN
 AlarmDepalletHoofdpagina := TRUE;
 ELSE AlarmDepalletHoofdpagina := FALSE;
 END_IF
 
-IF AlarmDruksensor1 = TRUE THEN
+IF AlarmDruksensor1 = TRUE OR AlarmZuignap1 = TRUE OR AlarmZuignap2 = TRUE OR AlarmZuignap3 = TRUE
+OR AlarmZuignap4 = TRUE THEN
 AlarmDepalletSensorpagina := TRUE;
 ELSE AlarmDepalletSensorpagina := FALSE;
 END_IF

@@ -147,6 +147,9 @@
     <Content Include=".eslintrc.json">
       <Visible>false</Visible>
     </Content>
+    <Content Include="HMIPagina'sGeheleMachine\Content2.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="HMIPagina'sGeheleMachine\Depalletizer.content">
       <SubType>Content</SubType>
     </Content>
@@ -154,6 +157,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="HMIPagina'sGeheleMachine\DepalletizerSensoren.content">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="HMIPagina'sGeheleMachine\druksensor.content">
       <SubType>Content</SubType>
     </Content>
     <Content Include="HMIPagina'sGeheleMachine\extrabackupDepalletizer.content">
@@ -172,6 +178,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Manifest\Palletizer.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Manifest\Viertottwintig.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Server\ADS\ADS.Config.hmiwesse.json">

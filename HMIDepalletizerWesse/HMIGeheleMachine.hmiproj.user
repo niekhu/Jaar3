@@ -4,7 +4,19 @@
     <RecentColors>[
   {
     "counter": 0,
+    "color": "#FF241E89"
+  },
+  {
+    "counter": 0,
+    "color": "#FFAEAEAE"
+  },
+  {
+    "counter": 0,
     "color": "#FF000000"
+  },
+  {
+    "counter": 0,
+    "color": "#FF06FF00"
   },
   {
     "counter": 0,
@@ -16,23 +28,11 @@
   },
   {
     "counter": 0,
-    "color": "#FF06FF00"
-  },
-  {
-    "counter": 0,
-    "color": "#FF241E89"
-  },
-  {
-    "counter": 0,
     "color": "#FFC3C3C3"
   },
   {
     "counter": 0,
     "color": "#FFFFFFFF"
-  },
-  {
-    "counter": 0,
-    "color": "#FFAEAEAE"
   },
   {
     "counter": 0,
@@ -132,6 +132,15 @@
     },
     {
       "Path": "HMIPagina'sGeheleMachine\\extrabackupDepalletizer.content",
+      "DesignAreaSplitSize": "Full",
+      "CodeAreaSplitSize": "Minimized",
+      "Orientation": "Horizontal",
+      "DesignAreaPosition": "Left",
+      "CodeAreaPosition": "Right",
+      "SplitPercentage": 0.5
+    },
+    {
+      "Path": "HMIPagina'sGeheleMachine\\druksensor.content",
       "DesignAreaSplitSize": "Full",
       "CodeAreaSplitSize": "Minimized",
       "Orientation": "Horizontal",
