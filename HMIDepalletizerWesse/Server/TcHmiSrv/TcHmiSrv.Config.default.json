@@ -4656,6 +4656,7 @@
                 "ADS.PLC1.MAIN.HMIWaarden.DoorsOpenPal": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorInvoer": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.KlaarVoorUitvoer": 3,
+                "ADS.PLC1.MAIN.HMIWaarden.LichtsensorIngang": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftAanUit": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftHoog": 3,
                 "ADS.PLC1.MAIN.HMIWaarden.LiftLaag": 3,
