@@ -423,10 +423,12 @@ CASE Step OF
 
 // Wachten tot een pallet binnenkomt
 
-0:
+0:	
+	IF NOT DepalletPalletBinnen THEN
+		KlaarVoorInvoerDep := TRUE;
+	END_IF
     IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN		//check of er pallet klaarstaat en er nog geen pallet in depallet is
         RolbandAanUit := TRUE;			// rolband aan
-		KlaarVoorInvoerDep := TRUE;
         Step := 10;
     END_IF
 	IF NOT InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN
@@ -1111,7 +1113,7 @@ IF InputPalletVanafBufADep AND NOT DepalletPalletBinnen THEN
 	TriggerState := E_PackMLStates.Unsuspending;
 END_IF
 
-IF DepalletPalletBinnen AND NOT InputPalletBijUitgang THEN
+IF DepalletPalletBinnen AND InputPalletBijUitgang = FALSE THEN
 	TriggerState := E_PackMLStates.Unsuspending;
 END_IF
 

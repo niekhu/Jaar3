@@ -8,7 +8,8 @@ TYPE E_DrukknoppenStatus :
 (
 	StartKnop := 0,
 	StopKnop,
-	ResetKnop
+	ResetKnop,
+	GeenKnop
 );
 END_TYPE
 ]]></Declaration>

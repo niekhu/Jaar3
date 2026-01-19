@@ -68,7 +68,7 @@ IF setidle = TRUE THEN											//triggeren
 END_IF
 
 
-IF setstarting = TRUE THEN										//triggeren
+IF setstarting = TRUE OR Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StartKnop THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Starting;
 	Palletizer.InputState := E_PackMLStates.Starting;
 	BufferA1.InputState := E_PackMLStates.Starting;
@@ -83,7 +83,7 @@ IF setexecute = TRUE THEN										//triggeren
 END_IF
 
 
-IF setstopping = TRUE THEN										//triggeren
+IF setstopping = TRUE OR Besturing.DrukknoppenStatus = E_DrukknoppenStatus.StopKnop THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Stopping;
 	Palletizer.InputState := E_PackMLStates.Stopping;
 	BufferA1.InputState := E_PackMLStates.Stopping;
@@ -97,7 +97,7 @@ IF setholding = TRUE THEN										//triggeren
 	BufferA2.InputState := E_PackMLStates.Holding;
 END_IF
 
-IF setresetting = TRUE THEN										//triggeren
+IF setresetting = TRUE OR Besturing.DrukknoppenStatus = E_DrukknoppenStatus.ResetKnop THEN										//triggeren
 	Depalletizer.InputState := E_PackMLStates.Resetting;
 	Palletizer.InputState := E_PackMLStates.Resetting;
 	BufferA1.InputState := E_PackMLStates.Resetting;

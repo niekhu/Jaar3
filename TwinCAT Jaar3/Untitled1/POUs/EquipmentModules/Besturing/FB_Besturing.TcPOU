@@ -10,31 +10,39 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	StatusDrukknoppen : E_DrukknoppenStatus := E_DrukknoppenStatus.StopKnop;	
+	StatusDrukknoppen : E_DrukknoppenStatus := E_DrukknoppenStatus.GeenKnop;	
 	
 	LampGeelAanUit : BOOL;
 	LampRoodAanUit : BOOL;
 	LampGroenAanUit : BOOL;
 	
-	testbool1 : BOOL;
+	testboolstart : BOOL;
 	
-	testbool2 : BOOL;
+	testboolstop : BOOL;
 	
-	testbool3 : BOOL;
+	testboolreset : BOOL;
 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF testbool1 = TRUE THEN
+      <ST><![CDATA[IF testboolstart = FALSE AND testboolstop = FALSE AND testboolreset = FALSE THEN
+	StatusDrukknoppen := E_DrukknoppenStatus.GeenKnop;
+END_IF
+
+
+IF testboolstart = TRUE THEN
 	StartKnop.Update(TRUE);
+	ELSE StartKnop.Update(FALSE);
 END_IF
 
-IF testbool2 = TRUE THEN
+IF testboolstop = TRUE THEN
 	StopKnop.Update(TRUE);
+	ELSE StopKnop.Update(FALSE);
 END_IF
 
-IF testbool3 = TRUE THEN
+IF testboolreset = TRUE THEN
 	ResetKnop.Update(TRUE);
+	ELSE ResetKnop.Update(FALSE);
 END_IF
 
 
@@ -51,7 +59,9 @@ END_IF
 
 IF ResetKnop.Pressed = TRUE THEN
 	StatusDrukknoppen := E_DrukknoppenStatus.ResetKnop;
-END_IF ]]></ST>
+END_IF 
+
+]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{4883d82d-977e-4b5e-91ba-7e3a95ee072f}" />
     <Folder Name="Properties" Id="{98e71cf0-8a5f-45b1-9e7d-d12166e5ea7e}" />
