@@ -246,7 +246,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_outCurrentState := E_PackMLStates.Execute;
-
+(*
 // === Auto-suspend als er niets te doen is ===
 // 1) Geen pallet: buffer kan chillen
 IF NOT PalletDetectedW THEN
@@ -267,7 +267,7 @@ IF PalletDetectedW AND NOT DepalletizerReadyW THEN
     Execute := TRUE;
     RETURN;
 END_IF
-
+*)
 // Simpelste test-logica zolang units ontbreken:
 // - pallet gedetecteerd + depallet ready => doorlaten + output TRUE
 // - pallet gedetecteerd + NIET ready   => tegenhouden + output FALSE
